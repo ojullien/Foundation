@@ -1,0 +1,1052 @@
+
+{
+	"response": {
+		"version": "0.1"
+		,"termsofService": "http://www.wunderground.com/weather/api/d/terms.html"
+		,"features": {
+		"astronomy": 1
+		,
+		"conditions": 1
+		,
+		"forecast10day": 1
+		}
+	}
+		,	"current_observation": {
+		"image": {
+		"url":"http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
+		"title":"Weather Underground",
+		"link":"http://www.wunderground.com"
+		},
+		"display_location": {
+		"full":"Pomponne, France",
+		"city":"Pomponne",
+		"state":"",
+		"state_name":"France",
+		"country":"FR",
+		"country_iso3166":"FR",
+		"zip":"00000",
+		"latitude":"48.88333511",
+		"longitude":"2.68333292",
+		"elevation":"48.00000000"
+		},
+		"observation_location": {
+		"full":"Villevaude, FRANCE",
+		"city":"Villevaude",
+		"state":"FRANCE",
+		"country":"FRANCE",
+		"country_iso3166":"FR",
+		"latitude":"48.899723",
+		"longitude":"2.672778",
+		"elevation":"292 ft"
+		},
+		"estimated": {
+		},
+		"station_id":"IFRANCEV2",
+		"observation_time":"Last Updated on février 7, 14:10 CET",
+		"observation_time_rfc822":"Thu, 07 Feb 2013 14:10:55 +0100",
+		"observation_epoch":"1360242655",
+		"local_time_rfc822":"Thu, 07 Feb 2013 14:10:58 +0100",
+		"local_epoch":"1360242658",
+		"local_tz_short":"CET",
+		"local_tz_long":"Europe/Paris",
+		"local_tz_offset":"+0100",
+		"weather":"Nuageux",
+		"temperature_string":"41.0 F (5.0 C)",
+		"temp_f":41.0,
+		"temp_c":5.0,
+		"relative_humidity":"63%",
+		"wind_string":"From the ONO at 10.4 MPH Gusting to 10.4 MPH",
+		"wind_dir":"ONO",
+		"wind_degrees":292,
+		"wind_mph":10.4,
+		"wind_gust_mph":"10.4",
+		"wind_kph":16.7,
+		"wind_gust_kph":"16.7",
+		"pressure_mb":"1017",
+		"pressure_in":"30.04",
+		"pressure_trend":"0",
+		"dewpoint_string":"29 F (-1 C)",
+		"dewpoint_f":29,
+		"dewpoint_c":-1,
+		"heat_index_string":"NA",
+		"heat_index_f":"NA",
+		"heat_index_c":"NA",
+		"windchill_string":"35 F (2 C)",
+		"windchill_f":"35",
+		"windchill_c":"2",
+		"feelslike_string":"35 F (2 C)",
+		"feelslike_f":"35",
+		"feelslike_c":"2",
+		"visibility_mi":"6.2",
+		"visibility_km":"10.0",
+		"solarradiation":"0",
+		"UV":"0.0",
+		"precip_1hr_string":"0.00 in ( 0 mm)",
+		"precip_1hr_in":"0.00",
+		"precip_1hr_metric":" 0",
+		"precip_today_string":"0.00 in (0 mm)",
+		"precip_today_in":"0.00",
+		"precip_today_metric":"0",
+		"icon":"mostlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif",
+		"forecast_url":"http://www.wunderground.com/global/stations/07157.html",
+		"history_url":"http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IFRANCEV2",
+		"ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.899723,2.672778"
+	}
+		,
+	"forecast":{
+		"txt_forecast": {
+		"date":"1:00 PM CET",
+		"forecastday": [
+		{
+		"period":0,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"jeudi",
+		"fcttext":"Ciel dégagé dans la matinée, ensuite couvert avec un risque de pluie. Température maximale 41F. Vents en provenance du NO à 15-20 mph. Risques de précipitations 40%.",
+		"fcttext_metric":"Ciel dégagé dans la matinée, ensuite couvert avec un risque de pluie. Température maximale 5C. Vents en provenance du NO à 20-30 km/h. Risques de précipitations 40%.",
+		"pop":"40"
+		}
+		,
+		{
+		"period":1,
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"title":"jeudi soir",
+		"fcttext":"Couvert dans la soirée, ensuite couvert avec un risque de neige. Température minimale 30F. Vents en provenance du ONO à 5-10 mph. Risques de précipitations 40%.",
+		"fcttext_metric":"Couvert dans la soirée, ensuite couvert avec un risque de neige. Température minimale -1C. Vents en provenance du ONO à 5-15 km/h. Risques de précipitations 40%.",
+		"pop":"40"
+		}
+		,
+		{
+		"period":2,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"vendredi",
+		"fcttext":"Partiellement nuageux. Température maximale 41F. Vents en provenance du NNO à 5-15 mph.",
+		"fcttext_metric":"Partiellement nuageux. Température maximale 5C avec un facteur vent de -3. Vents en provenance du NNO à 10-20 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":3,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"vendredi soir",
+		"fcttext":"Ciel dégagé. Nappes de brouillard pendant la nuit. Température minimale 25F. Vents en provenance du NO à 5-10 mph.",
+		"fcttext_metric":"Ciel dégagé. Nappes de brouillard pendant la nuit. Température minimale -4C. Vents en provenance du NO à 10-15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":4,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"samedi",
+		"fcttext":"Partiellement nuageux avec un risque de neige dans la matinée, ensuite partiellement nuageux. Température maximale 37F avec un facteur vent de 18. Vents en provenance du NO à 5-15 mph.",
+		"fcttext_metric":"Partiellement nuageux avec un risque de pluie dans la matinée, ensuite partiellement nuageux. Température maximale 3C avec un facteur vent de -8. Vents en provenance du NO à 10-20 km/h.",
+		"pop":"20"
+		}
+		,
+		{
+		"period":5,
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"title":"samedi soir",
+		"fcttext":"Couvert avec un risque de neige. Nappes de brouillard pendant la nuit. Température minimale 28F avec un facteur vent de 21. Vents en provenance du Ouest à 5-10 mph. Risques de précipitations 50%.",
+		"fcttext_metric":"Couvert avec un risque de neige. Nappes de brouillard pendant la nuit. Température minimale -2C avec un facteur vent de -6. Vents en provenance du Ouest à 10-15 km/h. Risques de précipitations 50% avec des quantités de précipitations avoisinant 8.4 mm.",
+		"pop":"50"
+		}
+		,
+		{
+		"period":6,
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"title":"dimanche",
+		"fcttext":"Couvert avec un risque de neige dans la matinée, ensuite couvert avec un risque de neige. Nappes de brouillard tôt dans la matinée. Température maximale 41F. Vents en provenance du OSO à 10-15 mph. Risques de précipitations 60%.",
+		"fcttext_metric":"Couvert avec un risque de pluie. Nappes de brouillard tôt dans la matinée. Température maximale 5C. Vents en provenance du OSO à 15-25 km/h. Risques de précipitations 60% avec des quantités de précipitations avoisinant 5.1 mm.",
+		"pop":"60"
+		}
+		,
+		{
+		"period":7,
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"title":"dimanche soir",
+		"fcttext":"Partiellement nuageux avec un risque de neige. Nappes de brouillard pendant la nuit. Température minimale 39F avec un facteur vent de 25. Vents en provenance du OSO à 10-20 mph. Risques de précipitations 50%.",
+		"fcttext_metric":"Partiellement nuageux avec un risque de neige. Nappes de brouillard pendant la nuit. Température minimale 4C avec un facteur vent de -4. Vents en provenance du OSO à 20-25 km/h. Risques de précipitations 50% avec des quantités de précipitations avoisinant 8.1 mm.",
+		"pop":"50"
+		}
+		,
+		{
+		"period":8,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"lundi",
+		"fcttext":"Partiellement nuageux. Nappes de brouillard tôt dans la matinée. Température maximale 41F. Vents en provenance du SO à 10-20 mph.",
+		"fcttext_metric":"Partiellement nuageux. Nappes de brouillard tôt dans la matinée. Température maximale 5C avec un facteur vent de -5. Vents en provenance du SO à 15-30 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":9,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"lundi soir",
+		"fcttext":"Partiellement nuageux avec un risque de pluie. Température minimale 34F avec un facteur vent de 25. Vents en provenance du NNO à 15-20 mph. Risques de précipitations 50%.",
+		"fcttext_metric":"Partiellement nuageux avec un risque de pluie. Température minimale 1C avec un facteur vent de -4. Vents en provenance du NNO à 20-30 km/h. Risques de précipitations 50%.",
+		"pop":"50"
+		}
+		,
+		{
+		"period":10,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"mardi",
+		"fcttext":"Ciel dégagé. Température maximale 36F avec un facteur vent de 23. Vents en provenance du Nord à 15-20 mph.",
+		"fcttext_metric":"Ciel dégagé. Température maximale 2C avec un facteur vent de -5. Vents en provenance du Nord à 20-30 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":11,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"mardi soir",
+		"fcttext":"Partiellement nuageux. Température minimale 30F avec un facteur vent de 23. Vents en provenance du Nord à 10-15 mph.",
+		"fcttext_metric":"Partiellement nuageux. Température minimale -1C avec un facteur vent de -5. Vents en provenance du Nord à 15-20 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":12,
+		"icon":"mostlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif",
+		"title":"mercredi",
+		"fcttext":"Nuageux. Température maximale 37F avec un facteur vent de 28. Vents en provenance du Nord à 5-10 mph.",
+		"fcttext_metric":"Nuageux. Température maximale 3C avec un facteur vent de -2. Vents en provenance du Nord à 10-15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":13,
+		"icon":"mostlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif",
+		"title":"mercredi soir",
+		"fcttext":"Nuageux. Température minimale 32F. Vent moins de 5 mph.",
+		"fcttext_metric":"Nuageux. Température minimale 0C. Vent moins de 5 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":14,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"jeudi",
+		"fcttext":"Partiellement nuageux. Température maximale 39F. Vents en provenance du Sud à 5-10 mph.",
+		"fcttext_metric":"Partiellement nuageux. Température maximale 4C. Vents en provenance du Sud à 10-15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":15,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"jeudi soir",
+		"fcttext":"Partiellement nuageux. Température minimale 32F. Vent moins de 5 mph.",
+		"fcttext_metric":"Partiellement nuageux. Température minimale 0C. Vent moins de 5 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":16,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"vendredi",
+		"fcttext":"Partiellement nuageux. Température maximale 39F. Vent moins de 5 mph.",
+		"fcttext_metric":"Partiellement nuageux. Température maximale 4C. Vent moins de 5 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":17,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"vendredi soir",
+		"fcttext":"Partiellement nuageux avec un risque de neige. Température minimale 34F. Vent moins de 5 mph.",
+		"fcttext_metric":"Partiellement nuageux avec un risque de neige. Température minimale 1C. Vent moins de 5 km/h.",
+		"pop":"20"
+		}
+		,
+		{
+		"period":18,
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"title":"samedi",
+		"fcttext":"Nuageux avec un risque de neige. Température maximale 41F. Vent moins de 5 mph. Risques de précipitations 40%.",
+		"fcttext_metric":"Nuageux avec un risque de neige. Température maximale 5C. Vent moins de 5 km/h. Risques de précipitations 40%.",
+		"pop":"40"
+		}
+		,
+		{
+		"period":19,
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"title":"samedi soir",
+		"fcttext":"Couvert avec un risque de neige. Nappes de brouillard pendant la nuit. Température minimale 34F. Vent moins de 5 mph. Risques de précipitations 50%.",
+		"fcttext_metric":"Couvert avec un risque de neige. Nappes de brouillard pendant la nuit. Température minimale 1C. Vent moins de 5 km/h. Risques de précipitations 50%.",
+		"pop":"50"
+		}
+		]
+		},
+		"simpleforecast": {
+		"forecastday": [
+		{"date":{
+	"epoch":"1360270800",
+	"pretty":"10:00 PM CET on February 07, 2013",
+	"day":7,
+	"month":2,
+	"year":2013,
+	"yday":37,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"jeu",
+	"weekday":"jeudi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":1,
+		"high": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"low": {
+		"fahrenheit":"30",
+		"celsius":"-1"
+		},
+		"conditions":"Risque de pluie",
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"skyicon":"partlycloudy",
+		"pop":40,
+		"qpf_allday": {
+		"in": 0.01,
+		"mm": 0.3
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.02,
+		"mm": 0.5
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 16,
+		"kph": 26,
+		"dir": "NO",
+		"degrees": 323
+		},
+		"avewind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "NO",
+		"degrees": 304
+		},
+		"avehumidity": 76,
+		"maxhumidity": 85,
+		"minhumidity": 67
+		}
+		,
+		{"date":{
+	"epoch":"1360357200",
+	"pretty":"10:00 PM CET on February 08, 2013",
+	"day":8,
+	"month":2,
+	"year":2013,
+	"yday":38,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"vend",
+	"weekday":"vendredi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":2,
+		"high": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"low": {
+		"fahrenheit":"25",
+		"celsius":"-4"
+		},
+		"conditions":"Partiellement nuageux",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.02,
+		"mm": 0.5
+		},
+		"qpf_day": {
+		"in": 0.01,
+		"mm": 0.3
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "NNO",
+		"degrees": 330
+		},
+		"avewind": {
+		"mph": 9,
+		"kph": 14,
+		"dir": "NO",
+		"degrees": 311
+		},
+		"avehumidity": 81,
+		"maxhumidity": 98,
+		"minhumidity": 75
+		}
+		,
+		{"date":{
+	"epoch":"1360443600",
+	"pretty":"10:00 PM CET on February 09, 2013",
+	"day":9,
+	"month":2,
+	"year":2013,
+	"yday":39,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"sam",
+	"weekday":"samedi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":3,
+		"high": {
+		"fahrenheit":"37",
+		"celsius":"3"
+		},
+		"low": {
+		"fahrenheit":"28",
+		"celsius":"-2"
+		},
+		"conditions":"Risque de neige",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":20,
+		"qpf_allday": {
+		"in": 0.13,
+		"mm": 3.3
+		},
+		"qpf_day": {
+		"in": 0.02,
+		"mm": 0.5
+		},
+		"qpf_night": {
+		"in": 0.33,
+		"mm": 8.4
+		},
+		"snow_allday": {
+		"in": 1,
+		"cm": 2
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 3,
+		"cm": 8
+		},
+		"maxwind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "NNO",
+		"degrees": 330
+		},
+		"avewind": {
+		"mph": 9,
+		"kph": 14,
+		"dir": "NO",
+		"degrees": 307
+		},
+		"avehumidity": 97,
+		"maxhumidity": 100,
+		"minhumidity": 89
+		}
+		,
+		{"date":{
+	"epoch":"1360530000",
+	"pretty":"10:00 PM CET on February 10, 2013",
+	"day":10,
+	"month":2,
+	"year":2013,
+	"yday":40,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"dim",
+	"weekday":"dimanche",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":4,
+		"high": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"low": {
+		"fahrenheit":"39",
+		"celsius":"4"
+		},
+		"conditions":"Risque de neige",
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"skyicon":"cloudy",
+		"pop":60,
+		"qpf_allday": {
+		"in": 0.73,
+		"mm": 18.5
+		},
+		"qpf_day": {
+		"in": 0.20,
+		"mm": 5.1
+		},
+		"qpf_night": {
+		"in": 0.32,
+		"mm": 8.1
+		},
+		"snow_allday": {
+		"in": 4,
+		"cm": 10
+		},
+		"snow_day": {
+		"in": 1,
+		"cm": 3
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 1
+		},
+		"maxwind": {
+		"mph": 13,
+		"kph": 21,
+		"dir": "OSO",
+		"degrees": 256
+		},
+		"avewind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "SO",
+		"degrees": 219
+		},
+		"avehumidity": 96,
+		"maxhumidity": 100,
+		"minhumidity": 91
+		}
+		,
+		{"date":{
+	"epoch":"1360616400",
+	"pretty":"10:00 PM CET on February 11, 2013",
+	"day":11,
+	"month":2,
+	"year":2013,
+	"yday":41,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"lun",
+	"weekday":"lundi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":5,
+		"high": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"low": {
+		"fahrenheit":"34",
+		"celsius":"1"
+		},
+		"conditions":"Partiellement nuageux",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.14,
+		"mm": 3.6
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.13,
+		"mm": 3.3
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 17,
+		"kph": 27,
+		"dir": "OSO",
+		"degrees": 237
+		},
+		"avewind": {
+		"mph": 6,
+		"kph": 10,
+		"dir": "SO",
+		"degrees": 234
+		},
+		"avehumidity": 85,
+		"maxhumidity": 98,
+		"minhumidity": 69
+		}
+		,
+		{"date":{
+	"epoch":"1360702800",
+	"pretty":"10:00 PM CET on February 12, 2013",
+	"day":12,
+	"month":2,
+	"year":2013,
+	"yday":42,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"mar",
+	"weekday":"mardi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":6,
+		"high": {
+		"fahrenheit":"36",
+		"celsius":"2"
+		},
+		"low": {
+		"fahrenheit":"30",
+		"celsius":"-1"
+		},
+		"conditions":"Ciel dégagé",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"skyicon":"sunny",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 18,
+		"kph": 29,
+		"dir": "Nord",
+		"degrees": 7
+		},
+		"avewind": {
+		"mph": 12,
+		"kph": 19,
+		"dir": "Ouest",
+		"degrees": 266
+		},
+		"avehumidity": 68,
+		"maxhumidity": 76,
+		"minhumidity": 56
+		}
+		,
+		{"date":{
+	"epoch":"1360789200",
+	"pretty":"10:00 PM CET on February 13, 2013",
+	"day":13,
+	"month":2,
+	"year":2013,
+	"yday":43,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"mer",
+	"weekday":"mercredi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":7,
+		"high": {
+		"fahrenheit":"37",
+		"celsius":"3"
+		},
+		"low": {
+		"fahrenheit":"32",
+		"celsius":"0"
+		},
+		"conditions":"Nuageux",
+		"icon":"mostlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif",
+		"skyicon":"mostlycloudy",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 8,
+		"kph": 13,
+		"dir": "Nord",
+		"degrees": 359
+		},
+		"avewind": {
+		"mph": 4,
+		"kph": 6,
+		"dir": "Sud",
+		"degrees": 191
+		},
+		"avehumidity": 76,
+		"maxhumidity": 82,
+		"minhumidity": 57
+		}
+		,
+		{"date":{
+	"epoch":"1360875600",
+	"pretty":"10:00 PM CET on February 14, 2013",
+	"day":14,
+	"month":2,
+	"year":2013,
+	"yday":44,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"jeu",
+	"weekday":"jeudi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":8,
+		"high": {
+		"fahrenheit":"39",
+		"celsius":"4"
+		},
+		"low": {
+		"fahrenheit":"32",
+		"celsius":"0"
+		},
+		"conditions":"Partiellement nuageux",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.01,
+		"mm": 0.3
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.01,
+		"mm": 0.3
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 7,
+		"kph": 11,
+		"dir": "SSE",
+		"degrees": 160
+		},
+		"avewind": {
+		"mph": 3,
+		"kph": 5,
+		"dir": "SO",
+		"degrees": 231
+		},
+		"avehumidity": 73,
+		"maxhumidity": 81,
+		"minhumidity": 72
+		}
+		,
+		{"date":{
+	"epoch":"1360962000",
+	"pretty":"10:00 PM CET on February 15, 2013",
+	"day":15,
+	"month":2,
+	"year":2013,
+	"yday":45,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"vend",
+	"weekday":"vendredi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":9,
+		"high": {
+		"fahrenheit":"39",
+		"celsius":"4"
+		},
+		"low": {
+		"fahrenheit":"34",
+		"celsius":"1"
+		},
+		"conditions":"Partiellement nuageux",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.01,
+		"mm": 0.3
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.02,
+		"mm": 0.5
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 3,
+		"kph": 5,
+		"dir": "SO",
+		"degrees": 220
+		},
+		"avewind": {
+		"mph": 2,
+		"kph": 3,
+		"dir": "OSO",
+		"degrees": 245
+		},
+		"avehumidity": 76,
+		"maxhumidity": 87,
+		"minhumidity": 72
+		}
+		,
+		{"date":{
+	"epoch":"1361048400",
+	"pretty":"10:00 PM CET on February 16, 2013",
+	"day":16,
+	"month":2,
+	"year":2013,
+	"yday":46,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"février",
+	"weekday_short":"sam",
+	"weekday":"samedi",
+	"ampm":"PM",
+	"tz_short":"CET",
+	"tz_long":"Europe/Paris"
+},
+		"period":10,
+		"high": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"low": {
+		"fahrenheit":"34",
+		"celsius":"1"
+		},
+		"conditions":"Risque de neige",
+		"icon":"chancesnow",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancesnow.gif",
+		"skyicon":"mostlycloudy",
+		"pop":40,
+		"qpf_allday": {
+		"in": 0.20,
+		"mm": 5.1
+		},
+		"qpf_day": {
+		"in": 0.07,
+		"mm": 1.8
+		},
+		"qpf_night": {
+		"in": 0.17,
+		"mm": 4.3
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 1
+		},
+		"maxwind": {
+		"mph": 3,
+		"kph": 5,
+		"dir": "SSO",
+		"degrees": 193
+		},
+		"avewind": {
+		"mph": 2,
+		"kph": 3,
+		"dir": "SSO",
+		"degrees": 202
+		},
+		"avehumidity": 96,
+		"maxhumidity": 100,
+		"minhumidity": 78
+		}
+		]
+		}
+	}
+		,	"moon_phase": {
+		"percentIlluminated":"10",
+		"ageOfMoon":"26",
+		"current_time": {
+		"hour":"14",
+		"minute":"10"
+		},
+		"sunrise": {
+		"hour":"8",
+		"minute":"10"
+		},
+		"sunset": {
+		"hour":"17",
+		"minute":"56"
+		}
+	}
+}

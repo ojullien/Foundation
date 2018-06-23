@@ -1,0 +1,296 @@
+{
+    "response": {
+        "version": "0.1"
+    },
+    "current_observation": {
+        "display_location": {
+            "full": "Pomponne, France"
+        },
+        "observation_location": {
+            "full": "Paris, "
+        },
+        "observation_epoch": "1355490000",
+        "weather": "Pluie fine",
+        "temp_c": 9,
+        "relative_humidity": "93%",
+        "wind_dir": "South",
+        "wind_degrees": 180,
+        "wind_kph": 35,
+        "wind_gust_kph": 0,
+        "pressure_trend": "0",
+        "feelslike_c": "9",
+        "icon": "rain",
+        "ob_url": "http:\/\/www.wunderground.com\/cgi-bin\/findweather\/getForecast?query=49.02000046,2.52999997"
+    },
+    "forecast": {
+        "txt_forecast": {
+            "date": "1:00 AM CET",
+            "forecastday": {
+                "0": {
+                    "icon": "rain",
+                    "fcttext_metric": "Couvert avec un risque de pluie dans la matin\u00e9e, ensuite couvert avec pluie. Temp\u00e9rature maximale 10C. Vents en provenance du SSE \u00e0 30-45 km\/h. Risques de pr\u00e9cipitations 90% avec des quantit\u00e9s de pr\u00e9cipitations avoisinant 9.9 mm.",
+                    "pop": "90"
+                },
+                "2": {
+                    "icon": "chancerain",
+                    "fcttext_metric": "Nuageux dans la matin\u00e9e, ensuite couvert avec un risque de pluie. Temp\u00e9rature maximale 10C. Vents en provenance du SSO \u00e0 20-30 km\/h. Risques de pr\u00e9cipitations 30%.",
+                    "pop": "30"
+                },
+                "4": {
+                    "icon": "mostlycloudy",
+                    "fcttext_metric": "Partiellement nuageux dans la matin\u00e9e, ensuite couvert. Temp\u00e9rature maximale 10C. Vents en provenance du SO \u00e0 20-25 km\/h.",
+                    "pop": "0"
+                },
+                "6": {
+                    "icon": "chancerain",
+                    "fcttext_metric": "Nuageux dans la matin\u00e9e, ensuite couvert avec un risque de pluie. Temp\u00e9rature maximale 7C. Vents en provenance du SO \u00e0 15-25 km\/h. Risques de pr\u00e9cipitations 40%.",
+                    "pop": "40"
+                },
+                "8": {
+                    "icon": "mostlycloudy",
+                    "fcttext_metric": "Couvert. Temp\u00e9rature maximale 8C. Vents en provenance du ONO \u00e0 15-20 km\/h.",
+                    "pop": "0"
+                },
+                "10": {
+                    "icon": "mostlycloudy",
+                    "fcttext_metric": "Couvert. Temp\u00e9rature maximale 7C. Vents en provenance du SSE \u00e0 15-25 km\/h.",
+                    "pop": "0"
+                },
+                "12": {
+                    "icon": "cloudy",
+                    "fcttext_metric": "Couvert. Temp\u00e9rature maximale 8C. Vents en provenance du Sud \u00e0 15-20 km\/h.",
+                    "pop": "0"
+                },
+                "14": {
+                    "icon": "chancerain",
+                    "fcttext_metric": "Couvert avec un risque de pluie. Nappes de brouillard t\u00f4t dans la matin\u00e9e. Temp\u00e9rature maximale 7C. Vents en provenance du SSO \u00e0 10-15 km\/h. Risques de pr\u00e9cipitations 40%.",
+                    "pop": "40"
+                },
+                "16": {
+                    "icon": "partlycloudy",
+                    "fcttext_metric": "Partiellement nuageux avec un risque de pluie. Temp\u00e9rature maximale 8C. Vents en provenance du SO \u00e0 10-15 km\/h.",
+                    "pop": "20"
+                },
+                "18": {
+                    "icon": "chancerain",
+                    "fcttext_metric": "Nuageux avec un risque de pluie. Nappes de brouillard t\u00f4t dans la matin\u00e9e. Temp\u00e9rature maximale 7C. Vents en provenance du SSO \u00e0 15-20 km\/h. Risques de pr\u00e9cipitations 40%.",
+                    "pop": "40"
+                }
+            }
+        },
+        "simpleforecast": {
+            "forecastday": {
+                "0": {
+                    "date": {
+                        "epoch": "1355518800",
+                        "day": 14,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "vend",
+                        "weekday": "vendredi"
+                    },
+                    "high": {
+                        "celsius": "10"
+                    },
+                    "low": {
+                        "celsius": "6"
+                    },
+                    "conditions": "Pluie",
+                    "icon": "rain",
+                    "pop": 90
+                },
+                "1": {
+                    "date": {
+                        "epoch": "1355605200",
+                        "day": 15,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "sam",
+                        "weekday": "samedi"
+                    },
+                    "high": {
+                        "celsius": "10"
+                    },
+                    "low": {
+                        "celsius": "5"
+                    },
+                    "conditions": "Risque de pluie",
+                    "icon": "chancerain",
+                    "pop": 30
+                },
+                "2": {
+                    "date": {
+                        "epoch": "1355691600",
+                        "day": 16,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "dim",
+                        "weekday": "dimanche"
+                    },
+                    "high": {
+                        "celsius": "10"
+                    },
+                    "low": {
+                        "celsius": "3"
+                    },
+                    "conditions": "Nuageux",
+                    "icon": "mostlycloudy",
+                    "pop": 0
+                },
+                "3": {
+                    "date": {
+                        "epoch": "1355778000",
+                        "day": 17,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "lun",
+                        "weekday": "lundi"
+                    },
+                    "high": {
+                        "celsius": "7"
+                    },
+                    "low": {
+                        "celsius": "6"
+                    },
+                    "conditions": "Risque de pluie",
+                    "icon": "chancerain",
+                    "pop": 40
+                },
+                "4": {
+                    "date": {
+                        "epoch": "1355864400",
+                        "day": 18,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "mar",
+                        "weekday": "mardi"
+                    },
+                    "high": {
+                        "celsius": "8"
+                    },
+                    "low": {
+                        "celsius": "1"
+                    },
+                    "conditions": "Nuageux",
+                    "icon": "mostlycloudy",
+                    "pop": 0
+                },
+                "5": {
+                    "date": {
+                        "epoch": "1355950800",
+                        "day": 19,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "mer",
+                        "weekday": "mercredi"
+                    },
+                    "high": {
+                        "celsius": "7"
+                    },
+                    "low": {
+                        "celsius": "6"
+                    },
+                    "conditions": "Nuageux",
+                    "icon": "mostlycloudy",
+                    "pop": 0
+                },
+                "6": {
+                    "date": {
+                        "epoch": "1356037200",
+                        "day": 20,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "jeu",
+                        "weekday": "jeudi"
+                    },
+                    "high": {
+                        "celsius": "8"
+                    },
+                    "low": {
+                        "celsius": "5"
+                    },
+                    "conditions": "Couvert",
+                    "icon": "cloudy",
+                    "pop": 0
+                },
+                "7": {
+                    "date": {
+                        "epoch": "1356123600",
+                        "day": 21,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "vend",
+                        "weekday": "vendredi"
+                    },
+                    "high": {
+                        "celsius": "7"
+                    },
+                    "low": {
+                        "celsius": "4"
+                    },
+                    "conditions": "Risque de pluie",
+                    "icon": "chancerain",
+                    "pop": 40
+                },
+                "8": {
+                    "date": {
+                        "epoch": "1356210000",
+                        "day": 22,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "sam",
+                        "weekday": "samedi"
+                    },
+                    "high": {
+                        "celsius": "8"
+                    },
+                    "low": {
+                        "celsius": "2"
+                    },
+                    "conditions": "Risque de pluie",
+                    "icon": "partlycloudy",
+                    "pop": 20
+                },
+                "9": {
+                    "date": {
+                        "epoch": "1356296400",
+                        "day": 23,
+                        "month": 12,
+                        "year": 2012,
+                        "monthname": "d\u00e9cembre",
+                        "weekday_short": "dim",
+                        "weekday": "dimanche"
+                    },
+                    "high": {
+                        "celsius": "7"
+                    },
+                    "low": {
+                        "celsius": "5"
+                    },
+                    "conditions": "Risque de pluie",
+                    "icon": "chancerain",
+                    "pop": 40
+                }
+            }
+        }
+    },
+    "moon_phase": {
+        "sunrise": {
+            "hour": "8",
+            "minute": "35"
+        },
+        "sunset": {
+            "hour": "16",
+            "minute": "52"
+        }
+    }
+}

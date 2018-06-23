@@ -1,0 +1,1168 @@
+
+<response>
+	<version>0.1</version>
+	<termsofService>http://www.wunderground.com/weather/api/d/terms.html</termsofService>
+	<features>
+		<feature>astronomy</feature>
+		<feature>conditions</feature>
+		<feature>forecast10day</feature>
+	</features>
+		<current_observation>
+		<image>
+		<url>http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://www.wunderground.com</link>
+		</image>
+		<display_location>
+		<full>Pomponne, France</full>
+		<city>Pomponne</city>
+		<state></state>
+		<state_name>France</state_name>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<zip>00000</zip>
+		<latitude>48.88333511</latitude>
+		<longitude>2.68333292</longitude>
+		<elevation>48.00000000</elevation>
+		</display_location>
+		<observation_location>
+		<full>Villevaude, FRANCE</full>
+		<city>Villevaude</city>
+		<state>FRANCE</state>
+		<country>FRANCE</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>48.899723</latitude>
+		<longitude>2.672778</longitude>
+		<elevation>292 ft</elevation>
+		</observation_location>
+		<estimated>
+		</estimated>
+		<station_id>IFRANCEV2</station_id>
+		<observation_time>Last Updated on février 21, 16:31 CET</observation_time>
+		<observation_time_rfc822>Thu, 21 Feb 2013 16:31:09 +0100</observation_time_rfc822>
+		<observation_epoch>1361460669</observation_epoch>
+		<local_time_rfc822>Thu, 21 Feb 2013 16:31:14 +0100</local_time_rfc822>
+		<local_epoch>1361460674</local_epoch>
+		<local_tz_short>CET</local_tz_short>
+		<local_tz_long>Europe/Paris</local_tz_long>
+		<local_tz_offset>+0100</local_tz_offset>
+		<weather>Nuageux</weather>
+		<temperature_string>34.5 F (1.4 C)</temperature_string>
+		<temp_f>34.5</temp_f>
+		<temp_c>1.4</temp_c>
+		<relative_humidity>50%</relative_humidity>
+		<wind_string>From the Nord at 9.2 MPH Gusting to 9.2 MPH</wind_string>
+		<wind_dir>Nord</wind_dir>
+		<wind_degrees>0</wind_degrees>
+		<wind_mph>9.2</wind_mph>
+		<wind_gust_mph>9.2</wind_gust_mph>
+		<wind_kph>14.8</wind_kph>
+		<wind_gust_kph>14.8</wind_gust_kph>
+		<pressure_mb>1018</pressure_mb>
+		<pressure_in>30.06</pressure_in>
+		<pressure_trend>0</pressure_trend>
+		
+		<dewpoint_string>18 F (-8 C)</dewpoint_string>
+		<dewpoint_f>18</dewpoint_f>
+		<dewpoint_c>-8</dewpoint_c>
+		
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>27 F (-3 C)</windchill_string>
+		<windchill_f>27</windchill_f>
+		<windchill_c>-3</windchill_c>
+		
+        <feelslike_string>27 F (-3 C)</feelslike_string>
+        <feelslike_f>27</feelslike_f>
+        <feelslike_c>-3</feelslike_c>
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<solarradiation>0</solarradiation>
+		<UV>0.0</UV>
+		<precip_1hr_string>0.00 in ( 0 mm)</precip_1hr_string>
+		<precip_1hr_in>0.00</precip_1hr_in>
+		<precip_1hr_metric> 0</precip_1hr_metric>
+		<precip_today_string>0.00 in (0 mm)</precip_today_string>
+		<precip_today_in>0.00</precip_today_in>
+		<precip_today_metric>0</precip_today_metric>
+		
+		
+		
+		<icon>mostlycloudy</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+		<forecast_url>http://www.wunderground.com/global/stations/07157.html</forecast_url>
+        
+        <history_url>http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IFRANCEV2</history_url>
+        
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.899723,2.672778</ob_url>
+	</current_observation>
+
+	
+	
+	
+	
+	
+		
+
+
+
+
+
+
+
+	<forecast>
+		<txt_forecast>
+			<date>1:00 AM CET</date>
+			<forecastdays>
+				
+				
+
+			
+				<forecastday>
+					<period>0</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>jeudi</title>
+					<fcttext><![CDATA[Ciel dégagé dans la matinée, ensuite couvert. Température maximale 37F avec un facteur vent de 18. Vents en provenance du NE à 15-20 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Ciel dégagé dans la matinée, ensuite couvert. Température maximale 3C avec un facteur vent de -8. Vents en provenance du NE à 20-30 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>1</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>jeudi soir</title>
+					<fcttext><![CDATA[Partiellement nuageux. Température minimale 25F avec un facteur vent de 16. Vents en provenance du NE à 10-15 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Température minimale -4C avec un facteur vent de -9. Vents en provenance du NE à 20-25 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>2</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>vendredi</title>
+					<fcttext><![CDATA[Partiellement nuageux dans la matinée, ensuite couvert. Température maximale 32F avec un facteur vent de 16. Vents en provenance du NE à 15-20 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux dans la matinée, ensuite couvert. Température maximale 0C avec un facteur vent de -9. Vents en provenance du NE à 25-30 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>3</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>vendredi soir</title>
+					<fcttext><![CDATA[Couvert dans la soirée, ensuite partiellement nuageux. Température minimale 23F. Vents en provenance du NNE à 10-15 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert dans la soirée, ensuite partiellement nuageux. Température minimale -5C. Vents en provenance du NNE à 15-25 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>4</period>
+					<icon>mostlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+					
+					<title>samedi</title>
+					<fcttext><![CDATA[Partiellement nuageux dans la matinée, ensuite couvert. Température maximale 37F avec un facteur vent de 18. Vents en provenance du NNE à 15-20 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux dans la matinée, ensuite couvert. Température maximale 3C avec un facteur vent de -8. Vents en provenance du NNE à 25-30 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>5</period>
+					<icon>mostlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+					
+					<title>samedi soir</title>
+					<fcttext><![CDATA[Couvert. Température minimale 25F avec un facteur vent de 19. Vents en provenance du Nord à 10-15 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert. Température minimale -4C. Vents en provenance du Nord à 15-20 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>6</period>
+					<icon>chancesnow</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/chancesnow.gif</icon_url>
+					
+					<title>dimanche</title>
+					<fcttext><![CDATA[Couvert avec un risque de neige dans la matinée, ensuite couvert avec un risque de pluie. Température maximale 39F avec un facteur vent de 19. Vents en provenance du Nord à 15-20 mph. Risques de précipitations 50%.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert avec un risque de pluie. Température maximale 4C avec un facteur vent de -7. Vents en provenance du Nord à 20-30 km/h. Risques de précipitations 50%.]]></fcttext_metric>
+					<pop>50</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>7</period>
+					<icon>chancesnow</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/chancesnow.gif</icon_url>
+					
+					<title>dimanche soir</title>
+					<fcttext><![CDATA[Couvert avec un risque de neige dans la soirée, ensuite couvert. Température minimale 30F. Vents en provenance du Nord à 5-10 mph. Risques de précipitations 40%.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert avec un risque de neige dans la soirée, ensuite couvert. Température minimale -1C. Vents en provenance du Nord à 10-15 km/h. Risques de précipitations 40%.]]></fcttext_metric>
+					<pop>40</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>8</period>
+					<icon>chancesnow</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/chancesnow.gif</icon_url>
+					
+					<title>lundi</title>
+					<fcttext><![CDATA[Couvert avec un risque de neige dans la matinée, ensuite couvert avec un risque de pluie. Température maximale 39F. Vents en provenance du NNE à 5-10 mph se déplaçant vers ENE dans l'après-midi. Risques de précipitations 40%.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert avec un risque de pluie. Température maximale 4C. Vents en provenance du NNE à 5-10 km/h se déplaçant vers ENE dans l'après-midi. Risques de précipitations 40%.]]></fcttext_metric>
+					<pop>40</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>9</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>lundi soir</title>
+					<fcttext><![CDATA[Partiellement nuageux. Température minimale 28F avec un facteur vent de 21. Vents en provenance du NE à 5-10 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Température minimale -2C avec un facteur vent de -6. Vents en provenance du NE à 10-15 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>10</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>mardi</title>
+					<fcttext><![CDATA[Partiellement nuageux avec un risque de pluie. Température maximale 43F. Vents en provenance du NNE à 10-15 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux avec un risque de pluie. Température maximale 6C. Vents en provenance du NNE à 15-20 km/h.]]></fcttext_metric>
+					<pop>20</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>11</period>
+					<icon>mostlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+					
+					<title>mardi soir</title>
+					<fcttext><![CDATA[Nuageux. Nappes de brouillard pendant la nuit. Température minimale 28F. Vents en provenance du NNE à 5-15 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Nuageux. Nappes de brouillard pendant la nuit. Température minimale -2C. Vents en provenance du NNE à 10-20 km/h.]]></fcttext_metric>
+					<pop>20</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>12</period>
+					<icon>mostlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+					
+					<title>mercredi</title>
+					<fcttext><![CDATA[Couvert. Température maximale 41F. Vents en provenance du NNE à 10-15 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert. Température maximale 5C. Vents en provenance du NNE à 15-20 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>13</period>
+					<icon>cloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/cloudy.gif</icon_url>
+					
+					<title>mercredi soir</title>
+					<fcttext><![CDATA[Couvert. Nappes de brouillard pendant la nuit. Température minimale 28F. Vents en provenance du NE à 5-10 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Couvert. Nappes de brouillard pendant la nuit. Température minimale -2C. Vents en provenance du NE à 10-15 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>14</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>jeudi</title>
+					<fcttext><![CDATA[Partiellement nuageux. Nappes de brouillard tôt dans la matinée. Température maximale 41F. Vent moins de 5 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Nappes de brouillard tôt dans la matinée. Température maximale 5C. Vent moins de 5 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>15</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>jeudi soir</title>
+					<fcttext><![CDATA[Partiellement nuageux. Nappes de brouillard pendant la nuit. Température minimale 28F. Vent moins de 5 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Nappes de brouillard pendant la nuit. Température minimale -2C. Vent moins de 5 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>16</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>vendredi</title>
+					<fcttext><![CDATA[Partiellement nuageux. Nappes de brouillard tôt dans la matinée. Température maximale 48F. Vent moins de 5 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Nappes de brouillard tôt dans la matinée. Température maximale 9C. Vent moins de 5 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>17</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>vendredi soir</title>
+					<fcttext><![CDATA[Partiellement nuageux. Nappes de brouillard pendant la nuit. Température minimale 30F. Vent moins de 5 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Nappes de brouillard pendant la nuit. Température minimale -1C. Vent moins de 5 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+				<forecastday>
+					<period>18</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>samedi</title>
+					<fcttext><![CDATA[Partiellement nuageux. Température maximale 43F. Vent moins de 5 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Température maximale 6C. Vent moins de 5 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+
+				
+				<forecastday>
+					<period>19</period>
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					
+					<title>samedi soir</title>
+					<fcttext><![CDATA[Partiellement nuageux. Nappes de brouillard pendant la nuit. Température minimale 32F. Vent moins de 5 mph.]]></fcttext>
+					<fcttext_metric><![CDATA[Partiellement nuageux. Nappes de brouillard pendant la nuit. Température minimale 0C. Vent moins de 5 km/h.]]></fcttext_metric>
+					<pop>0</pop>
+				</forecastday>
+				
+			
+			</forecastdays>
+		</txt_forecast>
+
+		<simpleforecast>
+			<forecastdays>
+				
+				<forecastday>
+					<date>
+  <epoch>1361480400</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 21, 2013</pretty>
+  <day>21</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>51</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>jeu</weekday_short>
+  <weekday>jeudi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>1</period>
+					<high>
+						<fahrenheit>37</fahrenheit>
+						<celsius>3</celsius>
+					</high>
+					<low>
+						<fahrenheit>25</fahrenheit>
+						<celsius>-4</celsius>
+					</low>
+					<conditions>Partiellement nuageux</conditions>
+					
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					<skyicon>partlycloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>17</mph>
+						<kph>27</kph>
+						<dir>NE</dir>
+						<degrees>54</degrees>
+					</maxwind>
+					<avewind>
+						<mph>13</mph>
+						<kph>21</kph>
+						<dir>NE</dir>
+						<degrees>52</degrees>
+					</avewind>
+					<avehumidity>56</avehumidity>
+					<maxhumidity>80</maxhumidity>
+					<minhumidity>43</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1361566800</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 22, 2013</pretty>
+  <day>22</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>52</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>vend</weekday_short>
+  <weekday>vendredi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>2</period>
+					<high>
+						<fahrenheit>32</fahrenheit>
+						<celsius>0</celsius>
+					</high>
+					<low>
+						<fahrenheit>23</fahrenheit>
+						<celsius>-5</celsius>
+					</low>
+					<conditions>Partiellement nuageux</conditions>
+					
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					<skyicon>partlycloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>18</mph>
+						<kph>29</kph>
+						<dir>NE</dir>
+						<degrees>52</degrees>
+					</maxwind>
+					<avewind>
+						<mph>14</mph>
+						<kph>22</kph>
+						<dir>NE</dir>
+						<degrees>40</degrees>
+					</avewind>
+					<avehumidity>57</avehumidity>
+					<maxhumidity>78</maxhumidity>
+					<minhumidity>46</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1361653200</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 23, 2013</pretty>
+  <day>23</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>53</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>sam</weekday_short>
+  <weekday>samedi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>3</period>
+					<high>
+						<fahrenheit>37</fahrenheit>
+						<celsius>3</celsius>
+					</high>
+					<low>
+						<fahrenheit>25</fahrenheit>
+						<celsius>-4</celsius>
+					</low>
+					<conditions>Nuageux</conditions>
+					
+					<icon>mostlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+					<skyicon>mostlycloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.04</in>
+						<mm>1.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>1</cm>
+					</snow_night>
+					<maxwind>
+						<mph>16</mph>
+						<kph>26</kph>
+						<dir>NE</dir>
+						<degrees>34</degrees>
+					</maxwind>
+					<avewind>
+						<mph>12</mph>
+						<kph>19</kph>
+						<dir>NNE</dir>
+						<degrees>12</degrees>
+					</avewind>
+					<avehumidity>58</avehumidity>
+					<maxhumidity>76</maxhumidity>
+					<minhumidity>46</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1361739600</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 24, 2013</pretty>
+  <day>24</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>54</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>dim</weekday_short>
+  <weekday>dimanche</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>4</period>
+					<high>
+						<fahrenheit>39</fahrenheit>
+						<celsius>4</celsius>
+					</high>
+					<low>
+						<fahrenheit>30</fahrenheit>
+						<celsius>-1</celsius>
+					</low>
+					<conditions>Risque de neige</conditions>
+					
+					<icon>chancesnow</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/chancesnow.gif</icon_url>
+					<skyicon>cloudy</skyicon>
+					<pop>50</pop>
+					<qpf_allday>
+						<in>0.15</in>
+						<mm>3.8</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.08</in>
+						<mm>2.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.04</in>
+						<mm>1.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>1</in>
+						<cm>2</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>1</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>17</mph>
+						<kph>27</kph>
+						<dir>Nord</dir>
+						<degrees>3</degrees>
+					</maxwind>
+					<avewind>
+						<mph>11</mph>
+						<kph>18</kph>
+						<dir>SSO</dir>
+						<degrees>201</degrees>
+					</avewind>
+					<avehumidity>84</avehumidity>
+					<maxhumidity>91</maxhumidity>
+					<minhumidity>75</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1361826000</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 25, 2013</pretty>
+  <day>25</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>55</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>lun</weekday_short>
+  <weekday>lundi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>5</period>
+					<high>
+						<fahrenheit>39</fahrenheit>
+						<celsius>4</celsius>
+					</high>
+					<low>
+						<fahrenheit>28</fahrenheit>
+						<celsius>-2</celsius>
+					</low>
+					<conditions>Risque de neige</conditions>
+					
+					<icon>chancesnow</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/chancesnow.gif</icon_url>
+					<skyicon>cloudy</skyicon>
+					<pop>40</pop>
+					<qpf_allday>
+						<in>0.06</in>
+						<mm>1.5</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.05</in>
+						<mm>1.3</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>7</mph>
+						<kph>11</kph>
+						<dir>ENE</dir>
+						<degrees>61</degrees>
+					</maxwind>
+					<avewind>
+						<mph>6</mph>
+						<kph>10</kph>
+						<dir>ENE</dir>
+						<degrees>61</degrees>
+					</avewind>
+					<avehumidity>79</avehumidity>
+					<maxhumidity>92</maxhumidity>
+					<minhumidity>76</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1361912400</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 26, 2013</pretty>
+  <day>26</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>56</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>mar</weekday_short>
+  <weekday>mardi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>6</period>
+					<high>
+						<fahrenheit>43</fahrenheit>
+						<celsius>6</celsius>
+					</high>
+					<low>
+						<fahrenheit>28</fahrenheit>
+						<celsius>-2</celsius>
+					</low>
+					<conditions>Risque de pluie</conditions>
+					
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					<skyicon>partlycloudy</skyicon>
+					<pop>20</pop>
+					<qpf_allday>
+						<in>0.04</in>
+						<mm>1.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.02</in>
+						<mm>0.5</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.02</in>
+						<mm>0.5</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>11</mph>
+						<kph>18</kph>
+						<dir>NNE</dir>
+						<degrees>27</degrees>
+					</maxwind>
+					<avewind>
+						<mph>10</mph>
+						<kph>16</kph>
+						<dir>NNE</dir>
+						<degrees>19</degrees>
+					</avewind>
+					<avehumidity>83</avehumidity>
+					<maxhumidity>94</maxhumidity>
+					<minhumidity>76</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1361998800</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 27, 2013</pretty>
+  <day>27</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>57</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>mer</weekday_short>
+  <weekday>mercredi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>7</period>
+					<high>
+						<fahrenheit>41</fahrenheit>
+						<celsius>5</celsius>
+					</high>
+					<low>
+						<fahrenheit>28</fahrenheit>
+						<celsius>-2</celsius>
+					</low>
+					<conditions>Nuageux</conditions>
+					
+					<icon>mostlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+					<skyicon>cloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.01</in>
+						<mm>0.3</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.01</in>
+						<mm>0.3</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>10</mph>
+						<kph>16</kph>
+						<dir>NE</dir>
+						<degrees>37</degrees>
+					</maxwind>
+					<avewind>
+						<mph>8</mph>
+						<kph>13</kph>
+						<dir>NNE</dir>
+						<degrees>33</degrees>
+					</avewind>
+					<avehumidity>92</avehumidity>
+					<maxhumidity>100</maxhumidity>
+					<minhumidity>82</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1362085200</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on February 28, 2013</pretty>
+  <day>28</day>
+  <month>2</month>
+  <year>2013</year>
+  <yday>58</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>février</monthname>
+  <weekday_short>jeu</weekday_short>
+  <weekday>jeudi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>8</period>
+					<high>
+						<fahrenheit>41</fahrenheit>
+						<celsius>5</celsius>
+					</high>
+					<low>
+						<fahrenheit>28</fahrenheit>
+						<celsius>-2</celsius>
+					</low>
+					<conditions>Brouillard</conditions>
+					
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					<skyicon>partlycloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>6</mph>
+						<kph>10</kph>
+						<dir>NE</dir>
+						<degrees>47</degrees>
+					</maxwind>
+					<avewind>
+						<mph>3</mph>
+						<kph>5</kph>
+						<dir>Est</dir>
+						<degrees>96</degrees>
+					</avewind>
+					<avehumidity>95</avehumidity>
+					<maxhumidity>100</maxhumidity>
+					<minhumidity>79</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1362171600</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on March 01, 2013</pretty>
+  <day>1</day>
+  <month>3</month>
+  <year>2013</year>
+  <yday>59</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>Mars</monthname>
+  <weekday_short>vend</weekday_short>
+  <weekday>vendredi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>9</period>
+					<high>
+						<fahrenheit>48</fahrenheit>
+						<celsius>9</celsius>
+					</high>
+					<low>
+						<fahrenheit>30</fahrenheit>
+						<celsius>-1</celsius>
+					</low>
+					<conditions>Brouillard</conditions>
+					
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					<skyicon>partlycloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>4</mph>
+						<kph>6</kph>
+						<dir>Est</dir>
+						<degrees>84</degrees>
+					</maxwind>
+					<avewind>
+						<mph>3</mph>
+						<kph>5</kph>
+						<dir>ENE</dir>
+						<degrees>71</degrees>
+					</avewind>
+					<avehumidity>75</avehumidity>
+					<maxhumidity>100</maxhumidity>
+					<minhumidity>61</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1362258000</epoch>
+  <pretty_short>10:00 PM CET</pretty_short>
+  <pretty>10:00 PM CET on March 02, 2013</pretty>
+  <day>2</day>
+  <month>3</month>
+  <year>2013</year>
+  <yday>60</yday>
+  <hour>22</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>Mars</monthname>
+  <weekday_short>sam</weekday_short>
+  <weekday>samedi</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CET</tz_short>
+  <tz_long>Europe/Paris</tz_long>
+</date>
+					<period>10</period>
+					<high>
+						<fahrenheit>43</fahrenheit>
+						<celsius>6</celsius>
+					</high>
+					<low>
+						<fahrenheit>32</fahrenheit>
+						<celsius>0</celsius>
+					</low>
+					<conditions>Partiellement nuageux</conditions>
+					
+					<icon>partlycloudy</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+					<skyicon>partlycloudy</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.02</in>
+						<mm>0.5</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.01</in>
+						<mm>0.3</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.01</in>
+						<mm>0.3</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>4</mph>
+						<kph>6</kph>
+						<dir>Est</dir>
+						<degrees>100</degrees>
+					</maxwind>
+					<avewind>
+						<mph>4</mph>
+						<kph>6</kph>
+						<dir>Est</dir>
+						<degrees>94</degrees>
+					</avewind>
+					<avehumidity>88</avehumidity>
+					<maxhumidity>100</maxhumidity>
+					<minhumidity>78</minhumidity>
+				</forecastday>
+				
+			</forecastdays>
+		</simpleforecast>
+	</forecast>
+
+	
+	
+	
+			<moon_phase>
+		<percentIlluminated>83</percentIlluminated>
+		<ageOfMoon>11</ageOfMoon>
+		<current_time>
+			<hour>16</hour>
+			<minute>31</minute>
+		</current_time>
+		<sunset>
+			<hour>18</hour>
+			<minute>19</minute>
+		</sunset>
+		<sunrise>
+			<hour>7</hour>
+			<minute>46</minute>
+		</sunrise>
+	</moon_phase>
+
+	
+	
+	
+	
+	
+	
+    
+    
+
+
+    
+    
+</response>
+	

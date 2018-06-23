@@ -1,0 +1,20 @@
+<?php
+$this->_aTests[self::KEY_TEST] = array(
+array('label'=>'Test 01', 'test' => array( 'value' => 5.0,  'min' => NULL,  'max' => NULL ) ),
+array('label'=>'Test 02', 'test' => array( 'value' => 5.0,  'min' => 0.0,   'max' => NULL ) ),
+array('label'=>'Test 03', 'test' => array( 'value' => 5.0,  'min' => NULL,  'max' => 10.0 ) ),
+array('label'=>'Test 04', 'test' => array( 'value' => 5.0,  'min' => 0.0,   'max' => 10.0 ) ),
+array('label'=>'Test 05', 'test' => array( 'value' => 5.0,  'min' => 6.0,   'max' => NULL ) ),
+array('label'=>'Test 06', 'test' => array( 'value' => 5.0,  'min' => NULL,  'max' => 4.0  ) ),
+array('label'=>'Test 07', 'test' => array( 'value' => 5.0,  'min' => 1.0,   'max' => 2.0  ) ),
+array('label'=>'Test 08', 'test' => array( 'value' => -5.0, 'min' => NULL,  'max' => NULL ) ),
+array('label'=>'Test 09', 'test' => array( 'value' => -5.0, 'min' => -10.0, 'max' => NULL ) ),
+array('label'=>'Test 10', 'test' => array( 'value' => -5.0, 'min' => NULL,  'max' => 0.0  ) ),
+array('label'=>'Test 11', 'test' => array( 'value' => -5.0, 'min' => -10.0, 'max' => 0.0  ) ),
+array('label'=>'Test 12', 'test' => array( 'value' => -5.0, 'min' => -4.0,  'max' => NULL ) ),
+array('label'=>'Test 13', 'test' => array( 'value' => -5.0, 'min' => NULL,  'max' => -6.0 ) ),
+array('label'=>'Test 14', 'test' => array( 'value' => -5.0, 'min' => -2.0,  'max' => -1.0 ) ),
+array('label'=>'Test 15', 'test' => array( 'value' => 0.0,  'min' => 0.0,   'max' => NULL ) ),
+array('label'=>'Test 16', 'test' => array( 'value' => 0.0,  'min' => NULL,  'max' => 0.0  ) ),
+array('label'=>'Test 17', 'test' => array( 'value' => 0.0,  'min' => 0.0,   'max' => 0.0  ) ),
+);

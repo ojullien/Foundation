@@ -1,0 +1,47 @@
+<?php
+$this->_aTests[self::KEY_TEST] = array(
+// Non quoted valid
+array( 'label'=>'TEST: Abc' , 'test'=>'Abc' ),
+array( 'label'=>'TEST: Abc.123' , 'test'=>'Abc.123' ),
+array( 'label'=>'TEST: 123' , 'test'=>'123' ),
+array( 'label'=>'TEST: 123-Abc' , 'test'=>'123-Abc' ),
+array( 'label'=>'TEST: 12.-.Abc' , 'test'=>'12.-.Abc' ),
+array( 'label'=>'TEST: user+mailbox' , 'test'=>'user+mailbox' ),
+array( 'label'=>'TEST: customer/department=shipping' , 'test'=>'customer/department=shipping' ),
+array( 'label'=>'TEST: user+mailbox/department=shipping' , 'test'=>'user+mailbox/department=shipping' ),
+array( 'label'=>'TEST: !#$%&\'*+-/=?^_`.{|}~' , 'test'=>'!#$%&\'*+-/=?^_`.{|}~' ),
+array( 'label'=>'TEST: !def!xyz%abc' , 'test'=>'!def!xyz%abc' ),
+array( 'label'=>'TEST: _somename' , 'test'=>'_somename' ),
+array( 'label'=>'TEST: Abc.example.com' , 'test'=>'Abc.example.com' ),
+array( 'label'=>'TEST: Abc..123' , 'test'=>'Abc..123' ),
+// Non quoted invalid
+array( 'label'=>'TEST: Abc@def' , 'test'=>'Abc@def' ),
+array( 'label'=>'TEST: Abc\@def' , 'test'=>'Abc\@def' ),
+array( 'label'=>'TEST: Fred Bloggs' , 'test'=>'Fred Bloggs' ),
+array( 'label'=>'TEST: Fred\ Bloggs' , 'test'=>'Fred\ Bloggs' ),
+array( 'label'=>'TEST: Joe.\\Blow' , 'test'=>'Joe.\\Blow' ),
+array( 'label'=>'TEST: Abc.' , 'test'=>'Abc.' ),
+array( 'label'=>'TEST: .Abc' , 'test'=>'.Abc' ),
+// Quoted valid
+array( 'label'=>'TEST: quoted Abc' , 'test'=>'"Abc"' ),
+array( 'label'=>'TEST: quoted Abc.123' , 'test'=>'"Abc.123"' ),
+array( 'label'=>'TEST: quoted 123' , 'test'=>'"123"' ),
+array( 'label'=>'TEST: quoted 123-Abc' , 'test'=>'"123-Abc"' ),
+array( 'label'=>'TEST: quoted 12.-.Abc' , 'test'=>'"12.-.Abc"' ),
+array( 'label'=>'TEST: quoted user+mailbox' , 'test'=>'"user+mailbox"' ),
+array( 'label'=>'TEST: quoted customer/department=shipping' , 'test'=>'"customer/department=shipping"' ),
+array( 'label'=>'TEST: quoted user+mailbox/department=shipping' , 'test'=>'"user+mailbox/department=shipping"' ),
+array( 'label'=>'TEST: quoted !#$%&\'*+-/=?^_`.{|}~' , 'test'=>'"!#$%&\'*+-/=?^_`.{|}~"' ),
+array( 'label'=>'TEST: quoted !def!xyz%abc' , 'test'=>'"!def!xyz%abc"' ),
+array( 'label'=>'TEST: quoted _somename' , 'test'=>'"_somename"' ),
+array( 'label'=>'TEST: quoted Abc@def' , 'test'=>'"Abc@def"' ),
+array( 'label'=>'TEST: quoted Abc\@def' , 'test'=>'"Abc\@def"' ),
+array( 'label'=>'TEST: quoted Fred Bloggs' , 'test'=>'"Fred Bloggs"' ),
+array( 'label'=>'TEST: quoted Fred\ Bloggs' , 'test'=>'"Fred\ Bloggs"' ),
+array( 'label'=>'TEST: quoted Joe.\\Blow' , 'test'=>'"Joe.\\Blow"' ),
+array( 'label'=>'TEST: quoted Abc.example.com' , 'test'=>'"Abc.example.com"' ),
+// Quoted invalid
+array( 'label'=>'TEST: quoted Abc..123' , 'test'=>'"Abc..123"' ),
+array( 'label'=>'TEST: quoted Abc.' , 'test'=>'"Abc."' ),
+array( 'label'=>'TEST: quoted .Abc' , 'test'=>'".Abc"' )
+);

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    colors="false"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="true"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    syntaxCheck="true"
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    cacheTokens="true"
+    forceCoversAnnotation="true"
+    mapTestClassNameToCoveredClassName="false"
+    strict="true"
+    verbose="true"
+    bootstrap="../../setup.php">
+    <php>
+    </php>
+    <testsuites>
+        <testsuite name="Type Test Suite">
+            <directory suffix="Test.php">.</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-html"
+            target="../../_report/_type"
+            charset="UTF-8"
+            yui="true"
+            highlight="true"
+            lowUpperBound="35"
+            highLowerBound="70"/>
+<!--         <log type="coverage-xml" target="../_report/_type_coverage.xml"/>
+        <log type="graphviz" target="../_report/_type_logfile.dot"/>
+        <log type="json" target="../_report/_type_logfile.json"/>
+        <log type="metrics-xml" target="../_report/_type_metrics.xml"/>
+        <log type="plain" target="../_report/_type_logfile.txt"/>
+        <log type="pmd-xml" target="../_report/_type_pmd.xml" cpdMinLines="5" cpdMinMatches="70"/>
+        <log type="tap" target="../_report/_type_logfile.tap"/>
+        <log type="test-xml" target="../_report/_type_logfile.xml" logIncompleteSkipped="false"/>
+        <log type="testdox-html" target="../_report/_type_testdox.html"/>
+        <log type="testdox-text" target="../_report/_type_testdox.txt"/> -->
+    </logging>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../../../src/Foundation/Type</directory>
+            <exclude>
+                <directory suffix="Interface.php">../../../src/Foundation/Type</directory>
+            </exclude>             
+        </whitelist>
+    </filter>
+</phpunit>
