@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "5.4.45",
+        "ext-apc": "*",
         "ext-curl": "*",
         "ext-fileinfo": "*",
         "ext-gd": "*",
