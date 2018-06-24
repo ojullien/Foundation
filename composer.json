@@ -1,12 +1,12 @@
 {
     "name": "ojullien/foundation",
     "description": "Simple PHP Framework",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "type": "library",
     "keywords": ["php-framework","php5"],
     "homepage":"https://github.com/ojullien/Foundation",
     "readme":"README.md",
-    "time":"2013-06-23",
+    "time":"2013-08-08",
     "license": "MIT",
     "authors": [
         {
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "5.4.45",
+        "php": "5.5.37",
         "ext-apc": "*",
         "ext-curl": "*",
         "ext-fileinfo": "*",

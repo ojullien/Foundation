@@ -1,20 +1,36 @@
 # Foundation
 
-Simple PHP Framework.
+Simple PHP5 Framework.
 
-## Table of Contents
+** Table of Contents **
 
-- [Features](#features)
-- [Setup](#setup)
-- [Documentation](#documentation)
-- [Test](#test)
-- [Contributing](#contributing)
-- [License](#license)
+1. [Features](#features)
+  * [Cache](#cache)
+  * [Crypt](#crypt)
+  * [Daemon](#daemon)
+  * [Debug](#debug)
+  * [Exception](#exception)
+  * [File](#file)
+  * [Form](#form)
+  * [GD](#gd)
+  * [Loader](#loader)
+  * [Log](#log)
+  * [Protocol](#protocol)
+  * [Session](#session)
+  * [Stdlib](#stdlib)
+  * [Type](#type)
+  * [Weather](weather)
+2. [Setup](#setup)
+3. [Documentation](#documentation)
+4. [Test](#test)
+5. [Contributing](#contributing)
+6. [License](#license)
 
-## Features
+## 1. Features
 
 I wrote and I use this framework for my own projects. All the modules are abstract layers that offer useful functionalities I needed.
 Unfortunately I do not provide exhaustive documentation. Please read the code and the comments.
+
 Here the modules:
 
 ### Cache
@@ -61,8 +77,8 @@ This module contains a logger.
 
 This module contains:
 
-- a download manager.
-- an utility to manage client IP address.
+* a download manager.
+* an utility to manage client IP address.
 
 ### Session
 
@@ -80,16 +96,16 @@ This module contains classes that allow a Type Declarations implementations. (Si
 
 This module contains classes that implements usefull methods to:
 
-- read weather data from a file (Weather Underground,YR.no)
-- convert wind speed units.
+* read weather data from a file (Weather Underground,YR.no)
+* convert wind speed units.
 
-## Setup
+## 2. Setup
 
-Developed on Windows 7 and requires PHP 5.4.45, APC 3.1.14, PHPUnit PHPUnit 3.7.38, composer.
+Developed on Windows 7 and requires PHP 5.5.37, APC User Cache 4.0.11, PHPUnit 3.7.38, [composer](https://getcomposer.org/).
 
-Check if your PHP and extensions versions match the platform requirements.
+Check if your PHP and extension versions match the platform requirements.
 
-```bash
+```batchfile
 C:\Foundation>php composer.phar diagnose
 
 and
@@ -99,25 +115,32 @@ C:\Foundation>php composer.phar check-platform-reqs
 
 Install the required applications:
 
-```bash
+```batchfile
+
+No dev:
+
+C:\Foundation>php composer.phar install --no-dev
+
+or for dev:
+
 C:\Foundation>php composer.phar install
 ```
 
-## Documentation
+## 3. Documentation
 
 Unfortunately I do not provide exhaustive documentation. Please read the code and the comments.
 
-You can generate documentation using phpdocumentor. It should be installed with composer.
+You can generate documentation using phpdocumentor. It should be installed with [composer](https://getcomposer.org/).
 
-```bash
+```batchfile
 C:\Foundation>./vendor/bin/phpdoc.bat -d src/Foundation -t docs/
 ```
 
-## Test
+## 4. Test
 
 Use PHPUnit. Each module has is own config.xml file. Go to tests/scripts and launch cmd files.
 
-## Contributing
+## 5. Contributing
 
 Thanks you for taking the time to contribute. Please fork the repository and make changes as you'd like.
 
@@ -127,6 +150,6 @@ If you encounter any **bugs**, please open an [issue](https://github.com/ojullie
 
 Be sure to include a title and clear description,as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
 
-## License
+## 6. License
 
 This project is open-source and is licensed under the [MIT License](https://github.com/ojullien/foundation/blob/master/LICENSE).

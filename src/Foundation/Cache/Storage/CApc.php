@@ -11,7 +11,7 @@ if( !defined( 'APPLICATION_VERSION' ) )
     die( '-1' );
 
 /**
- * Cache storage using APC.
+ * Cache storage using APC or APUc.
  *
  * @category   Foundation
  * @package    Cache
