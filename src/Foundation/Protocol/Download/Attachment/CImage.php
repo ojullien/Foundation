@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Download\Attachment;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Download\Attachment;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * class for image download.
@@ -36,14 +38,19 @@ final class CImage extends \Foundation\Protocol\Download\Attachment\CAttachmentA
      * @throws \Foundation\Exception\InvalidArgumentException
      * @codeCoverageIgnore
      */
-    public function __construct( \Foundation\Protocol\Download\ManagerInterface $pDownloadmanager, $sFilename,
-                                 $bGetMimeFromExtension = TRUE )
-    {
-        $this->_sDebugID = uniqid( 'cimage', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $pDownloadmanager, $sFilename, $bGetMimeFromExtension ] );
-        parent::__construct( $pDownloadmanager, $sFilename, $bGetMimeFromExtension );
+    public function __construct(
+        \Foundation\Protocol\Download\ManagerInterface $pDownloadmanager,
+        $sFilename,
+        $bGetMimeFromExtension = true
+    ) {
+        $this->_sDebugID = uniqid('cimage', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $pDownloadmanager, $sFilename, $bGetMimeFromExtension ]
+                );
+        parent::__construct($pDownloadmanager, $sFilename, $bGetMimeFromExtension);
     }
 
     /** File section
@@ -55,21 +62,20 @@ final class CImage extends \Foundation\Protocol\Download\Attachment\CAttachmentA
      * @param \SplFileInfo $pFile File from extract mime type.
      * @return string
      */
-    protected function getAttachmentMimeTypeFromExtension( \SplFileInfo $pFile )
+    protected function getAttachmentMimeTypeFromExtension(\SplFileInfo $pFile)
     {
-        switch( strtolower( $pFile->getExtension() ) )
-        {
-            case 'gif' :
+        switch (strtolower($pFile->getExtension())) {
+            case 'gif':
                 $sReturn = 'image/gif';
                 break;
-            case 'png' :
+            case 'png':
                 $sReturn = 'image/png';
                 break;
             case 'jpeg':
-            case 'jpg' :
+            case 'jpg':
                 $sReturn = 'image/jpeg';
                 break;
-            default :
+            default:
                 $sReturn = '';
                 break;
         }
@@ -83,26 +89,19 @@ final class CImage extends \Foundation\Protocol\Download\Attachment\CAttachmentA
      * @param \SplFileInfo $pFile File from extract mime type.
      * @return string
      */
-    protected function getAttachmentMimeTypeFromFile( \SplFileInfo $pFile )
+    protected function getAttachmentMimeTypeFromFile(\SplFileInfo $pFile)
     {
-        if( $pFile->isFile() && $pFile->isReadable() )
-        {
-            try
-            {
-                $aInfos  = getimagesize( $pFile->getRealPath() );
-                $sReturn = ( is_array( $aInfos ) && isset( $aInfos['mime'] ) && !empty( $aInfos['mime'] ) ) ? $aInfos['mime'] : '';
-            }
-            catch( \Exception $exc )
-            {
+        if ($pFile->isFile() && $pFile->isReadable()) {
+            try {
+                $aInfos  = getimagesize($pFile->getRealPath());
+                $sReturn = ( is_array($aInfos) && isset($aInfos['mime']) && ! empty($aInfos['mime']) ) ? $aInfos['mime'] : '';
+            } catch (\Exception $exc) {
                 $sReturn = '';
             }
-        }
-        else
-        {
+        } else {
             $sReturn = '';
         }
 
         return $sReturn;
     }
-
 }

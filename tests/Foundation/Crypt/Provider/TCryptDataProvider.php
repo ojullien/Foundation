@@ -46,5 +46,4 @@ trait TCryptDataProvider
     {
         return 'Foundation 1.0.0-20130728 by Olivier Jullien ( olivierjullien@outlook.com )';
     }
-
 }

@@ -7,7 +7,7 @@ return [
     [ 'label' => 'TEST: hexadecimal number 0x1A (26)', 'test'  => 0x1A ],
     [ 'label' => 'TEST: float 0.0', 'test'  => 0.0 ],
     [ 'label' => 'TEST: float 3.5714285714286', 'test'  => 25 / 7 ],
-    [ 'label' => 'TEST: double 1.1258999068426E+15', 'test'  => pow( 2, 50 ) ],
+    [ 'label' => 'TEST: double 1.1258999068426E+15', 'test'  => pow(2, 50) ],
     [ 'label' => 'TEST: real 7E-10', 'test'  => 7E-10 ],
     [ 'label' => 'TEST: range 2147483647', 'test'  => 2147483647 ],
     [ 'label' => 'TEST: range -2147483648', 'test'  => -2147483648 ],

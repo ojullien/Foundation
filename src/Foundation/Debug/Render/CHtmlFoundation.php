@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Render;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Render;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods for debug rendering in html format.
@@ -20,8 +22,7 @@ if( !defined( 'APPLICATION_VERSION' ) )
  * @since      1.0.0
  * @codeCoverageIgnore
  */
-final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
-        implements \Foundation\Debug\Render\RenderInterface
+final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract implements \Foundation\Debug\Render\RenderInterface
 {
 
     /**
@@ -32,7 +33,7 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      * @param integer $iMemoryUsage     Current memory usage
      * @return string
      */
-    public function renderUsage( $fScriptDuration, $iMemoryPeakUsage, $iMemoryUsage )
+    public function renderUsage($fScriptDuration, $iMemoryPeakUsage, $iMemoryUsage)
     {
         return '<div class="row">'
                 . '<div class="large-12 columns">'
@@ -47,9 +48,9 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
                 . '</thead>'
                 . '<tbody>'
                 . '<tr>'
-                . '<td>' . $this->convertToMSecond( $fScriptDuration, 2, self::UNIT ) . '</td>'
-                . '<td>' . $this->convertToMByte( $iMemoryPeakUsage, 2, self::UNIT ) . '</td>'
-                . '<td>' . $this->convertToMByte( $iMemoryUsage, 2, self::UNIT ) . '</td>'
+                . '<td>' . $this->convertToMSecond($fScriptDuration, 2, self::UNIT) . '</td>'
+                . '<td>' . $this->convertToMByte($iMemoryPeakUsage, 2, self::UNIT) . '</td>'
+                . '<td>' . $this->convertToMByte($iMemoryUsage, 2, self::UNIT) . '</td>'
                 . '</tr>'
                 . '</tbody>'
                 . '</table>'
@@ -63,28 +64,21 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      * @param mixed $mixed
      * @return string
      */
-    private function format( $mixed )
+    private function format($mixed)
     {
-        if( is_object( $mixed ) )
-        {
-            if( method_exists( $mixed, 'getArrayCopy' ) )
-            {
+        if (is_object($mixed)) {
+            if (method_exists($mixed, 'getArrayCopy')) {
                 $mixed = $mixed->getArrayCopy();
-            }
-            else
-            {
-                $mixed = serialize( $mixed );
+            } else {
+                $mixed = serialize($mixed);
             }
         }
 
-        if( is_array( $mixed ) )
-        {
-            $sReturn = htmlentities( print_r( $mixed, true ), ENT_QUOTES, 'UTF-8' );
-        }
-        else
-        {
-            $mixed   = (is_null( $mixed )) ? 'NULL' : trim( $mixed );
-            $sReturn = htmlentities( $mixed, ENT_QUOTES, 'UTF-8' );
+        if (is_array($mixed)) {
+            $sReturn = htmlentities(print_r($mixed, true), ENT_QUOTES, 'UTF-8');
+        } else {
+            $mixed   = (is_null($mixed)) ? 'NULL' : trim($mixed);
+            $sReturn = htmlentities($mixed, ENT_QUOTES, 'UTF-8');
         }
         return $sReturn;
     }
@@ -100,7 +94,7 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      *                                                               'memory' => array( 'start' => ..., 'end' => ...) );
      * @return string
      */
-    public function renderMemory( $fScriptDuration, array $data )
+    public function renderMemory($fScriptDuration, array $data)
     {
         $sReturn = '<div class="row hide-for-small">'
                 . '<div class="large-12 columns">'
@@ -128,33 +122,35 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
                 . '</thead>'
                 . '<tbody>';
 
-        foreach( $data as $value )
-        {
+        foreach ($data as $value) {
             $sReturn .= '<tr ' . (($value['time']['end'] > 0.0) ? '' : ' style="background-color:DarkOrange;"') . '>'
-                    . '<td>' . htmlentities( $value['class'], ENT_QUOTES, 'UTF-8' ) . '</td>'
-                    . '<td>' . $this->convertToMSecond( $value['time']['start'], 2, self::UNIT ) . '</td>';
+                    . '<td>' . htmlentities($value['class'], ENT_QUOTES, 'UTF-8') . '</td>'
+                    . '<td>' . $this->convertToMSecond($value['time']['start'], 2, self::UNIT) . '</td>';
 
-            if( $value['time']['end'] > 0.0 )
-            {
-                $sReturn .= '<td>' . $this->convertToMSecond( $value['time']['end'], 2, self::UNIT ) . '</td>'
-                        . '<td>~' . $this->convertToMSecond( $value['time']['end'] - $value['time']['start'], 2,
-                                                             self::UNIT ) . '</td>';
-            }
-            else
-            {
+            if ($value['time']['end'] > 0.0) {
+                $sReturn .= '<td>' . $this->convertToMSecond($value['time']['end'], 2, self::UNIT) . '</td>'
+                        . '<td>~' . $this->convertToMSecond(
+                            $value['time']['end'] - $value['time']['start'],
+                            2,
+                            self::UNIT
+                        ) . '</td>';
+            } else {
                 $sReturn .= '<td>never deleted</td>'
-                        . '<td>' . $this->convertToMSecond( $fScriptDuration, 2, self::UNIT ) . '</td>';
+                        . '<td>' . $this->convertToMSecond($fScriptDuration, 2, self::UNIT) . '</td>';
             }
 
             // Memory peak
-            $sReturn .= '<td>' . $this->convertToMByte( $value['memoryPeak']['start'], 2, self::UNIT ) . '</td>'
-                    . '<td>' . $this->convertToMByte( $value['memoryPeak']['end'], 2, self::UNIT ) . '</td>'
-                    . '<td>' . $this->convertToMByte( $value['memoryPeak']['end'] - $value['memoryPeak']['start'], 2,
-                                                      self::UNIT ) . '</td>'
+            $sReturn .= '<td>' . $this->convertToMByte($value['memoryPeak']['start'], 2, self::UNIT) . '</td>'
+                    . '<td>' . $this->convertToMByte($value['memoryPeak']['end'], 2, self::UNIT) . '</td>'
+                    . '<td>' . $this->convertToMByte(
+                        $value['memoryPeak']['end'] - $value['memoryPeak']['start'],
+                        2,
+                        self::UNIT
+                    ) . '</td>'
                     // Memory
-                    . '<td>' . $this->convertToMByte( $value['memory']['start'], 2, self::UNIT ) . '</td>'
-                    . '<td>' . $this->convertToMByte( $value['memory']['end'], 2, self::UNIT ) . '</td>'
-                    . '<td>' . $this->convertToMByte( $value['memory']['end'] - $value['memory']['start'], 2, self::UNIT ) . '</td>'
+                    . '<td>' . $this->convertToMByte($value['memory']['start'], 2, self::UNIT) . '</td>'
+                    . '<td>' . $this->convertToMByte($value['memory']['end'], 2, self::UNIT) . '</td>'
+                    . '<td>' . $this->convertToMByte($value['memory']['end'] - $value['memory']['start'], 2, self::UNIT) . '</td>'
                     . '</tr>';
         }
 
@@ -176,15 +172,15 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      *                                                        'end' => ... ) );
      * @return string
      */
-    private function parse( array $data )
+    private function parse(array $data)
     {
         // Constants
-        $aStatus = array( );
+        $aStatus = [ ];
 
-        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_IDENTICAL] = array( 'status' => 'identical', 'class'  => 'LightSteelBlue' );
-        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_UPDATED]   = array( 'status' => 'updated', 'class'  => 'DarkOrange' );
-        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_DELETED]   = array( 'status' => 'deleted', 'class'  => 'IndianRed' );
-        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_ADDED]     = array( 'status' => 'added', 'class'  => 'LimeGreen' );
+        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_IDENTICAL] = [ 'status' => 'identical', 'class'  => 'LightSteelBlue' ];
+        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_UPDATED]   = [ 'status' => 'updated', 'class'  => 'DarkOrange' ];
+        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_DELETED]   = [ 'status' => 'deleted', 'class'  => 'IndianRed' ];
+        $aStatus[\Foundation\Debug\Variable\CContainer::KEY_ADDED]     = [ 'status' => 'added', 'class'  => 'LimeGreen' ];
 
         $sReturn = '<thead>'
                 . '<tr>'
@@ -196,35 +192,29 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
                 . '</thead>'
                 . '<tbody>';
 
-        foreach( $data as $key => $value )
-        {
-            if( $key === 0 )
+        foreach ($data as $key => $value) {
+            if ($key === 0) {
                 continue;
+            }
 
             $sReturn .= '<tr style="background-color:' . $aStatus[$value['status']]['class'] . ';">'
-                    . '<td>' . htmlentities( $key, ENT_QUOTES, 'UTF-8' ) . '</td>'
+                    . '<td>' . htmlentities($key, ENT_QUOTES, 'UTF-8') . '</td>'
                     . '<td>' . $aStatus[$value['status']]['status'] . '</td>';
 
-            if( $value['status'] == \Foundation\Debug\Variable\CContainer::KEY_IDENTICAL )
-            {
+            if ($value['status'] == \Foundation\Debug\Variable\CContainer::KEY_IDENTICAL) {
                 // Identical
-                $sReturn .= '<td colspan="2">' . $this->format( $value['values']['start'] ) . '</td>';
-            }
-            else
-            {
+                $sReturn .= '<td colspan="2">' . $this->format($value['values']['start']) . '</td>';
+            } else {
                 // Updated or deleted or added
-                if( $value['values']['type'] == \Foundation\Debug\Variable\CContainer::VALUE_OTHERS )
-                {
+                if ($value['values']['type'] == \Foundation\Debug\Variable\CContainer::VALUE_OTHERS) {
                     // Scalar
-                    $sReturn .= '<td>' . $this->format( $value['values']['start'] ) . '</td>'
-                            . '<td>' . $this->format( $value['values']['end'] ) . '</td>';
-                }
-                else
-                {
+                    $sReturn .= '<td>' . $this->format($value['values']['start']) . '</td>'
+                            . '<td>' . $this->format($value['values']['end']) . '</td>';
+                } else {
                     // Arrays
                     $sReturn .= '<td colspan="2">'
                             . '<table>'
-                            . $this->parse( $value['values']['end'] )
+                            . $this->parse($value['values']['end'])
                             . '</table>'
                             . '</td>';
                 }
@@ -249,23 +239,24 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      *                                                         'end' => ... ) );
      * @return string
      */
-    public function renderVariable( $name, array $data )
+    public function renderVariable($name, array $data)
     {
         // Do not display
-        $aDoNotDisplay = array( 'COOKIE', 'SESSION' );
+        $aDoNotDisplay = [ 'COOKIE', 'SESSION' ];
         $sClass        = 'row';
 
         // Format name
-        $name   = ( is_string( $name ) ) ? strtoupper( trim( $name ) ) : 'NA';
-        if( in_array( $name, $aDoNotDisplay ) )
+        $name   = ( is_string($name) ) ? strtoupper(trim($name)) : 'NA';
+        if (in_array($name, $aDoNotDisplay)) {
             $sClass = 'row  hide-for-small';
+        }
 
         // Build
         $sReturn = '<div class="' . $sClass . '">'
                 . '<div class="large-12 columns">'
                 . '<table>'
-                . '<caption>' . htmlentities( $name, ENT_QUOTES, 'UTF-8' ) . '</caption>'
-                . $this->parse( $data )
+                . '<caption>' . htmlentities($name, ENT_QUOTES, 'UTF-8') . '</caption>'
+                . $this->parse($data)
                 . '</table>'
                 . '</div>'
                 . '</div>';
@@ -279,7 +270,7 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      * @param  array $options [OPTIONAL] List of options. Not used.
      * @return string
      */
-    public function renderPrecondition( array $options = array( ) )
+    public function renderPrecondition(array $options = [ ])
     {
         return '<div class="clearfix"></div>'
                 . '<hr />'
@@ -304,7 +295,7 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
      * @param array $aHeaders Sent headers
      * @return string
      */
-    public function renderHeader( array $aHeaders )
+    public function renderHeader(array $aHeaders)
     {
         $sReturn = '<div class="row">'
                 . '<div class="large-12 columns">'
@@ -318,18 +309,17 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
                 . '</thead>'
                 . '<tbody>';
 
-        foreach( $aHeaders as $header )
-        {
-            $header = trim( $header );
-            if( strlen( $header ) > 0 )
-            {
-                if( strpos( $header, ':' ) === FALSE )
+        foreach ($aHeaders as $header) {
+            $header = trim($header);
+            if (strlen($header) > 0) {
+                if (strpos($header, ':') === false) {
                     $header .= ':';
+                }
 
-                list( $sHeader, $sValue ) = explode( ':', $header, 2 );
+                list( $sHeader, $sValue ) = explode(':', $header, 2);
                 $sReturn .= '<tr>'
-                        . '<td>' . htmlentities( trim( $sHeader ), ENT_QUOTES, 'UTF-8' ) . '</td>'
-                        . '<td>' . htmlentities( trim( $sValue ), ENT_QUOTES, 'UTF-8' ) . '</td>'
+                        . '<td>' . htmlentities(trim($sHeader), ENT_QUOTES, 'UTF-8') . '</td>'
+                        . '<td>' . htmlentities(trim($sValue), ENT_QUOTES, 'UTF-8') . '</td>'
                         . '</tr>';
             }
         }
@@ -361,33 +351,34 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
                 . '<tbody>'
                 . '<tr>'
                 . '<td>name</td>'
-                . '<td>' . htmlentities( session_name(), ENT_QUOTES, 'UTF-8' ) . '</td>'
+                . '<td>' . htmlentities(session_name(), ENT_QUOTES, 'UTF-8') . '</td>'
                 . '</tr>'
                 . '<tr>'
                 . '<td>save path</td>'
-                . '<td>' . htmlentities( session_save_path(), ENT_QUOTES, 'UTF-8' ) . '</td>'
+                . '<td>' . htmlentities(session_save_path(), ENT_QUOTES, 'UTF-8') . '</td>'
                 . '</tr>'
                 . '<tr>'
                 . '<td>id</td>'
-                . '<td>' . htmlentities( session_id(), ENT_QUOTES, 'UTF-8' ) . '</td>'
+                . '<td>' . htmlentities(session_id(), ENT_QUOTES, 'UTF-8') . '</td>'
                 . '</tr>';
 
         // Current session status
-        if( function_exists( 'session_status' ) )
+        if (function_exists('session_status')) {
             $sReturn .= '<tr>'
                     . '<td>status</td>'
-                    . '<td>' . htmlentities( session_status(), ENT_QUOTES, 'UTF-8' ) . '</td>'
+                    . '<td>' . htmlentities(session_status(), ENT_QUOTES, 'UTF-8') . '</td>'
                     . '</tr>';
+        }
 
         // Current cookie parameters
         $aOptions = session_get_cookie_params();
-        foreach( $aOptions as $Option => $value )
-        {
-            if( is_bool( $value ) )
-                $value = (TRUE === $value) ? 'TRUE' : 'FALSE';
+        foreach ($aOptions as $Option => $value) {
+            if (is_bool($value)) {
+                $value = (true === $value) ? 'TRUE' : 'FALSE';
+            }
             $sReturn .= '<tr>'
-                    . '<td>' . htmlentities( $Option, ENT_QUOTES, 'UTF-8' ) . '</td>'
-                    . '<td>' . htmlentities( $value, ENT_QUOTES, 'UTF-8' ) . '</td>'
+                    . '<td>' . htmlentities($Option, ENT_QUOTES, 'UTF-8') . '</td>'
+                    . '<td>' . htmlentities($value, ENT_QUOTES, 'UTF-8') . '</td>'
                     . '</tr>';
         }
 
@@ -398,5 +389,4 @@ final class CHtmlFoundation extends \Foundation\Debug\Render\CRenderAbstract
 
         return $sReturn . PHP_EOL;
     }
-
 }

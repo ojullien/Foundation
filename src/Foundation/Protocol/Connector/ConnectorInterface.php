@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Connector;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Connector;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for protocol connector implementations.
@@ -41,7 +43,7 @@ interface ConnectorInterface
      * @throws \Foundation\Exception\RuntimeException If unable to connect.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function connect( $host, array $options = [ ] );
+    public function connect($host, array $options = [ ]);
 
     /**
      * Send request to the remote server. Returns TRUE on success or FALSE on failure.
@@ -53,7 +55,7 @@ interface ConnectorInterface
      * @throws \Foundation\Exception\RuntimeException If the connection does not exist.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function write( $url, array $options = [ ] );
+    public function write($url, array $options = [ ]);
 
     /**
      * Return the response from the remote server.

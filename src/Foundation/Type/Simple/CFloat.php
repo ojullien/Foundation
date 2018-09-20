@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type\Simple;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type\Simple;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class provides a float/double filter.
@@ -40,14 +42,17 @@ class CFloat extends \Foundation\Type\CTypeAbstract
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $value, array $options = [ ] )
+    public function __construct($value, array $options = [ ])
     {
-        $this->_sDebugID = uniqid( 'cfloat', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $value, $options ] );
-        $this->setOptions( $options );
-        $this->setValue( $value );
+        $this->_sDebugID = uniqid('cfloat', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $value, $options ]
+                );
+        $this->setOptions($options);
+        $this->setValue($value);
     }
 
     /** Numeric section
@@ -73,21 +78,20 @@ class CFloat extends \Foundation\Type\CTypeAbstract
      *
      * @return \Foundation\Type\Complex\CFloat
      */
-    final protected function setOptions( array $options )
+    final protected function setOptions(array $options)
     {
-        if( !empty( $options ) )
-        {
-            $this->_aOptions = array_filter( array_intersect_key( $options,
-                                                                  [
+        if (! empty($options)) {
+            $this->_aOptions = array_filter(array_intersect_key(
+                $options,
+                [
                 '<'  => 0,
                 '<=' => 0,
                 '>'  => 0,
                 '>=' => 0,
                 '='  => 0,
-                '!=' => 0 ] ), 'is_numeric' );
-        }
-        else
-        {
+                '!=' => 0 ]
+            ), 'is_numeric');
+        } else {
             $this->_aOptions = [ ];
         }
 
@@ -100,54 +104,53 @@ class CFloat extends \Foundation\Type\CTypeAbstract
      * @param numeric $value The value to write.
      * @return boolean
      */
-    final protected function setNumeric( $value )
+    final protected function setNumeric($value)
     {
         // Initialize
-        $this->_Value = NULL;
+        $this->_Value = null;
 
         // Check value
-        if( is_numeric( $value ) )
-        {
+        if (is_numeric($value)) {
             // Numeric case - Cast
             $value = $value + 0;
 
             // Test options
-            foreach( $this->_aOptions as $sOperator => $iOperand )
-            {
+            foreach ($this->_aOptions as $sOperator => $iOperand) {
                 // Applies operators
-                switch( $sOperator )
-                {
+                switch ($sOperator) {
                     case '<':
-                        $value = ( $value < $iOperand ) ? $value : FALSE;
+                        $value = ( $value < $iOperand ) ? $value : false;
                         break;
                     case '<=':
-                        $value = ( $value <= $iOperand ) ? $value : FALSE;
+                        $value = ( $value <= $iOperand ) ? $value : false;
                         break;
                     case '>':
-                        $value = ( $value > $iOperand ) ? $value : FALSE;
+                        $value = ( $value > $iOperand ) ? $value : false;
                         break;
                     case '>=':
-                        $value = ( $value >= $iOperand ) ? $value : FALSE;
+                        $value = ( $value >= $iOperand ) ? $value : false;
                         break;
                     case '!=':
-                        $value = ( $value != $iOperand ) ? $value : FALSE;
+                        $value = ( $value != $iOperand ) ? $value : false;
                         break;
                     default:
-                        $value = ( $value == $iOperand ) ? $value : FALSE;
+                        $value = ( $value == $iOperand ) ? $value : false;
                         break;
                 }
 
                 // Error case
-                if( FALSE === $value )
+                if (false === $value) {
                     break;
+                }
             }
 
             // Ok
-            if( FALSE !== $value )
+            if (false !== $value) {
                 $this->_Value = $value;
+            }
         }
 
-        return isset( $this->_Value );
+        return isset($this->_Value);
     }
 
     /** Type section
@@ -159,22 +162,18 @@ class CFloat extends \Foundation\Type\CTypeAbstract
      * @param numeric $value The value to write.
      * @return \Foundation\Type\TypeInterface
      */
-    public function setValue( $value )
+    public function setValue($value)
     {
         // Convert the value
-        if( $value instanceof \Foundation\Type\TypeInterface )
-        {
+        if ($value instanceof \Foundation\Type\TypeInterface) {
             $value = $value->getValue();
-        }
-        elseif( is_string( $value ) )
-        {
-            $value = trim( $value );
+        } elseif (is_string($value)) {
+            $value = trim($value);
         }
 
         // Write the value
-        $this->setNumeric( $value );
+        $this->setNumeric($value);
 
         return $this;
     }
-
 }

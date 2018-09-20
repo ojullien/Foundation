@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Session\Config;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Session\Config;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Session cookie parameters and configuration.
@@ -51,9 +53,9 @@ final class CCookie
      */
     public function __construct()
     {
-        $this->_sDebugID = uniqid( 'ccookie', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ ] );
+        $this->_sDebugID = uniqid('ccookie', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ ]);
     }
 
     /**
@@ -63,8 +65,8 @@ final class CCookie
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -75,9 +77,9 @@ final class CCookie
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -87,9 +89,9 @@ final class CCookie
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -99,7 +101,7 @@ final class CCookie
      */
     public function __toString()
     {
-        return serialize( session_get_cookie_params() );
+        return serialize(session_get_cookie_params());
     }
 
     /** session.use_cookies methods
@@ -111,22 +113,18 @@ final class CCookie
      * @param string $option
      * @return boolean Returns TRUE on success, FALSE on failure.
      */
-    private function setUse( $option )
+    private function setUse($option)
     {
-        $option = ( is_string( $option ) ) ? trim( $option ) : '';
-        if( '' != $option )
-        {
+        $option = ( is_string($option) ) ? trim($option) : '';
+        if ('' != $option) {
             $option  = 'session.' . $option;
-            $bReturn = (bool)ini_get( $option );
-            if( !$bReturn )
-            {
-                ini_set( $option, TRUE );
-                $bReturn = (bool)ini_get( $option );
+            $bReturn = (bool)ini_get($option);
+            if (! $bReturn) {
+                ini_set($option, true);
+                $bReturn = (bool)ini_get($option);
             }
-        }
-        else
-        {
-            $bReturn = FALSE;
+        } else {
+            $bReturn = false;
         }
         return $bReturn;
     }
@@ -141,10 +139,10 @@ final class CCookie
      *                       "until the browser is closed."
      * @return mixed Returns the value on success, FALSE on failure.
      */
-    private function verifyLifetime( $value )
+    private function verifyLifetime($value)
     {
-        $value = ( is_numeric( $value ) ) ? $value + 0 : FALSE;
-        return ( is_integer( $value ) && ( $value >= 0 ) ? $value : FALSE );
+        $value = ( is_numeric($value) ) ? $value + 0 : false;
+        return ( is_integer($value) && ( $value >= 0 ) ? $value : false );
     }
 
     /** session.cookie_path methods
@@ -156,20 +154,16 @@ final class CCookie
      * @param string $value Path on the domain where the cookie will work.
      * @return mixed Returns the value on success, FALSE on failure.
      */
-    private function verifyPath( $value )
+    private function verifyPath($value)
     {
-        if( is_string( $value ) )
-        {
-            $value   = trim( $value );
-            $sReturn = parse_url( $value, PHP_URL_PATH );
-            if( $sReturn != $value )
-            {
-                $sReturn = FALSE;
+        if (is_string($value)) {
+            $value   = trim($value);
+            $sReturn = parse_url($value, PHP_URL_PATH);
+            if ($sReturn != $value) {
+                $sReturn = false;
             }
-        }
-        else
-        {
-            $sReturn = FALSE;
+        } else {
+            $sReturn = false;
         }
         return $sReturn;
     }
@@ -184,9 +178,9 @@ final class CCookie
      *                      domain must be prefixed with a dot like '.php.net'.
      * @return mixed Returns the value on success, FALSE on failure.
      */
-    private function verifyDomain( $value )
+    private function verifyDomain($value)
     {
-        return ( is_string( $value ) ) ? trim( $value ) : FALSE;
+        return ( is_string($value) ) ? trim($value) : false;
     }
 
     /** Cookie parameters methods
@@ -224,73 +218,79 @@ final class CCookie
      * @throws \Foundation\Exception\DomainException If we could not use cookie and only cookie.
      * @throws \Foundation\Exception\InvalidArgumentException If an argument is not valid.
      */
-    public function setCookieParams( array $parameters )
+    public function setCookieParams(array $parameters)
     {
         // Cannot change the cookie parameters if the session is already started.
-        if( strlen( session_id() ) > 0 )
-            throw new \Foundation\Exception\BadMethodCallException( 'Cannot change the session cookie parameters if the session is already started.' );
+        if (strlen(session_id()) > 0) {
+            throw new \Foundation\Exception\BadMethodCallException('Cannot change the session cookie parameters if the session is already started.');
+        }
 
         // For security issues we must use cookie and only cookie.
-        if( !$this->setUse( 'use_cookies' ) || !$this->setUse( 'use_only_cookies' ) )
-            throw new \Foundation\Exception\DomainException( 'Session cookie cannot be initialized.' );
+        if (! $this->setUse('use_cookies') || ! $this->setUse('use_only_cookies')) {
+            throw new \Foundation\Exception\DomainException('Session cookie cannot be initialized.');
+        }
 
         // Get the current session cookie parameters.
         $aCurrentParameters = session_get_cookie_params();
 
         // Cannot change the cookie lifetime parameter if the value is not valid.
-        if( isset( $parameters['lifetime'] ) )
-        {
-            $value = $this->verifyLifetime( $parameters['lifetime'] );
-            if( !$value )
-                throw new \Foundation\Exception\InvalidArgumentException( 'session.cookie_lifetime is not valid.' );
+        if (isset($parameters['lifetime'])) {
+            $value = $this->verifyLifetime($parameters['lifetime']);
+            if (! $value) {
+                throw new \Foundation\Exception\InvalidArgumentException('session.cookie_lifetime is not valid.');
+            }
 
             $aCurrentParameters['lifetime'] = $value;
         }
 
         // Cannot change the cookie path parameter if the value is not valid.
-        if( isset( $parameters['path'] ) )
-        {
-            $value = $this->verifyPath( $parameters['path'] );
-            if( !$value )
-                throw new \Foundation\Exception\InvalidArgumentException( 'session.cookie_path is not valid.' );
+        if (isset($parameters['path'])) {
+            $value = $this->verifyPath($parameters['path']);
+            if (! $value) {
+                throw new \Foundation\Exception\InvalidArgumentException('session.cookie_path is not valid.');
+            }
 
             $aCurrentParameters['path'] = $value;
         }
 
         // Cannot change the cookie domain parameter if the value is not valid.
-        if( isset( $parameters['domain'] ) )
-        {
-            $value = $this->verifyDomain( $parameters['domain'] );
-            if( !$value )
-                throw new \Foundation\Exception\InvalidArgumentException( 'session.cookie_domain is not valid.' );
+        if (isset($parameters['domain'])) {
+            $value = $this->verifyDomain($parameters['domain']);
+            if (! $value) {
+                throw new \Foundation\Exception\InvalidArgumentException('session.cookie_domain is not valid.');
+            }
 
             $aCurrentParameters['domain'] = $value;
         }
 
         // Cannot change the cookie secure parameter if the value is not valid.
-        if( isset( $parameters['secure'] ) )
-        {
+        if (isset($parameters['secure'])) {
             $value = $parameters['secure'];
-            if( !is_bool( $value ) )
-                throw new \Foundation\Exception\InvalidArgumentException( 'session.cookie_secure is not valid.' );
+            if (! is_bool($value)) {
+                throw new \Foundation\Exception\InvalidArgumentException('session.cookie_secure is not valid.');
+            }
 
             $aCurrentParameters['secure'] = $value;
         }
 
         // Cannot change the cookie http only parameter if the value is not valid.
-        if( isset( $parameters['httponly'] ) )
-        {
+        if (isset($parameters['httponly'])) {
             $value = $parameters['httponly'];
-            if( !is_bool( $value ) )
-                throw new \Foundation\Exception\InvalidArgumentException( 'session.cookie_httponly is not valid.' );
+            if (! is_bool($value)) {
+                throw new \Foundation\Exception\InvalidArgumentException('session.cookie_httponly is not valid.');
+            }
 
             $aCurrentParameters['httponly'] = $value;
         }
 
         // Set the session cookie parameters.
-        session_set_cookie_params( $aCurrentParameters['lifetime'], $aCurrentParameters['path'],
-                                   $aCurrentParameters['domain'], $aCurrentParameters['secure'],
-                                   $aCurrentParameters['httponly'] );
+        session_set_cookie_params(
+            $aCurrentParameters['lifetime'],
+            $aCurrentParameters['path'],
+            $aCurrentParameters['domain'],
+            $aCurrentParameters['secure'],
+            $aCurrentParameters['httponly']
+        );
     }
 
     /**
@@ -301,21 +301,23 @@ final class CCookie
      * @throws \Foundation\Exception\BadMethodCallException If the session is already started.
      * @throws \Foundation\Exception\InvalidArgumentException If the session name is not valid.
      */
-    public function setSavePath( $path )
+    public function setSavePath($path)
     {
         // Cannot change the session name if the session is already started.
-        if( strlen( session_id() ) > 0 )
-            throw new \Foundation\Exception\BadMethodCallException( 'Cannot change the session data path if the session is already started.' );
+        if (strlen(session_id()) > 0) {
+            throw new \Foundation\Exception\BadMethodCallException('Cannot change the session data path if the session is already started.');
+        }
 
         // Check the argument.
-        $pValidator = new \Foundation\Type\Complex\CPath( $path );
+        $pValidator = new \Foundation\Type\Complex\CPath($path);
         $path       = $pValidator->getRealPath();
-        unset( $pValidator );
-        if( !$path )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The session data path is not valid.' );
+        unset($pValidator);
+        if (! $path) {
+            throw new \Foundation\Exception\InvalidArgumentException('The session data path is not valid.');
+        }
 
         // Save the session data path.
-        session_save_path( $path );
+        session_save_path($path);
     }
 
     /**
@@ -327,5 +329,4 @@ final class CCookie
     {
         return session_save_path();
     }
-
 }

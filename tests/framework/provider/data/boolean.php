@@ -2,7 +2,7 @@
 return [
     [
         'label' => 'TEST: boolean TRUE',
-        'test'  => TRUE ],
+        'test'  => true ],
     [
         'label' => 'TEST: boolean FALSE',
-        'test'  => FALSE ] ];
+        'test'  => false ] ];

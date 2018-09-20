@@ -9,10 +9,10 @@ final class CValidateEmailVar extends \Foundation\Form\CValidatorAbstract
     /**
      * Constructor.
      */
-    public function __construct( array $aDefinition, $bCheckDNS = FALSE )
+    public function __construct(array $aDefinition, $bCheckDNS = false)
     {
-        parent::__construct( $aDefinition );
-        $this->_aKeyDefinition = array_keys( $aDefinition );
+        parent::__construct($aDefinition);
+        $this->_aKeyDefinition = array_keys($aDefinition);
         $this->_bCheckDNS      = $bCheckDNS;
     }
 
@@ -32,10 +32,9 @@ final class CValidateEmailVar extends \Foundation\Form\CValidatorAbstract
      */
     public function isValid()
     {
-        $bReturn = TRUE;
-        foreach( $this->_aKeyDefinition as $sKey )
-        {
-            $bReturn = $bReturn && $this->validateEmailVar( $sKey, $sKey, $this->_bCheckDNS );
+        $bReturn = true;
+        foreach ($this->_aKeyDefinition as $sKey) {
+            $bReturn = $bReturn && $this->validateEmailVar($sKey, $sKey, $this->_bCheckDNS);
         }
         return $bReturn;
     }
@@ -55,6 +54,5 @@ final class CValidateEmailVar extends \Foundation\Form\CValidatorAbstract
      *
      * @var boolean
      */
-    private $_bCheckDNS = FALSE;
-
+    private $_bCheckDNS = false;
 }

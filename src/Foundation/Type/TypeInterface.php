@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for type implementation.
@@ -27,7 +29,7 @@ interface TypeInterface
      * @param mixed $value The value to write.
      * @return \Foundation\Type\TypeInterface
      */
-    public function setValue( $value );
+    public function setValue($value);
 
     /**
      * Reads data from variable.

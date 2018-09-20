@@ -1,14 +1,17 @@
 <?php
 namespace Foundation\Test\Loader;
-defined( 'FOUNDATION_EXCEPTION_PATH' ) || define( 'FOUNDATION_EXCEPTION_PATH',
-                                                  APPLICATION_PATH . '/src/Foundation/Exception' );
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php' ) );
-class_exists( '\Foundation\Exception\BadMethodCallException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php' ) );
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php' ) );
 
-defined( 'FOUNDATION_LOADER_PATH' ) || define( 'FOUNDATION_LOADER_PATH', APPLICATION_PATH . '/src/Foundation/Loader' );
-interface_exists( '\Foundation\Loader\LoaderInterface' ) || require( realpath( FOUNDATION_LOADER_PATH . '/LoaderInterface.php' ) );
-class_exists( '\Foundation\Loader\CClassMapLoader' ) || require( realpath( FOUNDATION_LOADER_PATH . '/CClassMapLoader.php' ) );
+defined('FOUNDATION_EXCEPTION_PATH') || define(
+    'FOUNDATION_EXCEPTION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Exception'
+);
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php'));
+class_exists('\Foundation\Exception\BadMethodCallException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php'));
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php'));
+
+defined('FOUNDATION_LOADER_PATH') || define('FOUNDATION_LOADER_PATH', APPLICATION_PATH . '/src/Foundation/Loader');
+interface_exists('\Foundation\Loader\LoaderInterface') || require(realpath(FOUNDATION_LOADER_PATH . '/LoaderInterface.php'));
+class_exists('\Foundation\Loader\CClassMapLoader') || require(realpath(FOUNDATION_LOADER_PATH . '/CClassMapLoader.php'));
 
 class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,8 +41,7 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
     {
         // Store original autoloaders
         $this->_aLoaders = spl_autoload_functions();
-        if( !is_array( $this->_aLoaders ) )
-        {
+        if (! is_array($this->_aLoaders)) {
             // spl_autoload_functions does not return empty array when no
             // autoloaders registered...
             $this->_aLoaders = [ ];
@@ -58,23 +60,20 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
     {
         // Restore original autoloaders
         $loaders = spl_autoload_functions();
-        if( is_array( $loaders ) )
-        {
-            foreach( $loaders as $loader )
-            {
-                spl_autoload_unregister( $loader );
+        if (is_array($loaders)) {
+            foreach ($loaders as $loader) {
+                spl_autoload_unregister($loader);
             }
         }
 
-        foreach( $this->_aLoaders as $loader )
-        {
-            spl_autoload_register( $loader );
+        foreach ($this->_aLoaders as $loader) {
+            spl_autoload_register($loader);
         }
 
         // Restore original include_path
-        set_include_path( $this->_sIncludePath );
+        set_include_path($this->_sIncludePath);
 
-        $this->_pLoader = NULL;
+        $this->_pLoader = null;
     }
 
     /**
@@ -85,7 +84,7 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
     public function testRegisteringNonExistentAutoloadMapRaisesInvalidArgumentException()
     {
         $file = __DIR__ . '__foobar__';
-        $this->_pLoader->setOptions( [ $file ] );
+        $this->_pLoader->setOptions([ $file ]);
     }
 
     /**
@@ -99,7 +98,7 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
                 . DIRECTORY_SEPARATOR . 'Providers'
                 . DIRECTORY_SEPARATOR . 'loader'
                 . DIRECTORY_SEPARATOR . 'badmap.php';
-        $this->_pLoader->setOptions( [ $file ] );
+        $this->_pLoader->setOptions([ $file ]);
     }
 
     /**
@@ -108,14 +107,14 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllowsRegisteringArrayAutoloadMapDirectly()
     {
-        $map  = array(
+        $map  = [
             'Foundation\Exception\UnderflowException' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'src'
             . DIRECTORY_SEPARATOR . 'Foundation'
             . DIRECTORY_SEPARATOR . 'Exception'
-            . DIRECTORY_SEPARATOR . 'UnderflowException.php' );
-        $this->_pLoader->setOptions( [ $map ] );
+            . DIRECTORY_SEPARATOR . 'UnderflowException.php' ];
+        $this->_pLoader->setOptions([ $map ]);
         $test = $this->_pLoader->getAutoloadMap();
-        $this->assertSame( $map, $test );
+        $this->assertSame($map, $test);
     }
 
     /**
@@ -124,14 +123,14 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllowsRegisteringArrayAutoloadMapViaConstructor()
     {
-        $map    = array(
+        $map    = [
             'Foundation\Exception\UnderflowException' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'src'
             . DIRECTORY_SEPARATOR . 'Foundation'
             . DIRECTORY_SEPARATOR . 'Exception'
-            . DIRECTORY_SEPARATOR . 'UnderflowException.php' );
-        $loader = new \Foundation\Loader\CClassMapLoader( [ $map ] );
+            . DIRECTORY_SEPARATOR . 'UnderflowException.php' ];
+        $loader = new \Foundation\Loader\CClassMapLoader([ $map ]);
         $test   = $loader->getAutoloadMap();
-        $this->assertSame( $map, $test );
+        $this->assertSame($map, $test);
     }
 
     /**
@@ -144,17 +143,17 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
                 . DIRECTORY_SEPARATOR . 'Providers'
                 . DIRECTORY_SEPARATOR . 'loader'
                 . DIRECTORY_SEPARATOR . 'goodmap.php';
-        $this->_pLoader->setOptions( [ $file ] );
+        $this->_pLoader->setOptions([ $file ]);
         $map1 = $this->_pLoader->getAutoloadMap();
-        $this->assertTrue( is_array( $map1 ) );
-        $this->assertEquals( 2, count( $map1 ) );
+        $this->assertTrue(is_array($map1));
+        $this->assertEquals(2, count($map1));
         // Just to make sure nothing changes after loading the same map again
         // (loadMapFromFile should just return)
-        $this->_pLoader->setOptions( [ $file ] );
+        $this->_pLoader->setOptions([ $file ]);
         $map2 = $this->_pLoader->getAutoloadMap();
-        $this->assertTrue( is_array( $map2 ) );
-        $this->assertEquals( 2, count( $map2 ) );
-        $this->assertSame( $map1, $map2 );
+        $this->assertTrue(is_array($map2));
+        $this->assertEquals(2, count($map2));
+        $this->assertSame($map1, $map2);
     }
 
     /**
@@ -167,24 +166,26 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
                 . DIRECTORY_SEPARATOR . 'Foundation'
                 . DIRECTORY_SEPARATOR . 'Exception';
 
-        $map = array(
+        $map = [
             'Foundation\Exception\OutOfBoundsException' => $exceptionPath . DIRECTORY_SEPARATOR . 'OutOfBoundsException.php',
-            'Foundation\Exception\UnderflowException'   => $exceptionPath . DIRECTORY_SEPARATOR . 'bogus.php' );
+            'Foundation\Exception\UnderflowException'   => $exceptionPath . DIRECTORY_SEPARATOR . 'bogus.php' ];
 
-        $this->_pLoader->setOptions( [ $map ] );
+        $this->_pLoader->setOptions([ $map ]);
 
         $file = APPLICATION_PATH . DIRECTORY_SEPARATOR . 'tests'
                 . DIRECTORY_SEPARATOR . 'Providers'
                 . DIRECTORY_SEPARATOR . 'loader'
                 . DIRECTORY_SEPARATOR . 'goodmap.php';
 
-        $this->_pLoader->setOptions( [ $file ] );
+        $this->_pLoader->setOptions([ $file ]);
 
         $test = $this->_pLoader->getAutoloadMap();
-        $this->assertTrue( is_array( $test ) );
-        $this->assertEquals( 3, count( $test ) );
-        $this->assertNotEquals( $map['Foundation\Exception\UnderflowException'],
-                                $test['Foundation\Exception\UnderflowException'] );
+        $this->assertTrue(is_array($test));
+        $this->assertEquals(3, count($test));
+        $this->assertNotEquals(
+            $map['Foundation\Exception\UnderflowException'],
+            $test['Foundation\Exception\UnderflowException']
+        );
     }
 
     /**
@@ -206,11 +207,11 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
                 . DIRECTORY_SEPARATOR . 'loader'
                 . DIRECTORY_SEPARATOR . 'goodmap.php';
 
-        $this->_pLoader->setOptions( [ $map, $file ] );
+        $this->_pLoader->setOptions([ $map, $file ]);
 
         $test = $this->_pLoader->getAutoloadMap();
-        $this->assertTrue( is_array( $test ) );
-        $this->assertEquals( 3, count( $test ) );
+        $this->assertTrue(is_array($test));
+        $this->assertEquals(3, count($test));
     }
 
     /**
@@ -219,21 +220,15 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterMapsThrowsExceptionForNonTraversableArguments()
     {
-        $tests = [ true, NULL, 1, 1.0, new \stdClass ];
-        foreach( $tests as $test )
-        {
-            try
-            {
-                $this->_pLoader->setOptions( array( $test ) );
-                $this->fail( 'Should not register non-traversable arguments' );
-            }
-            catch( \Foundation\Exception\InvalidArgumentException $exc )
-            {
-                $this->assertTrue( TRUE );
-            }
-            catch( \Exception $exc )
-            {
-                $this->fail( $label . ' No the expected exception.' );
+        $tests = [ true, null, 1, 1.0, new \stdClass ];
+        foreach ($tests as $test) {
+            try {
+                $this->_pLoader->setOptions([ $test ]);
+                $this->fail('Should not register non-traversable arguments');
+            } catch (\Foundation\Exception\InvalidArgumentException $exc) {
+                $this->assertTrue(true);
+            } catch (\Exception $exc) {
+                $this->fail($label . ' No the expected exception.');
             }
         }
     }
@@ -248,11 +243,11 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
                 . DIRECTORY_SEPARATOR . 'Providers'
                 . DIRECTORY_SEPARATOR . 'loader'
                 . DIRECTORY_SEPARATOR . 'ClassMappedClass.php';
-        $map    = array( 'FoundationTest\UnusualNamespace\ClassMappedClass' => $file );
-        $this->_pLoader->setOptions( [ $map ] );
-        $loaded = $this->_pLoader->autoload( 'FoundationTest\UnusualNamespace\ClassMappedClass' );
-        $this->assertSame( 'FoundationTest\UnusualNamespace\ClassMappedClass', $loaded );
-        $this->assertTrue( class_exists( 'FoundationTest\UnusualNamespace\ClassMappedClass', false ) );
+        $map    = [ 'FoundationTest\UnusualNamespace\ClassMappedClass' => $file ];
+        $this->_pLoader->setOptions([ $map ]);
+        $loaded = $this->_pLoader->autoload('FoundationTest\UnusualNamespace\ClassMappedClass');
+        $this->assertSame('FoundationTest\UnusualNamespace\ClassMappedClass', $loaded);
+        $this->assertTrue(class_exists('FoundationTest\UnusualNamespace\ClassMappedClass', false));
     }
 
     /**
@@ -265,10 +260,10 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
                 . DIRECTORY_SEPARATOR . 'Providers'
                 . DIRECTORY_SEPARATOR . 'loader'
                 . DIRECTORY_SEPARATOR . 'ClassMappedClass.php';
-        $map  = array( 'FoundationTest\UnusualNamespace\ClassMappedClass' => $file );
-        $this->_pLoader->setOptions( [ $map ] );
-        $this->assertFalse( $this->_pLoader->autoload( 'FoundationTest\UnusualNamespace\UnMappedClass' ) );
-        $this->assertFalse( class_exists( 'FoundationTest\UnusualNamespace\UnMappedClass', false ) );
+        $map  = [ 'FoundationTest\UnusualNamespace\ClassMappedClass' => $file ];
+        $this->_pLoader->setOptions([ $map ]);
+        $this->assertFalse($this->_pLoader->autoload('FoundationTest\UnusualNamespace\UnMappedClass'));
+        $this->assertFalse(class_exists('FoundationTest\UnusualNamespace\UnMappedClass', false));
     }
 
     /**
@@ -279,9 +274,8 @@ class CClassMapLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->_pLoader->register();
         $loaders = spl_autoload_functions();
-        $this->assertTrue( count( $this->_aLoaders ) < count( $loaders ) );
-        $test    = array_shift( $loaders );
-        $this->assertEquals( array( $this->_pLoader, 'autoload' ), $test );
+        $this->assertTrue(count($this->_aLoaders) < count($loaders));
+        $test    = array_shift($loaders);
+        $this->assertEquals([ $this->_pLoader, 'autoload' ], $test);
     }
-
 }

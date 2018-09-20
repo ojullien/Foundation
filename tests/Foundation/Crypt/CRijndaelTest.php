@@ -1,10 +1,11 @@
 <?php
 namespace Test\Foundation\Crypt;
-trait_exists( '\Test\Foundation\Crypt\Provider\TCryptDataProvider' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Crypt/Provider/TCryptDataProvider.php' ) );
 
-interface_exists( '\Foundation\Crypt\CypherInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Crypt/CypherInterface.php' ) );
-class_exists( '\Foundation\Crypt\CMcryptAbstract' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Crypt/CMcryptAbstract.php' ) );
-class_exists( '\Foundation\Crypt\CRijndael' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Crypt/CRijndael.php' ) );
+trait_exists('\Test\Foundation\Crypt\Provider\TCryptDataProvider') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Crypt/Provider/TCryptDataProvider.php'));
+
+interface_exists('\Foundation\Crypt\CypherInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Crypt/CypherInterface.php'));
+class_exists('\Foundation\Crypt\CMcryptAbstract') || require(realpath(APPLICATION_PATH . '/src/Foundation/Crypt/CMcryptAbstract.php'));
+class_exists('\Foundation\Crypt\CRijndael') || require(realpath(APPLICATION_PATH . '/src/Foundation/Crypt/CRijndael.php'));
 
 class CRijndaelTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,8 +23,8 @@ class CRijndaelTest extends \PHPUnit_Framework_TestCase
     public function testEncryptDataException()
     {
         $pCypher = new \Foundation\Crypt\CRijndael();
-        $pCypher->encrypt( '  ' );
-        unset( $pCypher );
+        $pCypher->encrypt('  ');
+        unset($pCypher);
     }
 
     /**
@@ -34,8 +35,8 @@ class CRijndaelTest extends \PHPUnit_Framework_TestCase
     public function testEncryptKeyException()
     {
         $pCypher = new \Foundation\Crypt\CRijndael();
-        $pCypher->encrypt( 'not empty' );
-        unset( $pCypher );
+        $pCypher->encrypt('not empty');
+        unset($pCypher);
     }
 
     /**
@@ -46,8 +47,8 @@ class CRijndaelTest extends \PHPUnit_Framework_TestCase
     public function testDecryptDataException()
     {
         $pCypher = new \Foundation\Crypt\CRijndael();
-        $pCypher->decrypt( '  ' );
-        unset( $pCypher );
+        $pCypher->decrypt('  ');
+        unset($pCypher);
     }
 
     /**
@@ -58,8 +59,8 @@ class CRijndaelTest extends \PHPUnit_Framework_TestCase
     public function testDecryptKeyException()
     {
         $pCypher = new \Foundation\Crypt\CRijndael();
-        $pCypher->decrypt( 'not empty' );
-        unset( $pCypher );
+        $pCypher->decrypt('not empty');
+        unset($pCypher);
     }
 
     /**
@@ -67,17 +68,17 @@ class CRijndaelTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCryptData
      */
-    public function testEncryptDecrypt( $sLabel, $sData )
+    public function testEncryptDecrypt($sLabel, $sData)
     {
         $pCypherIn  = new \Foundation\Crypt\CRijndael();
-        $sEncrypted = $pCypherIn->setkey( $this->getCryptKey() )->encrypt( $sData );
-        unset( $pCypherIn );
+        $sEncrypted = $pCypherIn->setkey($this->getCryptKey())->encrypt($sData);
+        unset($pCypherIn);
 
         $pCypherOut = new \Foundation\Crypt\CRijndael();
-        $sDecrypted = $pCypherOut->setkey( $this->getCryptKey() )->decrypt( $sEncrypted );
-        unset( $pCypherOut );
+        $sDecrypted = $pCypherOut->setkey($this->getCryptKey())->decrypt($sEncrypted);
+        unset($pCypherOut);
 
-        $this->assertSame( $sData, $sDecrypted, $sLabel );
+        $this->assertSame($sData, $sDecrypted, $sLabel);
     }
 
     /**
@@ -87,14 +88,13 @@ class CRijndaelTest extends \PHPUnit_Framework_TestCase
     {
         static $sData      = 'cryptmeplease';
         $pCypherIn  = new \Foundation\Crypt\CRijndael();
-        $sEncrypted = $pCypherIn->setkey( 'thegoodkey' )->encrypt( $sData );
-        unset( $pCypherIn );
+        $sEncrypted = $pCypherIn->setkey('thegoodkey')->encrypt($sData);
+        unset($pCypherIn);
 
         $pCypherOut = new \Foundation\Crypt\CRijndael();
-        $sDecrypted = $pCypherOut->setkey( 'thefalsekey' )->decrypt( $sEncrypted );
-        unset( $pCypherOut );
+        $sDecrypted = $pCypherOut->setkey('thefalsekey')->decrypt($sEncrypted);
+        unset($pCypherOut);
 
-        $this->assertNotSame( $sData, $sDecrypted );
+        $this->assertNotSame($sData, $sDecrypted);
     }
-
 }

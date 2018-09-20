@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Gd;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Gd;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class enforces strong typing of the RGBA color type.
@@ -41,34 +43,42 @@ final class CColor
      * @throws \Foundation\Exception\InvalidArgumentException if the parameter is not valid.
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $red, $green, $blue, $transparency )
+    public function __construct($red, $green, $blue, $transparency)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'ccolor', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $red, $green, $blue, $transparency ] );
+        $this->_sDebugID = uniqid('ccolor', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $red, $green, $blue, $transparency ]
+                );
         //@codeCoverageIgnoreEnd
 
-        $red          = (is_numeric( $red ) ) ? (int)($red + 0) : NULL;
-        $green        = (is_numeric( $green ) ) ? (int)($green + 0) : NULL;
-        $blue         = (is_numeric( $blue ) ) ? (int)($blue + 0) : NULL;
-        $transparency = (is_numeric( $transparency ) ) ? (int)($transparency + 0) : NULL;
+        $red          = (is_numeric($red) ) ? (int)($red + 0) : null;
+        $green        = (is_numeric($green) ) ? (int)($green + 0) : null;
+        $blue         = (is_numeric($blue) ) ? (int)($blue + 0) : null;
+        $transparency = (is_numeric($transparency) ) ? (int)($transparency + 0) : null;
 
-        if( is_int( $red ) && ($red >= 0) && ($red <= 255) )
+        if (is_int($red) && ($red >= 0) && ($red <= 255)) {
             $this->_iRed = $red;
+        }
 
-        if( is_int( $green ) && ($green >= 0) && ($green <= 255) )
+        if (is_int($green) && ($green >= 0) && ($green <= 255)) {
             $this->_iGreen = $green;
+        }
 
-        if( is_int( $blue ) && ($blue >= 0) && ($blue <= 255) )
+        if (is_int($blue) && ($blue >= 0) && ($blue <= 255)) {
             $this->_iBlue = $blue;
+        }
 
-        if( is_int( $transparency ) && ($transparency >= 0) && ($transparency <= 127) )
+        if (is_int($transparency) && ($transparency >= 0) && ($transparency <= 127)) {
             $this->_iTransparency = $transparency;
+        }
 
-        if( !isset( $this->_iRed ) || !isset( $this->_iGreen ) || !isset( $this->_iBlue ) || !isset( $this->_iTransparency ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'Invalid color.' );
+        if (! isset($this->_iRed) || ! isset($this->_iGreen) || ! isset($this->_iBlue) || ! isset($this->_iTransparency)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Invalid color.');
+        }
     }
 
     /**
@@ -79,8 +89,8 @@ final class CColor
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -91,9 +101,9 @@ final class CColor
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -103,9 +113,9 @@ final class CColor
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -115,11 +125,11 @@ final class CColor
      */
     public function __toString()
     {
-        return serialize( [
+        return serialize([
             'red'          => (string)$this->_iRed,
             'green'        => (string)$this->_iGreen,
             'blue'         => (string)$this->_iBlue,
-            'transparency' => (string)$this->_iTransparency ] );
+            'transparency' => (string)$this->_iTransparency ]);
     }
 
     /** Color section
@@ -129,25 +139,25 @@ final class CColor
      * Red light value.
      * @var integer
      */
-    private $_iRed = NULL;
+    private $_iRed = null;
 
     /**
      * Green light value.
      * @var integer
      */
-    private $_iGreen = NULL;
+    private $_iGreen = null;
 
     /**
      * Blue light value.
      * @var integer
      */
-    private $_iBlue = NULL;
+    private $_iBlue = null;
 
     /**
      * Transparency value.
      * @var integer
      */
-    private $_iTransparency = NULL;
+    private $_iTransparency = null;
 
     /**
      * Get red color.
@@ -188,5 +198,4 @@ final class CColor
     {
         return $this->_iTransparency;
     }
-
 }

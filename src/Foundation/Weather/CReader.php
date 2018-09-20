@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Weather;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Weather;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods to read weather data from a file.
@@ -39,13 +41,17 @@ final class CReader
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      * @codeCoverageIgnore
      */
-    public function __construct( \Foundation\Protocol\Connector\ConnectorInterface $connector,
-                                 \Foundation\Weather\Converter\ConverterInterface $converter )
-    {
-        $this->_sDebugID = uniqid( 'CReader', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 array( $connector, $converter ) );
+    public function __construct(
+        \Foundation\Protocol\Connector\ConnectorInterface $connector,
+        \Foundation\Weather\Converter\ConverterInterface $converter
+    ) {
+        $this->_sDebugID = uniqid('CReader', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $connector, $converter ]
+                );
 
         // Attach the connector
         $this->_pConnector = $connector;
@@ -54,19 +60,19 @@ final class CReader
         $this->_pConverter = $converter;
 
         // Set default connector options
-        $this->_aConnectorOptionsConnect = array(
-            CURLOPT_FOLLOWLOCATION => TRUE,
+        $this->_aConnectorOptionsConnect = [
+            CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS      => 2,
             CURLOPT_TIMEOUT        => 10,
             CURLOPT_CONNECTTIMEOUT => 5,
-            CURLOPT_SSL_VERIFYPEER => FALSE,
-            CURLOPT_AUTOREFERER    => TRUE,
-        );
-        $this->_aConnectorOptionsWrite   = array(
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_AUTOREFERER    => true,
+        ];
+        $this->_aConnectorOptionsWrite   = [
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_HTTPHEADER   => array(
+            CURLOPT_HTTPHEADER   => [
                 'Accept: text/html, application/xml;q=0.9, */*;q=0.1',
-                'Accept-Charset: iso-8859-1, utf-8, utf-16, *;q=0.1' ) );
+                'Accept-Charset: iso-8859-1, utf-8, utf-16, *;q=0.1' ] ];
     }
 
     /**
@@ -77,10 +83,10 @@ final class CReader
      */
     public function __destruct()
     {
-        $this->_pConnector = NULL;
-        $this->_pConverter = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_pConnector = null;
+        $this->_pConverter = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -91,9 +97,9 @@ final class CReader
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -103,9 +109,9 @@ final class CReader
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Connector section
@@ -116,7 +122,7 @@ final class CReader
      *
      * @var \Foundation\Protocol\Connector\ConnectorInterface
      */
-    private $_pConnector = NULL;
+    private $_pConnector = null;
 
     /**
      * Connector options to use for connect action.
@@ -138,7 +144,7 @@ final class CReader
      * @param \Foundation\Protocol\Connector\ConnectorInterface $connector Connector to the protocol to use to.
      * @return void
      */
-    public function setConnector( \Foundation\Protocol\Connector\ConnectorInterface $connector )
+    public function setConnector(\Foundation\Protocol\Connector\ConnectorInterface $connector)
     {
         // Close the current connection
         $this->_pConnector->close();
@@ -155,14 +161,13 @@ final class CReader
      * @param array $write   Options for write action.
      * @return void
      */
-    public function setConnectorOptions( array $connect, array $write )
+    public function setConnectorOptions(array $connect, array $write)
     {
         // We can't use the array_merge function because the keys are numerics.
         // And we can't use the + operator because we want to replace and not only to add.
         $tmp = $this->_aConnectorOptionsConnect;
 
-        foreach( $connect as $key => $value )
-        {
+        foreach ($connect as $key => $value) {
             $tmp[$key] = $value;
         }
 
@@ -170,8 +175,7 @@ final class CReader
 
         $tmp = $this->_aConnectorOptionsWrite;
 
-        foreach( $write as $key => $value )
-        {
+        foreach ($write as $key => $value) {
             $tmp[$key] = $value;
         }
 
@@ -186,7 +190,7 @@ final class CReader
      *
      * @var \Foundation\Weather\Converter\ConverterInterface
      */
-    private $_pConverter = NULL;
+    private $_pConverter = null;
 
     /**
      * Attaches new protocol connector. Close the previous one.
@@ -194,7 +198,7 @@ final class CReader
      * @param \Foundation\Protocol\Connector\ConnectorInterface $connector Connector to the protocol to use to.
      * @return void
      */
-    public function setConverter( \Foundation\Weather\Converter\ConverterInterface $converter )
+    public function setConverter(\Foundation\Weather\Converter\ConverterInterface $converter)
     {
         $this->_pConverter = $converter;
     }
@@ -210,26 +214,27 @@ final class CReader
      * @throws \RuntimeException if the connection does not exist.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function read( $url )
+    public function read($url)
     {
         // Initialize
-        $sReturn = FALSE;
+        $sReturn = false;
 
         // Open the connection
-        $this->_pConnector->connect( $url, $this->_aConnectorOptionsConnect );
+        $this->_pConnector->connect($url, $this->_aConnectorOptionsConnect);
 
         // Write and read
-        if( $this->_pConnector->write( $url, $this->_aConnectorOptionsWrite ) )
+        if ($this->_pConnector->write($url, $this->_aConnectorOptionsWrite)) {
             $sReturn = $this->_pConnector->read();
+        }
 
         // Close the connection
         $this->_pConnector->close();
 
         // Transform
-        if( FALSE !== $sReturn )
-            $sReturn = $this->_pConverter->convert( $sReturn );
+        if (false !== $sReturn) {
+            $sReturn = $this->_pConverter->convert($sReturn);
+        }
 
         return $sReturn;
     }
-
 }

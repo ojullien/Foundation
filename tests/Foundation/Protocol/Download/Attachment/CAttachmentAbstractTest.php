@@ -1,8 +1,9 @@
 <?php
 namespace Foundation\Test\Protocol\Download\Attachment;
-trait_exists( '\Foundation\Test\Protocol\Download\Provider\TAttachmentProvider' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Protocol/Download/provider/TAttachmentProvider.php' ) );
 
-class_exists( '\Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Protocol/Download/provider/CAttachmentAbstractMock.php' ) );
+trait_exists('\Foundation\Test\Protocol\Download\Provider\TAttachmentProvider') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Protocol/Download/provider/TAttachmentProvider.php'));
+
+class_exists('\Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Protocol/Download/provider/CAttachmentAbstractMock.php'));
 
 class CAttachmentAbstractTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,25 +32,21 @@ class CAttachmentAbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructFilenameException()
     {
-        foreach( static::$_aFromExtensionException as $data )
-        {
+        foreach (static::$_aFromExtensionException as $data) {
             $label = &$data['label'];
             $test  = &$data['test'];
 
-            try
-            {
-                $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock( static::$_pDownloadManager,
-                                                                                                      $test['value'] );
-                unset( $pObject );
-                $this->fail( $label . ' No exception raised.' );
-            }
-            catch( \Foundation\Exception\InvalidArgumentException $exc )
-            {
-                $this->assertTrue( TRUE );
-            }
-            catch( \Exception $exc )
-            {
-                $this->fail( $label . ' No the expected exception.' );
+            try {
+                $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock(
+                    static::$_pDownloadManager,
+                    $test['value']
+                );
+                unset($pObject);
+                $this->fail($label . ' No exception raised.');
+            } catch (\Foundation\Exception\InvalidArgumentException $exc) {
+                $this->assertTrue(true);
+            } catch (\Exception $exc) {
+                $this->fail($label . ' No the expected exception.');
             }
         }
     }
@@ -61,11 +58,13 @@ class CAttachmentAbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructMimeException()
     {
-        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock( static::$_pDownloadManager,
-                                                                                              __FILE__ );
+        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock(
+            static::$_pDownloadManager,
+            __FILE__
+        );
 
-        $this->fail( ' No exception raised.' );
-        unset( $pObject );
+        $this->fail(' No exception raised.');
+        unset($pObject);
     }
 
     /**
@@ -74,10 +73,13 @@ class CAttachmentAbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructValid()
     {
-        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock( static::$_pDownloadManager,
-                                                                                              __FILE__, FALSE );
-        $this->assertTrue( TRUE );
-        unset( $pObject );
+        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock(
+            static::$_pDownloadManager,
+            __FILE__,
+            false
+        );
+        $this->assertTrue(true);
+        unset($pObject);
     }
 
     /**
@@ -86,11 +88,14 @@ class CAttachmentAbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSendValid()
     {
-        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock( static::$_pDownloadManager,
-                                                                                              __FILE__, FALSE );
+        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock(
+            static::$_pDownloadManager,
+            __FILE__,
+            false
+        );
 
-        $this->assertTrue( $pObject->send( TRUE ) );
-        unset( $pObject );
+        $this->assertTrue($pObject->send(true));
+        unset($pObject);
     }
 
     /**
@@ -100,12 +105,14 @@ class CAttachmentAbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSendException()
     {
-        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock( static::$_pDownloadManager,
-                                                                                              __FILE__, FALSE );
-        $pObject->forceMime( '' );
-        $pObject->send( TRUE );
-        $this->fail( ' No exception raised.' );
-        unset( $pObject );
+        $pObject = new \Foundation\Test\Protocol\Download\Attachment\CAttachmentAbstractMock(
+            static::$_pDownloadManager,
+            __FILE__,
+            false
+        );
+        $pObject->forceMime('');
+        $pObject->send(true);
+        $this->fail(' No exception raised.');
+        unset($pObject);
     }
-
 }

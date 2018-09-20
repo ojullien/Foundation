@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Gd;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Gd;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class enforces strong typing of the image coordinate type.
@@ -39,31 +41,38 @@ final class CCoordinates
      * @param float $z Z-axis, >=0
      * @throws \Foundation\Exception\InvalidArgumentException if the parameters are not valid.
      */
-    public function __construct( $x, $y, $z )
+    public function __construct($x, $y, $z)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'ccoordinates', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ 'x="' . $x . '"', 'y="' . $y . '"',
-                    'z="' . $z . '"' ] );
+        $this->_sDebugID = uniqid('ccoordinates', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ 'x="' . $x . '"', 'y="' . $y . '"',
+                    'z="' . $z . '"' ]
+                );
         //@codeCoverageIgnoreEnd
 
-        $x = (is_numeric( $x ) ) ? $x + 0 : NULL;
-        $y = (is_numeric( $y ) ) ? $y + 0 : NULL;
-        $z = (is_numeric( $z ) ) ? $z + 0 : NULL;
+        $x = (is_numeric($x) ) ? $x + 0 : null;
+        $y = (is_numeric($y) ) ? $y + 0 : null;
+        $z = (is_numeric($z) ) ? $z + 0 : null;
 
-        if( is_numeric( $x ) && ($x >= 0.0) )
+        if (is_numeric($x) && ($x >= 0.0)) {
             $this->_fX = $x;
+        }
 
-        if( is_numeric( $y ) && ($y >= 0.0) )
+        if (is_numeric($y) && ($y >= 0.0)) {
             $this->_fY = $y;
+        }
 
-        if( is_numeric( $z ) && ($z >= 0.0) )
+        if (is_numeric($z) && ($z >= 0.0)) {
             $this->_fZ = $z;
+        }
 
-        if( !isset( $this->_fX ) || !isset( $this->_fY ) || !isset( $this->_fZ ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'Invalid coordinates.' );
+        if (! isset($this->_fX) || ! isset($this->_fY) || ! isset($this->_fZ)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Invalid coordinates.');
+        }
     }
 
     /**
@@ -74,8 +83,8 @@ final class CCoordinates
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -86,9 +95,9 @@ final class CCoordinates
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -98,9 +107,9 @@ final class CCoordinates
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -110,9 +119,9 @@ final class CCoordinates
      */
     public function __toString()
     {
-        return serialize( [ 'x' => (string)$this->_fX
+        return serialize([ 'x' => (string)$this->_fX
             , 'y' => (string)$this->_fY
-            , 'z' => (string)$this->_fZ ] );
+            , 'z' => (string)$this->_fZ ]);
     }
 
     /** Coordinates section
@@ -122,19 +131,19 @@ final class CCoordinates
      * X-axis
      * @var float
      */
-    private $_fX = NULL;
+    private $_fX = null;
 
     /**
      * Y-axis
      * @var float
      */
-    private $_fY = NULL;
+    private $_fY = null;
 
     /**
      * Z-axis
      * @var float
      */
-    private $_fZ = NULL;
+    private $_fZ = null;
 
     /**
      * Returns X-axis value
@@ -162,5 +171,4 @@ final class CCoordinates
     {
         return $this->_fZ;
     }
-
 }

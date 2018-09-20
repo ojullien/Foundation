@@ -1,6 +1,7 @@
 <?php
 namespace Test\Foundation\Crypt;
-class_exists( '\Test\Foundation\Crypt\Provider\CMcrypt' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Crypt/Provider/CMcryptClasses.php' ) );
+
+class_exists('\Test\Foundation\Crypt\Provider\CMcrypt') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Crypt/Provider/CMcryptClasses.php'));
 
 class CMcryptAbstractTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +56,7 @@ class CMcryptAbstractTest extends \PHPUnit_Framework_TestCase
     public function testSetKeyException()
     {
         $pCypher = new \Test\Foundation\Crypt\Provider\CMcrypt();
-        $pCypher->setKey( '   ' );
+        $pCypher->setKey('   ');
     }
 
     /**
@@ -65,8 +66,7 @@ class CMcryptAbstractTest extends \PHPUnit_Framework_TestCase
     public function testSetKey()
     {
         $pCypher = new \Test\Foundation\Crypt\Provider\CMcrypt();
-        $this->assertSame( '5d6c518bbda6a0da20a4c3d2', $pCypher->setKey( 'Olivier Jullien' )->getKey() );
-        unset( $pCypher );
+        $this->assertSame('5d6c518bbda6a0da20a4c3d2', $pCypher->setKey('Olivier Jullien')->getKey());
+        unset($pCypher);
     }
-
 }

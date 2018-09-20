@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Session\Storage;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Session\Storage;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 // Define Predefined Constants
 //defined( 'PHP_SESSION_DISABLED' ) || define( 'PHP_SESSION_DISABLED', 0 );
@@ -45,7 +47,7 @@ interface StorageInterface
      * @throws \Foundation\Exception\BadMethodCallException   If the session is already started.
      * @throws \Foundation\Exception\InvalidArgumentException If the session name is not valid.
      */
-    public function setName( $name );
+    public function setName($name);
 
     /**
      * Get the current session name.
@@ -107,7 +109,7 @@ interface StorageInterface
      * @throws \Foundation\Exception\OutOfBoundsException If the name of the container is not valid.
      * @return void
      */
-    public function setOffset( $offset, $value, $container = 'default' );
+    public function setOffset($offset, $value, $container = 'default');
 
     /**
      * Whether or not an offset exists.
@@ -116,7 +118,7 @@ interface StorageInterface
      * @param string $container The name of the container which contains the offset to check for.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function existsOffset( $offset, $container = 'default' );
+    public function existsOffset($offset, $container = 'default');
 
     /**
      * Unsets an offset.
@@ -125,7 +127,7 @@ interface StorageInterface
      * @param string $container The name of the container which contains the offset to unset.
      * @return void
      */
-    public function unsetOffset( $offset, $container = 'default' );
+    public function unsetOffset($offset, $container = 'default');
 
     /**
      * Returns the value at specified offset.
@@ -134,5 +136,5 @@ interface StorageInterface
      * @param string $container The name of the container which contains the offset to retrieve.
      * @return mixed Can return all value types.
      */
-    public function getOffset( $offset, $container = 'default' );
+    public function getOffset($offset, $container = 'default');
 }

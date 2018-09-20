@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Crypt;
+
 /**
  * Foundation Framework
  *
@@ -7,11 +8,13 @@ namespace Foundation\Crypt;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
-if( !extension_loaded( 'mcrypt' ) )
-    die( 'The Mcrypt extension is not loaded.' );
+if (! extension_loaded('mcrypt')) {
+    die('The Mcrypt extension is not loaded.');
+}
 
 /**
  * Parent class for cypher using Mcrypt extension.
@@ -45,33 +48,39 @@ abstract class CMcryptAbstract implements \Foundation\Crypt\CypherInterface
      *                                                mode is not supported by Mcrypt.
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $sAlgo, $sMode )
+    public function __construct($sAlgo, $sMode)
     {
         // @codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cmcryptabstract', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $sAlgo, $sMode ] );
+        $this->_sDebugID = uniqid('cmcryptabstract', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $sAlgo, $sMode ]
+                );
         // @codeCoverageIgnoreEnd
 
-        $this->_sAlgo = ( is_string( $sAlgo ) ) ? trim( $sAlgo ) : '';
-        if( '' == $this->_sAlgo )
-            throw new \Foundation\Exception\InvalidArgumentException( 'No valid encryption algorithm specified.' );
+        $this->_sAlgo = ( is_string($sAlgo) ) ? trim($sAlgo) : '';
+        if ('' == $this->_sAlgo) {
+            throw new \Foundation\Exception\InvalidArgumentException('No valid encryption algorithm specified.');
+        }
 
-        $this->_sMode = ( is_string( $sMode ) ) ? trim( $sMode ) : '';
-        if( '' == $this->_sMode )
-            throw new \Foundation\Exception\InvalidArgumentException( 'No valid encryption mode specified.' );
+        $this->_sMode = ( is_string($sMode) ) ? trim($sMode) : '';
+        if ('' == $this->_sMode) {
+            throw new \Foundation\Exception\InvalidArgumentException('No valid encryption mode specified.');
+        }
 
         // Opens the module of the algorithm and the mode to be used
-        $this->_pResource = mcrypt_module_open( $this->_sAlgo, '', $this->_sMode, '' );
-        if( !is_resource( $this->_pResource ) )
-            throw new \Foundation\Exception\RuntimeException( 'The algorithm and/or mode is not supported.' );
+        $this->_pResource = mcrypt_module_open($this->_sAlgo, '', $this->_sMode, '');
+        if (! is_resource($this->_pResource)) {
+            throw new \Foundation\Exception\RuntimeException('The algorithm and/or mode is not supported.');
+        }
 
         // Get the maximum supported keysize of the opened mode
-        $this->_iKeySize = mcrypt_enc_get_key_size( $this->_pResource );
+        $this->_iKeySize = mcrypt_enc_get_key_size($this->_pResource);
 
         // Get the size of the IV of the opened algorithm
-        $this->_iIVSize = mcrypt_enc_get_iv_size( $this->_pResource );
+        $this->_iIVSize = mcrypt_enc_get_iv_size($this->_pResource);
     }
 
     /**
@@ -83,14 +92,15 @@ abstract class CMcryptAbstract implements \Foundation\Crypt\CypherInterface
     public function __destruct()
     {
         // Closes the encryption module
-        if( is_resource( $this->_pResource ) )
-            mcrypt_module_close( $this->_pResource );
+        if (is_resource($this->_pResource)) {
+            mcrypt_module_close($this->_pResource);
+        }
 
-        $this->_pResource = NULL;
+        $this->_pResource = null;
 
         // @codeCoverageIgnoreStart
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
         // @codeCoverageIgnoreEnd
     }
 
@@ -102,9 +112,9 @@ abstract class CMcryptAbstract implements \Foundation\Crypt\CypherInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -114,9 +124,9 @@ abstract class CMcryptAbstract implements \Foundation\Crypt\CypherInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Mcrypt section
@@ -141,7 +151,7 @@ abstract class CMcryptAbstract implements \Foundation\Crypt\CypherInterface
      *
      * @var Resource
      */
-    protected $_pResource = NULL;
+    protected $_pResource = null;
 
     /**
      * Initialization vector size.
@@ -175,18 +185,18 @@ abstract class CMcryptAbstract implements \Foundation\Crypt\CypherInterface
      * @throws \Foundation\Exception\InvalidArgumentException Raises an InvalidArgumentException exception if the
      *                                                        argument is not valid.
      */
-    final public function setKey( $sKey )
+    final public function setKey($sKey)
     {
         // Check parameter
-        $this->_sKey = ( is_string( $sKey ) ) ? trim( $sKey ) : '';
+        $this->_sKey = ( is_string($sKey) ) ? trim($sKey) : '';
 
-        if( '' == $this->_sKey )
-            throw new \Foundation\Exception\InvalidArgumentException( 'No valid encryption key specified.' );
+        if ('' == $this->_sKey) {
+            throw new \Foundation\Exception\InvalidArgumentException('No valid encryption key specified.');
+        }
 
         // Creates the key with the good size.
-        $this->_sKey = substr( md5( $sKey ), 0, $this->_iKeySize );
+        $this->_sKey = substr(md5($sKey), 0, $this->_iKeySize);
 
         return $this;
     }
-
 }

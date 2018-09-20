@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Connector;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Connector;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull http and ftp methods using cURL client library.
@@ -34,13 +36,14 @@ final class CCurl extends \Foundation\Protocol\Connector\CConnectorAbstract
      */
     public function __construct()
     {
-        $this->_sDebugID = uniqid( 'ccurl', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ ] );
+        $this->_sDebugID = uniqid('ccurl', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ ]);
 
         // cUrl is an extention
-        if( !extension_loaded( 'curl' ) )
-            throw new \Foundation\Exception\RuntimeException( 'cURL extension is not loaded' );
+        if (! extension_loaded('curl')) {
+            throw new \Foundation\Exception\RuntimeException('cURL extension is not loaded');
+        }
     }
 
     /** Connector section
@@ -51,7 +54,7 @@ final class CCurl extends \Foundation\Protocol\Connector\CConnectorAbstract
      *
      * @var resource
      */
-    private $_pResource = NULL;
+    private $_pResource = null;
 
     /**
      * Close the cURL session.
@@ -60,11 +63,12 @@ final class CCurl extends \Foundation\Protocol\Connector\CConnectorAbstract
      */
     public function close()
     {
-        if( is_resource( $this->_pResource ) )
-            curl_close( $this->_pResource );
-        $this->_pResource                     = NULL;
-        $this->_sResponse                     = FALSE;
-        $this->_sResponse                     = FALSE;
+        if (is_resource($this->_pResource)) {
+            curl_close($this->_pResource);
+        }
+        $this->_pResource                     = null;
+        $this->_sResponse                     = false;
+        $this->_sResponse                     = false;
         $this->_iError                        = CURLE_OK;
         $this->_sError                        = '';
         $this->_aInformation['url']           = '';
@@ -86,19 +90,21 @@ final class CCurl extends \Foundation\Protocol\Connector\CConnectorAbstract
      * @throws \Foundation\Exception\RuntimeException If unable to connect.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function connect( $host, array $options = [ ] )
+    public function connect($host, array $options = [ ])
     {
         // Close the current session if already connected
         $this->close();
 
         // Initialize the cURL session
         $this->_pResource = curl_init();
-        if( !is_resource( $this->_pResource ) )
-            throw new \Foundation\Exception\RuntimeException( 'Unable to initialize the cURL session' );
+        if (! is_resource($this->_pResource)) {
+            throw new \Foundation\Exception\RuntimeException('Unable to initialize the cURL session');
+        }
 
         // Set the options related to the connection
-        if( !curl_setopt_array( $this->_pResource, $options ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'An option could not be successfully set' );
+        if (! curl_setopt_array($this->_pResource, $options)) {
+            throw new \Foundation\Exception\InvalidArgumentException('An option could not be successfully set');
+        }
         return $this;
     }
 
@@ -121,73 +127,75 @@ final class CCurl extends \Foundation\Protocol\Connector\CConnectorAbstract
      * @throws \Foundation\Exception\RuntimeException If the connection does not exist.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function write( $url, array $options = [ ] )
+    public function write($url, array $options = [ ])
     {
         // Initialize
-        $this->_sResponse = FALSE;
+        $this->_sResponse = false;
 
         // Check connection
-        if( !is_resource( $this->_pResource ) )
-            throw new \Foundation\Exception\RuntimeException( "No connection" );
+        if (! is_resource($this->_pResource)) {
+            throw new \Foundation\Exception\RuntimeException("No connection");
+        }
 
         // Check and set URL
-        unset( $options[CURLOPT_URL] );
+        unset($options[CURLOPT_URL]);
 
-        $url = ( is_string( $url ) ) ? trim( $url ) : '';
+        $url = ( is_string($url) ) ? trim($url) : '';
 
         $this->_aInformation['url']           = $url;
         $this->_aInformation['size_download'] = 0;
 
-        if( ( strlen( $url ) == 0 ) || ( FALSE === curl_setopt( $this->_pResource, CURLOPT_URL, $url ) ) )
-        {
+        if (( strlen($url) == 0 ) || ( false === curl_setopt($this->_pResource, CURLOPT_URL, $url) )) {
             $this->_iError = CURLE_COULDNT_RESOLVE_HOST;
             $this->_sError = 'Could not resolve host';
-            return FALSE;
+            return false;
         }
 
         // Check the UPLOAD method
-        if( isset( $options[CURLOPT_UPLOAD] ) && (!isset( $options[CURLOPT_INFILE] ) || !isset( $options[CURLOPT_INFILESIZE] ) ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The file to UPLOAD must be set with CURLOPT_INFILE and CURLOPT_INFILESIZE' );
+        if (isset($options[CURLOPT_UPLOAD]) && (! isset($options[CURLOPT_INFILE]) || ! isset($options[CURLOPT_INFILESIZE]) )) {
+            throw new \Foundation\Exception\InvalidArgumentException('The file to UPLOAD must be set with CURLOPT_INFILE and CURLOPT_INFILESIZE');
+        }
 
         // Check the PUT method
-        if( isset( $options[CURLOPT_PUT] ) && (!isset( $options[CURLOPT_INFILE] ) || !isset( $options[CURLOPT_INFILESIZE] ) ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The file to PUT must be set with CURLOPT_INFILE and CURLOPT_INFILESIZE' );
+        if (isset($options[CURLOPT_PUT]) && (! isset($options[CURLOPT_INFILE]) || ! isset($options[CURLOPT_INFILESIZE]) )) {
+            throw new \Foundation\Exception\InvalidArgumentException('The file to PUT must be set with CURLOPT_INFILE and CURLOPT_INFILESIZE');
+        }
 
         // Check resource
-        if( isset( $options[CURLOPT_INFILE] ) && !is_resource( $options[CURLOPT_INFILE] ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The file to UPLOAD or PUT is not a valid File-Handle resource' );
+        if (isset($options[CURLOPT_INFILE]) && ! is_resource($options[CURLOPT_INFILE])) {
+            throw new \Foundation\Exception\InvalidArgumentException('The file to UPLOAD or PUT is not a valid File-Handle resource');
+        }
 
         // Check and set OUTPUT
-        unset( $options[CURLOPT_RETURNTRANSFER] );
+        unset($options[CURLOPT_RETURNTRANSFER]);
 
-        if( isset( $options[CURLOPT_FILE] ) )
-        {
-            if( !is_resource( $options[CURLOPT_FILE] ) )
-                throw new \Foundation\Exception\InvalidArgumentException( 'CURLOPT_FILE option should be a valid File-Handle resource' );
+        if (isset($options[CURLOPT_FILE])) {
+            if (! is_resource($options[CURLOPT_FILE])) {
+                throw new \Foundation\Exception\InvalidArgumentException('CURLOPT_FILE option should be a valid File-Handle resource');
+            }
 
-            curl_setopt( $this->_pResource, CURLOPT_RETURNTRANSFER, FALSE );
+            curl_setopt($this->_pResource, CURLOPT_RETURNTRANSFER, false);
 
-            if( !curl_setopt( $this->_pResource, CURLOPT_FILE, $options[CURLOPT_FILE] ) )
-                throw new \Foundation\Exception\InvalidArgumentException( 'CURLOPT_FILE could not be successfully set' );
+            if (! curl_setopt($this->_pResource, CURLOPT_FILE, $options[CURLOPT_FILE])) {
+                throw new \Foundation\Exception\InvalidArgumentException('CURLOPT_FILE could not be successfully set');
+            }
 
-            unset( $options[CURLOPT_FILE] );
-        }
-        else
-        {
-            curl_setopt( $this->_pResource, CURLOPT_RETURNTRANSFER, TRUE );
+            unset($options[CURLOPT_FILE]);
+        } else {
+            curl_setopt($this->_pResource, CURLOPT_RETURNTRANSFER, true);
         }
 
         // set additional options
-        if( !curl_setopt_array( $this->_pResource, $options ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'An option could not be successfully set' );
+        if (! curl_setopt_array($this->_pResource, $options)) {
+            throw new \Foundation\Exception\InvalidArgumentException('An option could not be successfully set');
+        }
 
         // Perform a cURL session
-        $this->_sResponse    = curl_exec( $this->_pResource );
-        $this->_aInformation = curl_getinfo( $this->_pResource );
-        $this->_iError       = curl_errno( $this->_pResource );
-        $this->_sError       = curl_error( $this->_pResource );
+        $this->_sResponse    = curl_exec($this->_pResource);
+        $this->_aInformation = curl_getinfo($this->_pResource);
+        $this->_iError       = curl_errno($this->_pResource);
+        $this->_sError       = curl_error($this->_pResource);
 
-        return ( ( is_bool( $this->_sResponse ) ) ? $this->_sResponse : TRUE );
+        return ( ( is_bool($this->_sResponse) ) ? $this->_sResponse : true );
     }
-
 }

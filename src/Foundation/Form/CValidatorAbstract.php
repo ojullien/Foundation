@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Form;
+
 /**
  * Foundation Framework
  *
@@ -7,7 +8,7 @@ namespace Foundation\Form;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-defined( 'APPLICATION_VERSION' ) || die( '-1' );
+defined('APPLICATION_VERSION') || die('-1');
 
 /**
  * Parent class for form validator class.
@@ -41,7 +42,7 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( array $aDefinition )
+    public function __construct(array $aDefinition)
     {
         $this->_aDefinition = $aDefinition;
     }
@@ -54,7 +55,7 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      */
     public function __destruct()
     {
-        $this->_aData       = FALSE;
+        $this->_aData       = false;
         $this->_aDataRaw    = [ ];
         $this->_aDefinition = [ ];
     }
@@ -67,9 +68,9 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @throws \BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -79,9 +80,9 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @throws \BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Message section
@@ -100,15 +101,16 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @param string $sElement Input identifier
      * @param string $sMessage Message
      */
-    final protected function setMessage( $sElement, $sMessage )
+    final protected function setMessage($sElement, $sMessage)
     {
         // Validate inputs
-        $sElement = ( is_string( $sElement ) ) ? trim( $sElement ) : '';
-        $sMessage = ( is_string( $sMessage ) ) ? trim( $sMessage ) : '';
+        $sElement = ( is_string($sElement) ) ? trim($sElement) : '';
+        $sMessage = ( is_string($sMessage) ) ? trim($sMessage) : '';
 
         // Add to the list
-        if( (strlen( $sElement ) > 0) && (strlen( $sMessage ) > 0) )
+        if ((strlen($sElement) > 0) && (strlen($sMessage) > 0)) {
             $this->_aMessages[$sElement] = $sMessage;
+        }
     }
 
     /**
@@ -120,21 +122,16 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      *
      * @return array
      */
-    final public function getMessages( $sElement = NULL )
+    final public function getMessages($sElement = null)
     {
         // Validate input
-        $sElement = ( is_string( $sElement ) ) ? trim( $sElement ) : NULL;
+        $sElement = ( is_string($sElement) ) ? trim($sElement) : null;
 
-        if( is_null( $sElement ) )
-        {
+        if (is_null($sElement)) {
             $aReturn = $this->_aMessages;
-        }
-        elseif( isset( $this->_aMessages[$sElement] ) )
-        {
+        } elseif (isset($this->_aMessages[$sElement])) {
             $aReturn = [ $sElement => $this->_aMessages[$sElement] ];
-        }
-        else
-        {
+        } else {
             $aReturn = [ ];
         }
 
@@ -168,7 +165,7 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      *
      * @var bool|array
      */
-    protected $_aData = FALSE;
+    protected $_aData = false;
 
     /**
      * Set data to validate.
@@ -176,15 +173,15 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @param array $data the data being validated
      * @return \Foundation\Form\ValidatorInterface
      */
-    final public function setData( array $data = [ ] )
+    final public function setData(array $data = [ ])
     {
         // The new data have not been validated
-        $this->_bHasValidated = FALSE;
+        $this->_bHasValidated = false;
         $this->_aMessages     = [ ];
 
         // Filter the data
         $this->_aDataRaw = $data;
-        $this->_aData    = filter_var_array( $data, $this->_aDefinition );
+        $this->_aData    = filter_var_array($data, $this->_aDefinition);
 
         return $this;
     }
@@ -218,14 +215,14 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      *
      * @var bool
      */
-    protected $_bHasValidated = FALSE;
+    protected $_bHasValidated = false;
 
     /**
      * Result of last validation operation.
      *
      * @var bool
      */
-    protected $_bIsValid = FALSE;
+    protected $_bIsValid = false;
 
     /**
      * Check if the form has been validated.
@@ -247,27 +244,23 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @param string $sLabel Label of the test. Used for message.
      * @return boolean
      */
-    final protected function validateVar( $sKey, $sLabel )
+    final protected function validateVar($sKey, $sLabel)
     {
         // Initialize
-        $sKey    = ( is_string( $sKey ) ) ? trim( $sKey ) : '';
-        $sLabel  = ( is_string( $sLabel ) ) ? trim( $sLabel ) : '';
-        $bReturn = FALSE;
+        $sKey    = ( is_string($sKey) ) ? trim($sKey) : '';
+        $sLabel  = ( is_string($sLabel) ) ? trim($sLabel) : '';
+        $bReturn = false;
 
         // Validate
-        if( ( '' != $sKey ) && ( '' != $sLabel ) && is_array( $this->_aData ) && array_key_exists( $sKey, $this->_aData ) )
-        {
-            if( NULL === $this->_aData[$sKey] )
-            {
-                $this->setMessage( $sKey, $sLabel . ' is mandatory.' );
-            }
-            elseif( FALSE === $this->_aData[$sKey] )
-            {
-                $this->setMessage( $sKey, $sLabel . ' is not valid.' );
+        if (( '' != $sKey ) && ( '' != $sLabel ) && is_array($this->_aData) && array_key_exists($sKey, $this->_aData)) {
+            if (null === $this->_aData[$sKey]) {
+                $this->setMessage($sKey, $sLabel . ' is mandatory.');
+            } elseif (false === $this->_aData[$sKey]) {
+                $this->setMessage($sKey, $sLabel . ' is not valid.');
             }
 
             // Data are valid
-            $bReturn = ( NULL !== $this->_aData[$sKey] ) && ( FALSE !== $this->_aData[$sKey] );
+            $bReturn = ( null !== $this->_aData[$sKey] ) && ( false !== $this->_aData[$sKey] );
         }
 
         return $bReturn;
@@ -280,12 +273,13 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      * @param string $sLabel Label of the test. Used for message.
      * @return boolean
      */
-    final protected function validateCheckboxVar( $sKey, $sLabel )
+    final protected function validateCheckboxVar($sKey, $sLabel)
     {
-        $bReturn = $this->validateVar( $sKey, $sLabel );
+        $bReturn = $this->validateVar($sKey, $sLabel);
 
-        if( $bReturn )
-            $this->_aData[$sKey] = TRUE;
+        if ($bReturn) {
+            $this->_aData[$sKey] = true;
+        }
 
         return $bReturn;
     }
@@ -299,39 +293,33 @@ abstract class CValidatorAbstract implements \Foundation\Form\ValidatorInterface
      *                           or MX domain name system record.
      * @return boolean
      */
-    final protected function validateEmailVar( $sKey, $sLabel, $bCheckDNS = FALSE )
+    final protected function validateEmailVar($sKey, $sLabel, $bCheckDNS = false)
     {
-        $bReturn = $this->validateVar( $sKey, $sLabel );
+        $bReturn = $this->validateVar($sKey, $sLabel);
 
-        if( $bReturn )
-        {
-            $pValidator = new \Foundation\Type\Complex\CEmailAddress( $this->_aData[$sKey] );
+        if ($bReturn) {
+            $pValidator = new \Foundation\Type\Complex\CEmailAddress($this->_aData[$sKey]);
             $bReturn    = $pValidator->isValid();
 
             // Validate email
-            if( $bReturn )
-            {
+            if ($bReturn) {
                 // We are working with punycode
                 $this->_aData[$sKey] = $pValidator->getPunycode();
-            }
-            else
-            {
-                $this->_aData[$sKey] = FALSE;
-                $this->setMessage( $sKey, $sLabel . ' is not valid.' );
+            } else {
+                $this->_aData[$sKey] = false;
+                $this->setMessage($sKey, $sLabel . ' is not valid.');
             }
 
             // Validate DNS
-            if( $bCheckDNS && $bReturn && !$pValidator->checkDNS( FALSE ) )
-            {
-                $bReturn             = FALSE;
-                $this->_aData[$sKey] = FALSE;
-                $this->setMessage( $sKey, $sLabel . ' has not an resolvable to MX domain name system record.' );
+            if ($bCheckDNS && $bReturn && ! $pValidator->checkDNS(false)) {
+                $bReturn             = false;
+                $this->_aData[$sKey] = false;
+                $this->setMessage($sKey, $sLabel . ' has not an resolvable to MX domain name system record.');
             }
 
-            unset( $pValidator );
+            unset($pValidator);
         }
 
         return $bReturn;
     }
-
 }

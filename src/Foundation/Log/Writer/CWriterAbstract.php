@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Log\Writer;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Log\Writer;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Parent class for all writer.
@@ -39,9 +41,9 @@ abstract class CWriterAbstract implements \Foundation\Log\Writer\WriterInterface
      */
     public function __destruct()
     {
-        $this->_pSuccessor = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_pSuccessor = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -52,9 +54,9 @@ abstract class CWriterAbstract implements \Foundation\Log\Writer\WriterInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -64,9 +66,9 @@ abstract class CWriterAbstract implements \Foundation\Log\Writer\WriterInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Chain of Responsibility Design Pattern
@@ -76,16 +78,15 @@ abstract class CWriterAbstract implements \Foundation\Log\Writer\WriterInterface
      * Download manager
      * @var \Foundation\Log\Writer\WriterInterface
      */
-    protected $_pSuccessor = NULL;
+    protected $_pSuccessor = null;
 
     /**
      * Add successor to the chain.
      *
      * @param \Foundation\Log\Writer\WriterInterface $successor
      */
-    final public function setSuccessor( \Foundation\Log\Writer\WriterInterface $successor )
+    final public function setSuccessor(\Foundation\Log\Writer\WriterInterface $successor)
     {
         $this->_pSuccessor = $successor;
     }
-
 }

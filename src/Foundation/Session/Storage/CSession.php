@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Session\Storage;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Session\Storage;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Session storage in $_SESSION.
@@ -38,9 +40,9 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      */
     public function __construct()
     {
-        $this->_sDebugID = uniqid( 'csession', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ ] );
+        $this->_sDebugID = uniqid('csession', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ ]);
     }
 
     /**
@@ -50,8 +52,8 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -62,9 +64,9 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -74,9 +76,9 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -87,9 +89,8 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
     public function __toString()
     {
         $sReturn = '';
-        if( (strlen( session_id() ) > 0 ) )
-        {
-            $sReturn = serialize( $_SESSION );
+        if ((strlen(session_id()) > 0 )) {
+            $sReturn = serialize($_SESSION);
         }
         return $sReturn;
     }
@@ -101,7 +102,7 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * Writable state
      * @var boolean
      */
-    private $_bClosed = TRUE;
+    private $_bClosed = true;
 
     /**
      * Returns the current session status.
@@ -124,20 +125,22 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @throws \Foundation\Exception\BadMethodCallException   If the session is already started.
      * @throws \Foundation\Exception\InvalidArgumentException If the session name is not valid.
      */
-    public function setName( $name )
+    public function setName($name)
     {
         // Cannot change the session name if the session is already started.
-        if( strlen( session_id() ) > 0 )
-            throw new \Foundation\Exception\BadMethodCallException( 'Cannot change the session name if the session is already started.' );
+        if (strlen(session_id()) > 0) {
+            throw new \Foundation\Exception\BadMethodCallException('Cannot change the session name if the session is already started.');
+        }
 
         // Check the type and the value of the new session name.
-        $pValidator = new \Foundation\Type\Simple\CString( $name, array( '/^[a-z][a-z0-9]+$/i' ) );
-        if( !$pValidator->isValid() )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The session name is not valid.' );
+        $pValidator = new \Foundation\Type\Simple\CString($name, [ '/^[a-z][a-z0-9]+$/i' ]);
+        if (! $pValidator->isValid()) {
+            throw new \Foundation\Exception\InvalidArgumentException('The session name is not valid.');
+        }
 
         // Set the session name.
-        $sReturn = session_name( $pValidator->getValue() );
-        unset( $pValidator );
+        $sReturn = session_name($pValidator->getValue());
+        unset($pValidator);
 
         return $sReturn;
     }
@@ -159,16 +162,13 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      */
     public function start()
     {
-        if( PHP_SESSION_NONE == session_status() )
-        {
+        if (PHP_SESSION_NONE == session_status()) {
             // Not started
-            $this->_bClosed = FALSE;
+            $this->_bClosed = false;
             $bReturn        = session_start();
-        }
-        else
-        {
+        } else {
             // Already started
-            $bReturn = TRUE;
+            $bReturn = true;
         }
         return $bReturn;
     }
@@ -192,7 +192,7 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      */
     public function regenerateId()
     {
-        return (!headers_sent() && !$this->_bClosed ) ? session_regenerate_id( TRUE ) : FALSE;
+        return (! headers_sent() && ! $this->_bClosed ) ? session_regenerate_id(true) : false;
     }
 
     /**
@@ -214,7 +214,7 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
     {
         session_write_close();
         // The session id and $_SESSION are still available
-        $this->_bClosed = TRUE;
+        $this->_bClosed = true;
     }
 
     /**
@@ -224,25 +224,30 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      */
     public function destroy()
     {
-        $bReturn = FALSE;
-        if( PHP_SESSION_ACTIVE == session_status() )
-        {
+        $bReturn = false;
+        if (PHP_SESSION_ACTIVE == session_status()) {
             // Unset all of the session variables.
             session_unset();
 
             // Delete the session cookie
-            if( (bool)ini_get( 'session.use_cookies' ) )
-            {
+            if ((bool)ini_get('session.use_cookies')) {
                 $aParams = session_get_cookie_params();
-                setcookie( session_name(), '', $_SERVER['REQUEST_TIME'] - 42000, $aParams['path'], $aParams['domain'],
-                           $aParams['secure'], $aParams['httponly'] );
+                setcookie(
+                    session_name(),
+                    '',
+                    $_SERVER['REQUEST_TIME'] - 42000,
+                    $aParams['path'],
+                    $aParams['domain'],
+                    $aParams['secure'],
+                    $aParams['httponly']
+                );
             }
 
             // Destroy the session
             $bReturn = session_destroy();
 
             // $_SESSION still exists after destroy.
-            $this->_bClosed = TRUE;
+            $this->_bClosed = true;
         }
         return $bReturn;
     }
@@ -258,24 +263,21 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @param string $container The name of the container.
      * @return bool Returns FALSE if one of the arguments, at least, is not valid.
      */
-    private function verify( $offset, $container )
+    private function verify($offset, $container)
     {
         // Initialise
         static $sPattern = '/^[a-z][a-z0-9_\\\]+$/i';
-        $bReturn  = FALSE;
+        $bReturn  = false;
 
         // Check offset
-        if( is_string( $offset ) || is_int( $offset ) )
-        {
+        if (is_string($offset) || is_int($offset)) {
             // Check container's name
 
-            if( preg_match( $sPattern, $container ) === 1 )
-            {
-                if( !isset( $_SESSION[$container] ) )
-                {
+            if (preg_match($sPattern, $container) === 1) {
+                if (! isset($_SESSION[$container])) {
                     $_SESSION[$container] = [ ];
                 }
-                $bReturn = TRUE;
+                $bReturn = true;
             }
         }
 
@@ -291,18 +293,14 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @throws \Foundation\Exception\OutOfBoundsException If the name of the container is not valid.
      * @return void
      */
-    public function setOffset( $offset, $value, $container = 'default' )
+    public function setOffset($offset, $value, $container = 'default')
     {
         // Write only if session is active
-        if( PHP_SESSION_ACTIVE == session_status() )
-        {
-            if( $this->verify( $offset, $container ) )
-            {
+        if (PHP_SESSION_ACTIVE == session_status()) {
+            if ($this->verify($offset, $container)) {
                 $_SESSION[$container][$offset] = $value;
-            }
-            else
-            {
-                throw new \Foundation\Exception\OutOfBoundsException( 'The name of the container is not valid.' );
+            } else {
+                throw new \Foundation\Exception\OutOfBoundsException('The name of the container is not valid.');
             }
         }//if( isset(...
     }
@@ -314,9 +312,9 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @param string $container The name of the container which contains the offset to check for.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function existsOffset( $offset, $container = 'default' )
+    public function existsOffset($offset, $container = 'default')
     {
-        return ( (strlen( session_id() ) > 0) && $this->verify( $offset, $container ) ) ? isset( $_SESSION[$container][$offset] ) : FALSE;
+        return ( (strlen(session_id()) > 0) && $this->verify($offset, $container) ) ? isset($_SESSION[$container][$offset]) : false;
     }
 
     /**
@@ -326,11 +324,10 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @param string $container The name of the container which contains the offset to unset.
      * @return void
      */
-    public function unsetOffset( $offset, $container = 'default' )
+    public function unsetOffset($offset, $container = 'default')
     {
-        if( (PHP_SESSION_ACTIVE == session_status() ) && $this->verify( $offset, $container ) )
-        {
-            unset( $_SESSION[$container][$offset] );
+        if ((PHP_SESSION_ACTIVE == session_status() ) && $this->verify($offset, $container)) {
+            unset($_SESSION[$container][$offset]);
         }//if(...
     }
 
@@ -341,17 +338,13 @@ final class CSession implements \Foundation\Session\Storage\StorageInterface
      * @param string $container The name of the container which contains the offset to retrieve.
      * @return mixed Can return all value types.
      */
-    public function getOffset( $offset, $container = 'default' )
+    public function getOffset($offset, $container = 'default')
     {
-        if( (strlen( session_id() ) > 0) && $this->verify( $offset, $container ) )
-        {
-            $return = isset( $_SESSION[$container][$offset] ) ? $_SESSION[$container][$offset] : NULL;
-        }
-        else
-        {
-            $return = NULL;
+        if ((strlen(session_id()) > 0) && $this->verify($offset, $container)) {
+            $return = isset($_SESSION[$container][$offset]) ? $_SESSION[$container][$offset] : null;
+        } else {
+            $return = null;
         }
         return $return;
     }
-
 }

@@ -3,15 +3,15 @@
 return [
 //[ 'label'=>'TEST: boolean true'  , 'test'=>TRUE],
     [ 'expected' => [
-            'isvalid'    => [ 'exception' => 0, 'return'    => FALSE ],
-            'getValue'   => [ 'exception' => 0, 'return'    => NULL ],
+            'isvalid'    => [ 'exception' => 0, 'return'    => false ],
+            'getValue'   => [ 'exception' => 0, 'return'    => null ],
             '__toString' => [ 'exception' => 0, 'return'    => '' ],
             'getLength'  => [ 'exception' => 0, 'return'    => 0 ],
             'exception'  => 0 ] ],
 //[ 'label'=>'TEST: boolean false' , 'test'=>FALSE)
     [ 'expected' => [
-            'isvalid'    => [ 'exception' => 0, 'return'    => FALSE ],
-            'getValue'   => [ 'exception' => 0, 'return'    => NULL ],
+            'isvalid'    => [ 'exception' => 0, 'return'    => false ],
+            'getValue'   => [ 'exception' => 0, 'return'    => null ],
             '__toString' => [ 'exception' => 0, 'return'    => '' ],
             'getLength'  => [ 'exception' => 0, 'return'    => 0 ],
             'exception'  => 0 ] ],

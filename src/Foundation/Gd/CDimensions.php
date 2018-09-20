@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Gd;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Gd;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class enforces strong typing of the image dimension type.
@@ -38,26 +40,32 @@ final class CDimensions
      * @param integer $height Height, >=1.
      * @throws \Foundation\Exception\InvalidArgumentException if the parameters are not valid.
      */
-    public function __construct( $width, $height )
+    public function __construct($width, $height)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cdimensions', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ 'width="' . $width . '"', 'height="' . $height . '"' ] );
+        $this->_sDebugID = uniqid('cdimensions', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ 'width="' . $width . '"', 'height="' . $height . '"' ]
+                );
         //@codeCoverageIgnoreEnd
 
-        $width  = (is_numeric( $width ) ) ? (int)($width + 0) : NULL;
-        $height = (is_numeric( $height ) ) ? (int)($height + 0) : NULL;
+        $width  = (is_numeric($width) ) ? (int)($width + 0) : null;
+        $height = (is_numeric($height) ) ? (int)($height + 0) : null;
 
-        if( is_int( $width ) && ($width >= 1) )
+        if (is_int($width) && ($width >= 1)) {
             $this->_iWidth = $width;
+        }
 
-        if( is_int( $height ) && ($height >= 1) )
+        if (is_int($height) && ($height >= 1)) {
             $this->_iHeight = $height;
+        }
 
-        if( !isset( $this->_iHeight ) || !isset( $this->_iWidth ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'Invalid dimensions.' );
+        if (! isset($this->_iHeight) || ! isset($this->_iWidth)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Invalid dimensions.');
+        }
     }
 
     /**
@@ -68,8 +76,8 @@ final class CDimensions
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -80,9 +88,9 @@ final class CDimensions
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -92,9 +100,9 @@ final class CDimensions
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -104,8 +112,8 @@ final class CDimensions
      */
     public function __toString()
     {
-        return serialize( [ 'width'  => (string)$this->_iWidth
-            , 'height' => (string)$this->_iHeight ] );
+        return serialize([ 'width'  => (string)$this->_iWidth
+            , 'height' => (string)$this->_iHeight ]);
     }
 
     /** Dimensions section
@@ -115,13 +123,13 @@ final class CDimensions
      * Width
      * @var integer
      */
-    private $_iWidth = NULL;
+    private $_iWidth = null;
 
     /**
      * Height
      * @var integer
      */
-    private $_iHeight = NULL;
+    private $_iHeight = null;
 
     /**
      * Returns width.
@@ -155,10 +163,10 @@ final class CDimensions
      * @param integer $iSize
      * @return integer
      */
-    private function scale( $iFrom, $iTo, $iSize )
+    private function scale($iFrom, $iTo, $iSize)
     {
         $iRatio = 100 * $iTo / $iFrom;
-        return ceil( $iSize * $iRatio / 100 );
+        return ceil($iSize * $iRatio / 100);
     }
 
     /**
@@ -172,38 +180,40 @@ final class CDimensions
      * @return \Foundation\Gd\CDimensions
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function resizeByAbsolute( \Foundation\Gd\CDimensions $iSizes )
+    public function resizeByAbsolute(\Foundation\Gd\CDimensions $iSizes)
     {
         // Sets width and calculates new height
-        $newSizes = array( $iSizes->getWidth()
-            , $this->scale( $this->_iWidth
-                    , $iSizes->getWidth()
-                    , $this->_iHeight ) );
+        $newSizes = [ $iSizes->getWidth()
+            , $this->scale(
+                $this->_iWidth,
+                $iSizes->getWidth(),
+                $this->_iHeight
+            ) ];
 
         // Tests if computed sizes fit into the specified ones.
-        if( ($newSizes[0] > $iSizes->getWidth()) || ($newSizes[1] > $iSizes->getHeight()) )
-        {
+        if (($newSizes[0] > $iSizes->getWidth()) || ($newSizes[1] > $iSizes->getHeight())) {
             // Do not fit, sets height and calculates new width
-            $newSizes = array( $this->scale( $this->_iHeight
-                        , $iSizes->getHeight()
-                        , $this->_iWidth )
-                , $iSizes->getHeight() );
+            $newSizes = [ $this->scale(
+                $this->_iHeight,
+                $iSizes->getHeight(),
+                $this->_iWidth
+            )
+                , $iSizes->getHeight() ];
         }
 
         // Tests if computed sizes fit into the specified ones.
         //@codeCoverageIgnoreStart
-        if( ($newSizes[0] > $iSizes->getWidth()) || ($newSizes[1] > $iSizes->getHeight()) )
-        {
+        if (($newSizes[0] > $iSizes->getWidth()) || ($newSizes[1] > $iSizes->getHeight())) {
             // Do not fit, raise an exception
             $sBuffer = 'Invalid resize operation.';
             $sBuffer .= " From: " . $this->_iWidth . "*" . $this->_iHeight;
             $sBuffer .= " To: " . $iSizes->getWidth() . "*" . $iSizes->getHeight();
             $sBuffer .= " Values: " . $newSizes[0] . "*" . $newSizes[1];
-            throw new \Foundation\Exception\RuntimeException( $sBuffer );
+            throw new \Foundation\Exception\RuntimeException($sBuffer);
         }
         //@codeCoverageIgnoreEnd
 
-        return new \Foundation\Gd\CDimensions( $newSizes[0], $newSizes[1] );
+        return new \Foundation\Gd\CDimensions($newSizes[0], $newSizes[1]);
     }
 
     /**
@@ -216,15 +226,16 @@ final class CDimensions
      * @return \Foundation\Gd\CDimensions
      * @throws \Foundation\Exception\InvalidArgumentException if the parameter is not valid.
      */
-    public function resizeByPercentage( $value )
+    public function resizeByPercentage($value)
     {
-        if( !is_int( $value ) || ($value < 1) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'Invalid percentage value.' );
+        if (! is_int($value) || ($value < 1)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Invalid percentage value.');
+        }
 
         $iWidth  = $this->_iWidth * $value / 100;
         $iHeight = $this->_iHeight * $value / 100;
 
-        return new \Foundation\Gd\CDimensions( $iWidth, $iHeight );
+        return new \Foundation\Gd\CDimensions($iWidth, $iHeight);
     }
 
     /**
@@ -238,38 +249,39 @@ final class CDimensions
      * @return \Foundation\Gd\CDimensions
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function resizeClose( \Foundation\Gd\CDimensions $iSizes )
+    public function resizeClose(\Foundation\Gd\CDimensions $iSizes)
     {
         // Sets height and calculates new width
-        $newSizes = array( $this->scale( $this->_iHeight
-                    , $iSizes->getHeight()
-                    , $this->_iWidth )
-            , $iSizes->getHeight() );
+        $newSizes = [ $this->scale(
+            $this->_iHeight,
+            $iSizes->getHeight(),
+            $this->_iWidth
+        )
+            , $iSizes->getHeight() ];
 
         // Tests if computed sizes are closed to the specified ones.
-        if( ($newSizes[0] < $iSizes->getWidth()) || ($newSizes[1] < $iSizes->getHeight()) )
-        {
+        if (($newSizes[0] < $iSizes->getWidth()) || ($newSizes[1] < $iSizes->getHeight())) {
             // Do not fit, sets width and calculates new height
-            $newSizes = array( $iSizes->getWidth()
-                , $this->scale( $this->_iWidth
-                        , $iSizes->getWidth()
-                        , $this->_iHeight ) );
+            $newSizes = [ $iSizes->getWidth()
+                , $this->scale(
+                    $this->_iWidth,
+                    $iSizes->getWidth(),
+                    $this->_iHeight
+                ) ];
         }
 
         // Tests if computed sizes are closed to the specified ones.
         //@codeCoverageIgnoreStart
-        if( ($newSizes[0] < $iSizes->getWidth()) || ($newSizes[1] < $iSizes->getHeight()) )
-        {
+        if (($newSizes[0] < $iSizes->getWidth()) || ($newSizes[1] < $iSizes->getHeight())) {
             // Do not fit, raise an exception
             $sBuffer = 'Invalid resize-close operation.';
             $sBuffer .= " From: " . $this->_iWidth . "*" . $this->_iHeight;
             $sBuffer .= " To: " . $iSizes->getWidth() . "*" . $iSizes->getHeight();
             $sBuffer .= " Values: " . $newSizes[0] . "*" . $newSizes[1];
-            throw new \Foundation\Exception\RuntimeException( $sBuffer );
+            throw new \Foundation\Exception\RuntimeException($sBuffer);
         }
         //@codeCoverageIgnoreEnd
 
-        return new \Foundation\Gd\CDimensions( $newSizes[0], $newSizes[1] );
+        return new \Foundation\Gd\CDimensions($newSizes[0], $newSizes[1]);
     }
-
 }

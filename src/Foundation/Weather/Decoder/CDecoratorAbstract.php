@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Weather\Decoder;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Weather\Decoder;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Parent class for decorator class used to extend the fonctionnalities of a decoder class.
@@ -31,7 +33,7 @@ abstract class CDecoratorAbstract extends \Foundation\Weather\Decoder\CDecoderAb
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      * @codeCoverageIgnore
      */
-    public function __construct( \Foundation\Weather\Decoder\DecoderInterface $pDecoder )
+    public function __construct(\Foundation\Weather\Decoder\DecoderInterface $pDecoder)
     {
         $this->_pDecoratedDecoder = $pDecoder;
     }
@@ -51,9 +53,9 @@ abstract class CDecoratorAbstract extends \Foundation\Weather\Decoder\CDecoderAb
      */
     public function __destruct()
     {
-        $this->_pDecoratedDecoder = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_pDecoratedDecoder = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /** Decorator section
@@ -64,6 +66,5 @@ abstract class CDecoratorAbstract extends \Foundation\Weather\Decoder\CDecoderAb
      *
      * @var \Foundation\Weather\Decoder\DecoderInterface
      */
-    protected $_pDecoratedDecoder = NULL;
-
+    protected $_pDecoratedDecoder = null;
 }

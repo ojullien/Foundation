@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Download;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Download;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for download manager implementation.
@@ -35,5 +37,5 @@ interface ManagerInterface
      * @throws \Foundation\Exception\InvalidArgumentException If the attachment cannot be opened or if the mime type is
      *                                                        not valid.
      */
-    public function send( \SplFileInfo $pAttachment, $sMime, array $options = [ ] );
+    public function send(\SplFileInfo $pAttachment, $sMime, array $options = [ ]);
 }

@@ -47,6 +47,6 @@ return [
     [ 'label' => 'Test 0.2', 'test'  => [ 'value'   => 0.0, 'options' => [ '>=' => 0.0 ] ] ],
     [ 'label' => 'Test 0.3', 'test'  => [ 'value'   => 0.0, 'options' => [ '<=' => 0.0 ] ] ],
     [ 'label' => 'Test 0.4', 'test'  => [ 'value'   => 0.0, 'options' => [ '>=' => 0.0, '<=' => 0.0 ] ] ],
-    [ 'label' => 'Test CInt', 'test'  => [ 'value'   => new \Foundation\Type\Simple\CInt( 123 ), 'options' => [ ] ] ],
+    [ 'label' => 'Test CInt', 'test'  => [ 'value'   => new \Foundation\Type\Simple\CInt(123), 'options' => [ ] ] ],
     [ 'label' => 'Test string', 'test'  => [ 'value'   => '123.3434', 'options' => [ ] ] ],
 ];

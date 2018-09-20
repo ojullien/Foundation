@@ -15,16 +15,16 @@ trait TCacheDataProvider
             [
                 'label'  => 'Key is not valid',
                 'input'  => [
-                    'key'   => NULL,
+                    'key'   => null,
                     'value' => 'the value',
                     'ttl'   => 0 ],
                 'result' => [
-                    'store'  => FALSE,
-                    'exists' => FALSE,
+                    'store'  => false,
+                    'exists' => false,
                     'fetch'  => [
-                        'return'  => FALSE,
-                        'success' => FALSE ],
-                    'delete' => FALSE ] ],
+                        'return'  => false,
+                        'success' => false ],
+                    'delete' => false ] ],
             [
                 'label'  => 'Key is empty',
                 'input'  => [
@@ -32,12 +32,12 @@ trait TCacheDataProvider
                     'value' => 'the value',
                     'ttl'   => 0 ],
                 'result' => [
-                    'store'  => FALSE,
-                    'exists' => FALSE,
+                    'store'  => false,
+                    'exists' => false,
                     'fetch'  => [
-                        'return'  => FALSE,
-                        'success' => FALSE ],
-                    'delete' => FALSE ] ],
+                        'return'  => false,
+                        'success' => false ],
+                    'delete' => false ] ],
             [
                 'label'  => 'Key is not expired',
                 'input'  => [
@@ -45,12 +45,12 @@ trait TCacheDataProvider
                     'value' => 'the value',
                     'ttl'   => 0 ],
                 'result' => [
-                    'store'  => TRUE,
-                    'exists' => TRUE,
+                    'store'  => true,
+                    'exists' => true,
                     'fetch'  => [
                         'return'  => 'the value',
-                        'success' => TRUE ],
-                    'delete' => TRUE ] ]
+                        'success' => true ],
+                    'delete' => true ] ]
         ];
     }
 
@@ -69,12 +69,12 @@ trait TCacheDataProvider
                     'value' => 'the value',
                     'ttl'   => 5 ],
                 'result' => [
-                    'store'  => TRUE,
-                    'exists' => FALSE,
+                    'store'  => true,
+                    'exists' => false,
                     'fetch'  => [
-                        'return'  => FALSE,
-                        'success' => FALSE ],
-                    'delete' => FALSE ] ]
+                        'return'  => false,
+                        'success' => false ],
+                    'delete' => false ] ]
         ];
     }
 
@@ -88,14 +88,13 @@ trait TCacheDataProvider
         return [
             [
                 'label'  => 'Key Does Not Exist',
-                'input'  => [ 'key' => NULL ],
+                'input'  => [ 'key' => null ],
                 'result' => [
-                    'exists' => FALSE,
+                    'exists' => false,
                     'fetch'  => [
-                        'return'  => FALSE,
-                        'success' => FALSE ],
-                    'delete' => FALSE ] ],
+                        'return'  => false,
+                        'success' => false ],
+                    'delete' => false ] ],
         ];
     }
-
 }

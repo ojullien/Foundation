@@ -25,7 +25,7 @@ final class CAttachmentAbstractMock extends \Foundation\Protocol\Download\Attach
      *
      * @param string $value
      */
-    public function forceMime( $value )
+    public function forceMime($value)
     {
         $this->_sMIME = $value;
     }
@@ -39,7 +39,7 @@ final class CAttachmentAbstractMock extends \Foundation\Protocol\Download\Attach
      * @param \SplFileInfo $pFile File from extract mime type.
      * @return string
      */
-    protected function getAttachmentMimeTypeFromExtension( \SplFileInfo $pFile )
+    protected function getAttachmentMimeTypeFromExtension(\SplFileInfo $pFile)
     {
         return '';
     }
@@ -50,9 +50,8 @@ final class CAttachmentAbstractMock extends \Foundation\Protocol\Download\Attach
      * @param \SplFileInfo $pFile File from extract mime type.
      * @return string
      */
-    protected function getAttachmentMimeTypeFromFile( \SplFileInfo $pFile )
+    protected function getAttachmentMimeTypeFromFile(\SplFileInfo $pFile)
     {
         return 'text/plain';
     }
-
 }

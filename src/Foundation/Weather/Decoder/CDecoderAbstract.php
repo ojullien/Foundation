@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Weather\Decoder;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Weather\Decoder;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Parent class for decoder class. Add error functionnalities.
@@ -32,9 +34,9 @@ abstract class CDecoderAbstract implements \Foundation\Weather\Decoder\DecoderIn
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -44,9 +46,9 @@ abstract class CDecoderAbstract implements \Foundation\Weather\Decoder\DecoderIn
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Error section
@@ -106,5 +108,4 @@ abstract class CDecoderAbstract implements \Foundation\Weather\Decoder\DecoderIn
     {
         return $this->_sError;
     }
-
 }

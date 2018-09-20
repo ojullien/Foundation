@@ -1,19 +1,24 @@
 <?php
 namespace Foundation\Test\Session\Config;
-defined( 'FOUNDATION_EXCEPTION_PATH' ) || define( 'FOUNDATION_EXCEPTION_PATH',
-                                                  APPLICATION_PATH . '/src/Foundation/Exception' );
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php' ) );
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php' ) );
-class_exists( '\Foundation\Exception\BadMethodCallException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php' ) );
 
-defined( 'FOUNDATION_TYPE_PATH' ) || define( 'FOUNDATION_TYPE_PATH', APPLICATION_PATH . '/src/Foundation/Type' );
-interface_exists( '\Foundation\Type\TypeInterface' ) || require( realpath( FOUNDATION_TYPE_PATH . '/TypeInterface.php' ) );
-class_exists( '\Foundation\Type\CTypeAbstract' ) || require( realpath( FOUNDATION_TYPE_PATH . '/CTypeAbstract.php' ) );
-class_exists( '\Foundation\Type\Complex\CPath' ) || require( realpath( FOUNDATION_TYPE_PATH . '/Complex/CPath.php' ) );
+defined('FOUNDATION_EXCEPTION_PATH') || define(
+    'FOUNDATION_EXCEPTION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Exception'
+);
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php'));
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php'));
+class_exists('\Foundation\Exception\BadMethodCallException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php'));
 
-defined( 'FOUNDATION_SESSION_PATH' ) || define( 'FOUNDATION_SESSION_PATH',
-                                                APPLICATION_PATH . '/src/Foundation/Session' );
-class_exists( '\Foundation\Session\Config\CCookie' ) || require( realpath( FOUNDATION_SESSION_PATH . '/Config/CCookie.php' ) );
+defined('FOUNDATION_TYPE_PATH') || define('FOUNDATION_TYPE_PATH', APPLICATION_PATH . '/src/Foundation/Type');
+interface_exists('\Foundation\Type\TypeInterface') || require(realpath(FOUNDATION_TYPE_PATH . '/TypeInterface.php'));
+class_exists('\Foundation\Type\CTypeAbstract') || require(realpath(FOUNDATION_TYPE_PATH . '/CTypeAbstract.php'));
+class_exists('\Foundation\Type\Complex\CPath') || require(realpath(FOUNDATION_TYPE_PATH . '/Complex/CPath.php'));
+
+defined('FOUNDATION_SESSION_PATH') || define(
+    'FOUNDATION_SESSION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Session'
+);
+class_exists('\Foundation\Session\Config\CCookie') || require(realpath(FOUNDATION_SESSION_PATH . '/Config/CCookie.php'));
 
 class CCookieTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,11 +43,10 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        if( strlen( session_id() ) > 0 )
-        {
+        if (strlen(session_id()) > 0) {
             session_destroy();
         }
-        $this->object = NULL;
+        $this->object = null;
     }
 
     /**
@@ -51,11 +55,11 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function atestConstruct()
     {
-        ini_set( 'session.use_cookies', FALSE );
-        ini_set( 'session.use_only_cookies', FALSE );
-        $this->object->setCookieParams( [ ] );
-        $this->assertTrue( (bool)ini_get( 'session.use_cookies' ), 'use_cookies' );
-        $this->assertTrue( (bool)ini_get( 'session.use_only_cookies' ), 'use_only_cookies' );
+        ini_set('session.use_cookies', false);
+        ini_set('session.use_only_cookies', false);
+        $this->object->setCookieParams([ ]);
+        $this->assertTrue((bool)ini_get('session.use_cookies'), 'use_cookies');
+        $this->assertTrue((bool)ini_get('session.use_only_cookies'), 'use_only_cookies');
     }
 
     /**
@@ -65,11 +69,11 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testVerifyLifetimeException()
     {
-        $this->object->setCookieParams( [ 'lifetime' => -1,
-            'path'     => NULL,
-            'domain'   => NULL,
-            'secure'   => NULL,
-            'httponly' => NULL ] );
+        $this->object->setCookieParams([ 'lifetime' => -1,
+            'path'     => null,
+            'domain'   => null,
+            'secure'   => null,
+            'httponly' => null ]);
     }
 
     /**
@@ -79,11 +83,11 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testVerifyPathException01()
     {
-        $this->object->setCookieParams( [ 'lifetime' => NULL,
+        $this->object->setCookieParams([ 'lifetime' => null,
             'path'     => '/path?key=value',
-            'domain'   => NULL,
-            'secure'   => NULL,
-            'httponly' => NULL ] );
+            'domain'   => null,
+            'secure'   => null,
+            'httponly' => null ]);
     }
 
     /**
@@ -93,11 +97,11 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testVerifyPathException02()
     {
-        $this->object->setCookieParams( [ 'lifetime' => NULL,
-            'path'     => FALSE,
-            'domain'   => NULL,
-            'secure'   => NULL,
-            'httponly' => NULL ] );
+        $this->object->setCookieParams([ 'lifetime' => null,
+            'path'     => false,
+            'domain'   => null,
+            'secure'   => null,
+            'httponly' => null ]);
     }
 
     /**
@@ -107,11 +111,11 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testVerifyDomainException()
     {
-        $this->object->setCookieParams( [ 'lifetime' => NULL,
-            'path'     => NULL,
-            'domain'   => FALSE,
-            'secure'   => NULL,
-            'httponly' => NULL ] );
+        $this->object->setCookieParams([ 'lifetime' => null,
+            'path'     => null,
+            'domain'   => false,
+            'secure'   => null,
+            'httponly' => null ]);
     }
 
     /**
@@ -120,9 +124,9 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      * @expectedException Foundation\Exception\InvalidArgumentException
      * @dataProvider getProviderSetCookieParamException
      */
-    public function testSetCookieParamException( $label, array $aParams )
+    public function testSetCookieParamException($label, array $aParams)
     {
-        $this->object->setCookieParams( $aParams );
+        $this->object->setCookieParams($aParams);
     }
 
     /**
@@ -133,15 +137,15 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
     public function getProviderSetCookieParamException()
     {
         return [
-            [ 'label' => 'secure', 'test'  => [ 'lifetime' => NULL,
-                    'path'     => NULL,
-                    'domain'   => NULL,
+            [ 'label' => 'secure', 'test'  => [ 'lifetime' => null,
+                    'path'     => null,
+                    'domain'   => null,
                     'secure'   => 'NULL',
-                    'httponly' => NULL ] ],
-            [ 'label' => 'httponly', 'test'  => [ 'lifetime' => NULL,
-                    'path'     => NULL,
-                    'domain'   => NULL,
-                    'secure'   => NULL,
+                    'httponly' => null ] ],
+            [ 'label' => 'httponly', 'test'  => [ 'lifetime' => null,
+                    'path'     => null,
+                    'domain'   => null,
+                    'secure'   => null,
                     'httponly' => 'NULL' ] ],
         ];
     }
@@ -153,11 +157,10 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetCookieParamsRuntimeException()
     {
-        if( strlen( session_id() ) == 0 )
-        {
-            $this->assertTrue( session_start(), 'session_start' );
+        if (strlen(session_id()) == 0) {
+            $this->assertTrue(session_start(), 'session_start');
         }
-        $this->object->setCookieParams( [ ] );
+        $this->object->setCookieParams([ ]);
     }
 
     /**
@@ -168,20 +171,20 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetCookieParams()
     {
-        $aConfig01 = array( 'lifetime' => 666,
+        $aConfig01 = [ 'lifetime' => 666,
             'path'     => '/test/',
             'domain'   => '.e6510-foundation.com',
-            'secure'   => TRUE,
-            'httponly' => TRUE );
-        $this->object->setCookieParams( $aConfig01 );
+            'secure'   => true,
+            'httponly' => true ];
+        $this->object->setCookieParams($aConfig01);
         $aConfig02 = $this->object->getCookieParams();
-        $this->assertEquals( $aConfig02, $aConfig01, 'getCookieParams' );
-        $this->assertEquals( 666, ini_get( 'session.cookie_lifetime' ), 'session.cookie_lifetime' );
-        $this->assertEquals( '/test/', ini_get( 'session.cookie_path' ), 'session.cookie_path' );
-        $this->assertEquals( '.e6510-foundation.com', ini_get( 'session.cookie_domain' ), 'session.cookie_domain' );
-        $this->assertEquals( TRUE, ini_get( 'session.cookie_secure' ), 'session.cookie_secure' );
-        $this->assertEquals( TRUE, ini_get( 'session.cookie_httponly' ), 'session.cookie_httponly' );
-        $this->assertTrue( strlen( (string)$this->object ) > 0, '__toString' );
+        $this->assertEquals($aConfig02, $aConfig01, 'getCookieParams');
+        $this->assertEquals(666, ini_get('session.cookie_lifetime'), 'session.cookie_lifetime');
+        $this->assertEquals('/test/', ini_get('session.cookie_path'), 'session.cookie_path');
+        $this->assertEquals('.e6510-foundation.com', ini_get('session.cookie_domain'), 'session.cookie_domain');
+        $this->assertEquals(true, ini_get('session.cookie_secure'), 'session.cookie_secure');
+        $this->assertEquals(true, ini_get('session.cookie_httponly'), 'session.cookie_httponly');
+        $this->assertTrue(strlen((string)$this->object) > 0, '__toString');
     }
 
     /**
@@ -191,11 +194,10 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetSavePathLogicException()
     {
-        if( strlen( session_id() ) == 0 )
-        {
-            $this->assertTrue( session_start(), 'session_start' );
+        if (strlen(session_id()) == 0) {
+            $this->assertTrue(session_start(), 'session_start');
         }
-        $this->object->setSavePath( '' );
+        $this->object->setSavePath('');
     }
 
     /**
@@ -205,7 +207,7 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetSavePathInvalidArgumentException()
     {
-        $this->object->setSavePath( 'doesnotexist' );
+        $this->object->setSavePath('doesnotexist');
     }
 
     /**
@@ -217,10 +219,10 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
     {
         $sNewPath = APPLICATION_PATH . DIRECTORY_SEPARATOR . 'data'
                 . DIRECTORY_SEPARATOR . 'sessions';
-        $this->object->setSavePath( $sNewPath );
-        $this->assertEquals( $sNewPath, ini_get( 'session.save_path' ), 'session.save_path' );
+        $this->object->setSavePath($sNewPath);
+        $this->assertEquals($sNewPath, ini_get('session.save_path'), 'session.save_path');
         $sPath    = $this->object->getSavePath();
-        $this->assertEquals( $sPath, $sNewPath, 'getSavePath' );
+        $this->assertEquals($sPath, $sNewPath, 'getSavePath');
     }
 
     /**
@@ -229,20 +231,19 @@ class CCookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetUse()
     {
-        $method = new \ReflectionMethod( '\Foundation\Session\Config\CCookie', 'setUse' );
-        $method->setAccessible( TRUE );
+        $method = new \ReflectionMethod('\Foundation\Session\Config\CCookie', 'setUse');
+        $method->setAccessible(true);
 
-        $this->assertFalse( $method->invokeArgs( $this->object, array( NULL ) ), 'NULL' );
+        $this->assertFalse($method->invokeArgs($this->object, [ null ]), 'NULL');
 
-        $this->assertTrue( $method->invokeArgs( $this->object, array( 'use_cookies' ) ), 'use_cookies' );
+        $this->assertTrue($method->invokeArgs($this->object, [ 'use_cookies' ]), 'use_cookies');
 
         static $s = 'use_cookies';
-        $a = ini_get( 'session.' . $s );
-        ini_set( 'session.' . $s, '0' );
-        $this->assertSame( '0', ini_get( 'session.' . $s ), 'PRE' );
-        $this->assertTrue( $method->invokeArgs( $this->object, array( $s ) ), $s );
-        $this->assertSame( '1', ini_get( 'session.' . $s ), 'PRE' );
-        ini_set( $s, $a );
+        $a = ini_get('session.' . $s);
+        ini_set('session.' . $s, '0');
+        $this->assertSame('0', ini_get('session.' . $s), 'PRE');
+        $this->assertTrue($method->invokeArgs($this->object, [ $s ]), $s);
+        $this->assertSame('1', ini_get('session.' . $s), 'PRE');
+        ini_set($s, $a);
     }
-
 }

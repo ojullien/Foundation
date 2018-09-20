@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Connector;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Connector;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull local filesystem methods using core library.
@@ -33,9 +35,9 @@ final class CFile extends \Foundation\Protocol\Connector\CConnectorAbstract
      */
     public function __construct()
     {
-        $this->_sDebugID = uniqid( 'cfile', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ ] );
+        $this->_sDebugID = uniqid('cfile', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ ]);
     }
 
     /** Connector section
@@ -48,7 +50,7 @@ final class CFile extends \Foundation\Protocol\Connector\CConnectorAbstract
      */
     public function close()
     {
-        $this->_sResponse                     = FALSE;
+        $this->_sResponse                     = false;
         $this->_iError                        = CURLE_OK;
         $this->_sError                        = '';
         $this->_aInformation['url']           = '';
@@ -64,7 +66,7 @@ final class CFile extends \Foundation\Protocol\Connector\CConnectorAbstract
      * @throws \Foundation\Exception\RuntimeException If unable to connect.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function connect( $host, array $options = [ ] )
+    public function connect($host, array $options = [ ])
     {
         // Close the current session if already connected
         $this->close();
@@ -81,100 +83,90 @@ final class CFile extends \Foundation\Protocol\Connector\CConnectorAbstract
      * @throws \Foundation\Exception\RuntimeException If the connection does not exist.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    private function performToFile( $url, array $options )
+    private function performToFile($url, array $options)
     {
         // Reset response
-        $this->_sResponse = FALSE;
+        $this->_sResponse = false;
 
         // Initialize error
         $this->_iError = CURLE_OK;
         $this->_sError = '';
 
         // Check and set URL
-        $pValidator = new \Foundation\Type\Complex\CPath( $url );
+        $pValidator = new \Foundation\Type\Complex\CPath($url);
         $url        = $pValidator->getRealPath();
-        unset( $pValidator );
+        unset($pValidator);
 
         $this->_aInformation['url']           = $url;
         $this->_aInformation['size_download'] = 0;
 
-        if( FALSE === $url )
-        {
+        if (false === $url) {
             $this->_iError = CURLE_COULDNT_RESOLVE_HOST;
             $this->_sError = 'Could not resolve host';
-            return FALSE;
+            return false;
         }
 
         // Check OUTPUT
-        if( !isset( $options[CURLOPT_FILE] ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'CURLOPT_FILE could not be successfully set' );
+        if (! isset($options[CURLOPT_FILE])) {
+            throw new \Foundation\Exception\InvalidArgumentException('CURLOPT_FILE could not be successfully set');
+        }
 
-        if( !is_resource( $options[CURLOPT_FILE] ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'CURLOPT_FILE option should be a valid File-Handle resource' );
+        if (! is_resource($options[CURLOPT_FILE])) {
+            throw new \Foundation\Exception\InvalidArgumentException('CURLOPT_FILE option should be a valid File-Handle resource');
+        }
 
         // Check CURLOPT_NOBODY
-        $bNobody = ( isset( $options[CURLOPT_NOBODY] ) && ( TRUE === $options[CURLOPT_NOBODY] ) ) ? TRUE : FALSE;
+        $bNobody = ( isset($options[CURLOPT_NOBODY]) && ( true === $options[CURLOPT_NOBODY] ) ) ? true : false;
 
         // Open source
-        $pIn = fopen( $url, 'rb' );
+        $pIn = fopen($url, 'rb');
 
         //@codeCoverageIgnoreStart
-        if( FALSE === $pIn )
-        {
+        if (false === $pIn) {
             $tmp = error_get_last();
-            if( is_array( $tmp ) )
-            {
+            if (is_array($tmp)) {
                 $this->_iError = $tmp['type'];
                 $this->_sError = $tmp['message'];
-            }
-            else
-            {
+            } else {
                 $this->_iError = CURLE_FILE_COULDNT_READ_FILE;
                 $this->_sError = 'Failed to open stream';
             }
-            return FALSE;
+            return false;
         }
         //@codeCoverageIgnoreEnd
 
-        $this->_sResponse = TRUE;
+        $this->_sResponse = true;
 
         // Copy if requested
-        if( !$bNobody )
-        {
-            while( !feof( $pIn ) )
-            {
-                $iCount = fwrite( $options[CURLOPT_FILE], fread( $pIn, 1024 ) );
+        if (! $bNobody) {
+            while (! feof($pIn)) {
+                $iCount = fwrite($options[CURLOPT_FILE], fread($pIn, 1024));
 
                 //@codeCoverageIgnoreStart
-                if( FALSE === $iCount )
-                {
+                if (false === $iCount) {
                     // Error
                     $tmp = error_get_last();
-                    if( is_array( $tmp ) )
-                    {
+                    if (is_array($tmp)) {
                         $this->_iError = $tmp['type'];
                         $this->_sError = $tmp['message'];
-                    }
-                    else
-                    {
+                    } else {
                         $this->_iError = CURLE_WRITE_ERROR;
                         $this->_sError = 'Failed to write to file';
                     }
 
-                    $this->_sResponse = FALSE;
+                    $this->_sResponse = false;
 
                     break;
                 }
                 //@codeCoverageIgnoreEnd
-                else
-                {
+                else {
                     // No error
                     $this->_aInformation['size_download'] += $iCount;
                 }
             }
         }
 
-        fclose( $pIn );
+        fclose($pIn);
         return $this->_sResponse;
     }
 
@@ -186,65 +178,56 @@ final class CFile extends \Foundation\Protocol\Connector\CConnectorAbstract
      * @return boolean
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    private function perform( $url, array $options )
+    private function perform($url, array $options)
     {
         // Reset response
-        $this->_sResponse = FALSE;
+        $this->_sResponse = false;
 
         // Initialize error
         $this->_iError = CURLE_OK;
         $this->_sError = '';
 
         // Check and set URL
-        $pValidator = new \Foundation\Type\Complex\CPath( $url );
+        $pValidator = new \Foundation\Type\Complex\CPath($url);
         $url        = $pValidator->getRealPath();
-        unset( $pValidator );
+        unset($pValidator);
 
         $this->_aInformation['url']           = $url;
         $this->_aInformation['size_download'] = 0;
 
-        if( FALSE === $url )
-        {
+        if (false === $url) {
             $this->_iError = CURLE_COULDNT_RESOLVE_HOST;
             $this->_sError = 'Could not resolve host';
-            return FALSE;
+            return false;
         }
 
         // Check CURLOPT_NOBODY
-        $bNobody = ( isset( $options[CURLOPT_NOBODY] ) && ( TRUE === $options[CURLOPT_NOBODY] ) ) ? TRUE : FALSE;
+        $bNobody = ( isset($options[CURLOPT_NOBODY]) && ( true === $options[CURLOPT_NOBODY] ) ) ? true : false;
 
         // Read if requested
-        if( $bNobody )
-        {
+        if ($bNobody) {
             $this->_sResponse = '';
-        }
-        else
-        {
-            $this->_sResponse = file_get_contents( $url );
+        } else {
+            $this->_sResponse = file_get_contents($url);
 
             //@codeCoverageIgnoreStart
-            if( FALSE === $this->_sResponse )
-            {
+            if (false === $this->_sResponse) {
                 $tmp = error_get_last();
-                if( is_array( $tmp ) )
-                {
+                if (is_array($tmp)) {
                     $this->_iError = $tmp['type'];
                     $this->_sError = $tmp['message'];
-                }
-                else
-                {
+                } else {
                     $this->_iError = CURLE_READ_ERROR;
                     $this->_sError = 'Failed to get content from file';
                 }
             }
             //@codeCoverageIgnoreEnd
-            else
-            {
-                $this->_aInformation['size_download'] = mb_strlen( $this->_sResponse, 'UTF-8' );
+            else {
+                $this->_aInformation['size_download'] = mb_strlen($this->_sResponse, 'UTF-8');
             }//if( ...
         }
 
-        return ( ( is_bool( $this->_sResponse ) ) ? $this->_sResponse : TRUE );
+        return ( ( is_bool($this->_sResponse) ) ? $this->_sResponse : true );
     }
 
     /**
@@ -258,16 +241,12 @@ final class CFile extends \Foundation\Protocol\Connector\CConnectorAbstract
      * @throws \RuntimeException if the connection does not exist.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function write( $url, array $options = [ ] )
+    public function write($url, array $options = [ ])
     {
-        if( isset( $options[CURLOPT_FILE] ) )
-        {
-            return $this->performToFile( $url, $options );
-        }
-        else
-        {
-            return $this->perform( $url, $options );
+        if (isset($options[CURLOPT_FILE])) {
+            return $this->performToFile($url, $options);
+        } else {
+            return $this->perform($url, $options);
         }
     }
-
 }

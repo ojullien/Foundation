@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Log\Writer;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Log\Writer;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class is a stub that does not write log data to anything. It is useful for disabling logging or stubbing out
@@ -33,9 +35,9 @@ final class CNull extends \Foundation\Log\Writer\CWriterAbstract
      */
     public function __construct()
     {
-        $this->_sDebugID = uniqid( 'cnull', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ ] );
+        $this->_sDebugID = uniqid('cnull', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ ]);
     }
 
     /**
@@ -54,9 +56,8 @@ final class CNull extends \Foundation\Log\Writer\CWriterAbstract
      * @param \Foundation\Log\CMessage $pMessage Detailed message data.
      * @return boolean
      */
-    public function write( \Foundation\Log\CMessage $pMessage )
+    public function write(\Foundation\Log\CMessage $pMessage)
     {
         // Do nothing
     }
-
 }

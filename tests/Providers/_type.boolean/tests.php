@@ -1,5 +1,5 @@
 <?php
-$this->_aTests[self::KEY_TEST] = array(
-array( 'label'=>'TEST: boolean true'  , 'test'=>TRUE),
-array( 'label'=>'TEST: boolean false' , 'test'=>FALSE),
-);
+$this->_aTests[self::KEY_TEST] = [
+[ 'label' => 'TEST: boolean true'  , 'test' => true],
+[ 'label' => 'TEST: boolean false' , 'test' => false],
+];

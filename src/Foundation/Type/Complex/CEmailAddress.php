@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type\Complex;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type\Complex;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class provides an email address filter.
@@ -38,13 +40,13 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $value )
+    public function __construct($value)
     {
-        $this->_sDebugID = uniqid( 'cemailaddress', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ $value ] );
+        $this->_sDebugID = uniqid('cemailaddress', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ $value ]);
 
-        $this->setValue( $value );
+        $this->setValue($value);
     }
 
     /**
@@ -55,11 +57,11 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
     public function __destruct()
     {
         $this->_sRaw        = '';
-        $this->_sPartLocal  = NULL;
-        $this->_sPartDomain = NULL;
-        $this->_sPunycode   = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_sPartLocal  = null;
+        $this->_sPartDomain = null;
+        $this->_sPunycode   = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -70,9 +72,9 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -82,9 +84,9 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -94,7 +96,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      */
     public function __toString()
     {
-        return ( isset( $this->_sPartLocal ) && isset( $this->_sPartDomain ) ) ? $this->_sPartLocal . '@' . $this->_sPartDomain : '';
+        return ( isset($this->_sPartLocal) && isset($this->_sPartDomain) ) ? $this->_sPartLocal . '@' . $this->_sPartDomain : '';
     }
 
     /** Type section
@@ -107,7 +109,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      */
     public function getValue()
     {
-        return ( isset( $this->_sPartLocal ) && isset( $this->_sPartDomain ) ) ? $this->_sPartLocal . '@' . $this->_sPartDomain : NULL;
+        return ( isset($this->_sPartLocal) && isset($this->_sPartDomain) ) ? $this->_sPartLocal . '@' . $this->_sPartDomain : null;
     }
 
     /**
@@ -117,7 +119,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      */
     public function isValid()
     {
-        return ( isset( $this->_sPartLocal ) && isset( $this->_sPartDomain ) );
+        return ( isset($this->_sPartLocal) && isset($this->_sPartDomain) );
     }
 
     /**
@@ -127,8 +129,10 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      */
     public function getLength()
     {
-        return ( isset( $this->_sPartLocal ) && isset( $this->_sPartDomain ) ) ? mb_strlen( $this->_sPartLocal . '@' . $this->_sPartDomain,
-                                                                                            'UTF-8' ) : 0;
+        return ( isset($this->_sPartLocal) && isset($this->_sPartDomain) ) ? mb_strlen(
+            $this->_sPartLocal . '@' . $this->_sPartDomain,
+            'UTF-8'
+        ) : 0;
     }
 
     /**
@@ -137,35 +141,29 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * @param string $value|\Foundation\Type\Complex\CEmailAddress|\Foundation\Type\Simple\CString The value to write.
      * @return \Foundation\Type\Complex\CEmailAddress
      */
-    public function setValue( $value )
+    public function setValue($value)
     {
         // Initialize
         $this->_sRaw        = '';
-        $this->_sPartLocal  = NULL;
-        $this->_sPartDomain = NULL;
-        $this->_sPunycode   = NULL;
+        $this->_sPartLocal  = null;
+        $this->_sPartDomain = null;
+        $this->_sPunycode   = null;
 
         // Check argument type
-        if( $value instanceof \Foundation\Type\Complex\CEmailAddress && $value->isValid() )
-        {
+        if ($value instanceof \Foundation\Type\Complex\CEmailAddress && $value->isValid()) {
             // Already an email address: nothing to do
             $this->_sRaw        = $value->getRaw();
             $this->_sPartLocal  = $value->getLocalPart();
             $this->_sPartDomain = $value->getDomainPart();
-            $this->_sPunycode   = substr( $value->getPunycode(), mb_strlen( $this->_sPartLocal ) + 1 );
+            $this->_sPunycode   = substr($value->getPunycode(), mb_strlen($this->_sPartLocal) + 1);
             return $this;
         }
         // We're working with the raw value
-        elseif( $value instanceof \Foundation\Type\Simple\CString )
-        {
+        elseif ($value instanceof \Foundation\Type\Simple\CString) {
             $this->_sRaw = $value->getValue();
-        }
-        elseif( is_string( $value ) )
-        {
-            $this->_sRaw = trim( $value );
-        }
-        else
-        {
+        } elseif (is_string($value)) {
+            $this->_sRaw = trim($value);
+        } else {
             return $this;
         }
 
@@ -173,19 +171,16 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
         // combined length of no more than 256 characters.
         // Do not accept ip address: local@[129.126.118.1]
         $aMatches = [ ];
-        $iLength  = mb_strlen( $this->_sRaw, 'UTF-8' );
-        if( ($iLength > 2) && ($iLength < 257) && ( preg_match( '/^(.+)@([^@]+)$/', $this->_sRaw, $aMatches ) == 1 ) )
-        {
+        $iLength  = mb_strlen($this->_sRaw, 'UTF-8');
+        if (($iLength > 2) && ($iLength < 257) && ( preg_match('/^(.+)@([^@]+)$/', $this->_sRaw, $aMatches) == 1 )) {
             // Validate local part and domain part
-            if( isset( $aMatches[1] ) && isset( $aMatches[2] ) && $this->setLocalPart( $aMatches[1] ) )
-            {
-                $pHostname = new \Foundation\Type\Complex\CHostname( $aMatches[2], array( TRUE, FALSE, FALSE ) );
-                if( $pHostname->isValid() )
-                {
+            if (isset($aMatches[1]) && isset($aMatches[2]) && $this->setLocalPart($aMatches[1])) {
+                $pHostname = new \Foundation\Type\Complex\CHostname($aMatches[2], [ true, false, false ]);
+                if ($pHostname->isValid()) {
                     $this->_sPartDomain = $pHostname->getValue();
                     $this->_sPunycode   = $pHostname->getPunycode();
                 }
-                unset( $pHostname );
+                unset($pHostname);
             }//if( isset( ...
         }//if( (...
 
@@ -218,7 +213,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * Local part of the email address.
      * @var string
      */
-    private $_sPartLocal = NULL;
+    private $_sPartLocal = null;
 
     /**
      * Returns the local part of the email address.
@@ -267,28 +262,27 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * @param string $value
      * @return boolean
      */
-    private function setLocalPart( $value )
+    private function setLocalPart($value)
     {
         // Initialize
-        $this->_sPartLocal = NULL;
+        $this->_sPartLocal = null;
 
         // Verify the type
-        $value   = ( is_string( $value ) ) ? trim( $value ) : '';
-        $iLength = ( '' == $value ) ? 0 : mb_strlen( $value, 'UTF-8' );
+        $value   = ( is_string($value) ) ? trim($value) : '';
+        $iLength = ( '' == $value ) ? 0 : mb_strlen($value, 'UTF-8');
 
         // Maximum length of the local part is 64 characters. Dots may also be present in the local part, but can not
         // be the first nor last character, nor adjacent to another dot (.) (x2E).
-        if( ($iLength > 0) &&
+        if (($iLength > 0) &&
                 ($iLength < 65) &&
-                ( FALSE === strpos( $value, '..' ) ) &&
+                ( false === strpos($value, '..') ) &&
                 // Non Quoted || Quoted
-                ( ( preg_match( self::getPatternEmailAddressLocalPartNoQuoted(), $value ) === 1 ) ||
-                ( preg_match( self::getPatternEmailAddressLocalPartQuoted(), $value ) === 1 ) ) )
-        {
+                ( ( preg_match(self::getPatternEmailAddressLocalPartNoQuoted(), $value) === 1 ) ||
+                ( preg_match(self::getPatternEmailAddressLocalPartQuoted(), $value) === 1 ) ) ) {
             $this->_sPartLocal = $value;
         }
 
-        return isset( $this->_sPartLocal );
+        return isset($this->_sPartLocal);
     }
 
     /** Domain part section
@@ -298,7 +292,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * Domain part of the email address.
      * @var string
      */
-    private $_sPartDomain = NULL;
+    private $_sPartDomain = null;
 
     /**
      * Returns the domain part of the email address.
@@ -317,7 +311,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * Domain punycode.
      * @var string
      */
-    private $_sPunycode = NULL;
+    private $_sPunycode = null;
 
     /**
      * Returns the punycode encoded email.
@@ -326,7 +320,7 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      */
     public function getPunycode()
     {
-        return ( isset( $this->_sPartLocal ) && isset( $this->_sPunycode ) ) ? $this->_sPartLocal . '@' . $this->_sPunycode : NULL;
+        return ( isset($this->_sPartLocal) && isset($this->_sPunycode) ) ? $this->_sPartLocal . '@' . $this->_sPunycode : null;
     }
 
     /** DNS section
@@ -338,21 +332,17 @@ final class CEmailAddress implements \Foundation\Type\TypeInterface
      * @param boolean $useDeepMxCheck [OPTIONAL] Set to TRUE to perform a deep validation process for MX records.
      * @return boolean
      */
-    public function checkDNS( $useDeepMxCheck = FALSE )
+    public function checkDNS($useDeepMxCheck = false)
     {
 
-        if( isset( $this->_sPunycode ) )
-        {
+        if (isset($this->_sPunycode)) {
             $Domain  = $this->_sPunycode . '.';
-            $bReturn = checkdnsrr( $Domain, 'MX' ) ||
+            $bReturn = checkdnsrr($Domain, 'MX') ||
                     ( $useDeepMxCheck &&
-                    ( checkdnsrr( $Domain, 'A' ) || checkdnsrr( $Domain, 'AAAA' ) || checkdnsrr( $Domain, 'A6' ) ) );
-        }
-        else
-        {
-            $bReturn = FALSE;
+                    ( checkdnsrr($Domain, 'A') || checkdnsrr($Domain, 'AAAA') || checkdnsrr($Domain, 'A6') ) );
+        } else {
+            $bReturn = false;
         }
         return $bReturn;
     }
-
 }

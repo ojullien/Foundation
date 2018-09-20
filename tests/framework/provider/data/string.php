@@ -18,7 +18,7 @@ return [
     [ 'label' => 'TEST: range 9223372036854775808', 'test'  => '9223372036854775808' ],
     [ 'label' => 'TEST: range -9223372036854775809', 'test'  => '-9223372036854775809' ],
     [ 'label' => 'TEST: 128M', 'test'  => '128M' ],
-    [ 'label' => 'TEST: 0x20', 'test'  => chr( 0x20 ) ],
+    [ 'label' => 'TEST: 0x20', 'test'  => chr(0x20) ],
     [ 'label' => 'TEST: string empty', 'test'  => '' ],
     [ 'label' => 'TEST: string empty with space', 'test'  => ' ' ],
     [ 'label' => 'TEST: string "This is a simple string"', 'test'  => 'This is a simple string' ],

@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Render;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Render;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods for debug rendering in google chart format.
@@ -20,8 +22,7 @@ if( !defined( 'APPLICATION_VERSION' ) )
  * @since      1.0.0
  * @codeCoverageIgnore
  */
-final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
-        implements \Foundation\Debug\Render\RenderInterface
+final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract implements \Foundation\Debug\Render\RenderInterface
 {
     /** Rendering section
      * ****************** */
@@ -34,14 +35,14 @@ final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
      * @param integer $iMemoryUsage     Current memory usage
      * @return string
      */
-    public function renderUsage( $fScriptDuration, $iMemoryPeakUsage, $iMemoryUsage )
+    public function renderUsage($fScriptDuration, $iMemoryPeakUsage, $iMemoryUsage)
     {
         // Build javascript
         $sReturn = 'var dataUsage=google.visualization.arrayToDataTable(['
                 . '[\'Label\', \'Value\'],'
-                . '[\'Duration\', ' . $this->convertToMSecond( $fScriptDuration ) . '],'
-                . '[\'Peak\', ' . $this->convertToMByte( $iMemoryPeakUsage ) . '],'
-                . '[\'Memory\', ' . $this->convertToMByte( $iMemoryUsage ) . '],'
+                . '[\'Duration\', ' . $this->convertToMSecond($fScriptDuration) . '],'
+                . '[\'Peak\', ' . $this->convertToMByte($iMemoryPeakUsage) . '],'
+                . '[\'Memory\', ' . $this->convertToMByte($iMemoryUsage) . '],'
                 . ']);'
                 . 'var optionsUsage={'
                 . 'width:400,height:120,'
@@ -64,20 +65,16 @@ final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
      *                                                               'memory' => array( 'start' => ..., 'end' => ...) );
      * @return string
      */
-    public function renderMemory( $fScriptDuration, array $data )
+    public function renderMemory($fScriptDuration, array $data)
     {
         // Build javascript
         $sReturn = 'var dataMemory=google.visualization.arrayToDataTable(['
                 . '[\'Script\',0,0,' . $fScriptDuration . ',' . $fScriptDuration . ']';
-        foreach( $data as $value )
-        {
-            $sReturn .= ',[\'' . htmlentities( $value['class'], ENT_QUOTES, 'UTF-8' ) . '\',';
-            if( $value['time']['end'] > 0.0 )
-            {
+        foreach ($data as $value) {
+            $sReturn .= ',[\'' . htmlentities($value['class'], ENT_QUOTES, 'UTF-8') . '\',';
+            if ($value['time']['end'] > 0.0) {
                 $sReturn .= '0,' . $value['time']['start'] . ',' . $value['time']['end'] . ',' . $fScriptDuration . ']';
-            }
-            else
-            {
+            } else {
                 $sReturn .= $fScriptDuration . ',' . $fScriptDuration . ',' . $value['time']['start'] . ',0]';
             }
         }//Foreach(...
@@ -97,7 +94,7 @@ final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
      *                                                         'end' => ... ) );
      * @return string
      */
-    public function renderVariable( $name, array $data )
+    public function renderVariable($name, array $data)
     {
         return '';
     }
@@ -108,7 +105,7 @@ final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
      * @param  array $options [OPTIONAL] List of options. Not used.
      * @return string
      */
-    public function renderPrecondition( array $options = array( ) )
+    public function renderPrecondition(array $options = [ ])
     {
         $sReturn = '<div id="chartUsage_div"></div>' . PHP_EOL
                 . '<div id="chartMemory_div"></div>' . PHP_EOL
@@ -141,7 +138,7 @@ final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
      * @param array $aHeaders Sent headers
      * @return string
      */
-    public function renderHeader( array $aHeaders )
+    public function renderHeader(array $aHeaders)
     {
         return '';
     }
@@ -151,7 +148,7 @@ final class CGoogleChart extends \Foundation\Debug\Render\CRenderAbstract
      *
      * @return string
      */
-    public function renderSessionConfiguration( )
+    public function renderSessionConfiguration()
     {
         return '';
     }

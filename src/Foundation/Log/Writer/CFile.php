@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Log\Writer;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Log\Writer;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods to record log data to a file.
@@ -33,21 +35,21 @@ final class CFile extends \Foundation\Log\Writer\CWriterAbstract
      * @throws \RuntimeException If an error occures.
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( \Foundation\Type\Complex\CPath $filename )
+    public function __construct(\Foundation\Type\Complex\CPath $filename)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cfile', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $filename ] );
+        $this->_sDebugID = uniqid('cfile', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $filename ]
+                );
         //@codeCoverageIgnoreEnd
-        if( $filename->isValid() )
-        {
-            $this->_pFile = new \SplFileObject( $filename->getValue(), 'a+b' );
-        }
-        else
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'filename is not valid.' );
+        if ($filename->isValid()) {
+            $this->_pFile = new \SplFileObject($filename->getValue(), 'a+b');
+        } else {
+            throw new \Foundation\Exception\InvalidArgumentException('filename is not valid.');
         }
     }
 
@@ -58,7 +60,7 @@ final class CFile extends \Foundation\Log\Writer\CWriterAbstract
      * File.
      * @var \SplFileObject
      */
-    private $_pFile = NULL;
+    private $_pFile = null;
 
     /**
      * Close the file resource.
@@ -67,13 +69,11 @@ final class CFile extends \Foundation\Log\Writer\CWriterAbstract
      */
     public function shutdown()
     {
-        if( isset( $this->_pFile ) )
-        {
+        if (isset($this->_pFile)) {
             $this->_pFile->fflush();
-            $this->_pFile = NULL;
+            $this->_pFile = null;
         }
-        if( isset( $this->_pSuccessor ) )
-        {
+        if (isset($this->_pSuccessor)) {
             $this->_pSuccessor->shutdown();
         }//if( isset(...
     }
@@ -84,25 +84,22 @@ final class CFile extends \Foundation\Log\Writer\CWriterAbstract
      * @param \Foundation\Log\CMessage $pMessage Detailed message data.
      * @return void
      */
-    public function write( \Foundation\Log\CMessage $pMessage )
+    public function write(\Foundation\Log\CMessage $pMessage)
     {
-        if( isset( $this->_pFile ) )
-        {
+        if (isset($this->_pFile)) {
             // Build message
-            $sBuffer = '[' . $pMessage->getDateTime()->format( 'D M d G:i:s Y' ) . ']'
+            $sBuffer = '[' . $pMessage->getDateTime()->format('D M d G:i:s Y') . ']'
                     . ' [' . $pMessage->getSeverity() . ']'
                     . ' [client ' . $pMessage->getRemoteAddress() . ']'
                     . ' [user ' . $pMessage->getUser() . ']'
                     . ' [module ' . $pMessage->getModule() . ']'
                     . ' ' . $pMessage->getMessage() . PHP_EOL;
             // Write
-            $this->_pFile->fwrite( $sBuffer );
+            $this->_pFile->fwrite($sBuffer);
         }//if( isset(...
         // Chain of Responsibility
-        if( isset( $this->_pSuccessor ) )
-        {
-            $this->_pSuccessor->write( $pMessage );
+        if (isset($this->_pSuccessor)) {
+            $this->_pSuccessor->write($pMessage);
         }
     }
-
 }

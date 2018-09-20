@@ -1,7 +1,7 @@
 <?php
 return [
-    ['label' => 'TEST: CString', 'test'  => new \Foundation\Type\Simple\CString( APPLICATION_PATH_UPLOADS ) ],
-    ['label' => 'TEST: CPath', 'test'  => new \Foundation\Type\Complex\CPath( APPLICATION_PATH_UPLOADS ) ],
+    ['label' => 'TEST: CString', 'test'  => new \Foundation\Type\Simple\CString(APPLICATION_PATH_UPLOADS) ],
+    ['label' => 'TEST: CPath', 'test'  => new \Foundation\Type\Complex\CPath(APPLICATION_PATH_UPLOADS) ],
     [ 'label' => 'TEST: /', 'test'  => '/' ],
     [ 'label' => 'TEST: /', 'test'  => APPLICATION_PATH_UPLOADS . DIRECTORY_SEPARATOR . '/' ],
     [ 'label' => 'TEST: \\', 'test'  => '\\' ],

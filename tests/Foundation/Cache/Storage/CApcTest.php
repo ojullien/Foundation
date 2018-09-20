@@ -1,10 +1,11 @@
 <?php
 namespace Test\Foundation\Cache\Storage;
-trait_exists( '\Test\Foundation\Cache\Storage\Provider\TCacheDataProvider' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Cache/Storage/Provider/TCacheDataProvider.php' ) );
 
-interface_exists( '\Foundation\Cache\Storage\StorageInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/StorageInterface.php' ) );
-class_exists( '\Foundation\Cache\Storage\CStorageAbstract' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CStorageAbstract.php' ) );
-class_exists( '\Foundation\Cache\Storage\CApc' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CApc.php' ) );
+trait_exists('\Test\Foundation\Cache\Storage\Provider\TCacheDataProvider') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Cache/Storage/Provider/TCacheDataProvider.php'));
+
+interface_exists('\Foundation\Cache\Storage\StorageInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/StorageInterface.php'));
+class_exists('\Foundation\Cache\Storage\CStorageAbstract') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CStorageAbstract.php'));
+class_exists('\Foundation\Cache\Storage\CApc') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CApc.php'));
 
 class CApcTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,14 +20,14 @@ class CApcTest extends \PHPUnit_Framework_TestCase
      *
      * @var \Foundation\Cache\Storage\StorageInterface
      */
-    private $_pObject = NULL;
+    private $_pObject = null;
 
     /**
      * Instances.
      */
     public function setUp()
     {
-        $this->_pObject = new \Foundation\Cache\Storage\CApc( 'FOUNDATION_TEST' );
+        $this->_pObject = new \Foundation\Cache\Storage\CApc('FOUNDATION_TEST');
     }
 
     /**
@@ -34,7 +35,7 @@ class CApcTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        unset( $this->_pObject );
+        unset($this->_pObject);
     }
 
     /** Tests section
@@ -50,24 +51,30 @@ class CApcTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheData
      */
-    public function testData( $sLabel, array $aData, array $aResult )
+    public function testData($sLabel, array $aData, array $aResult)
     {
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'Initial check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'Initial check for ' . $sLabel);
 
-        $this->assertSame( $aResult['store'], $this->_pObject->store( $aData['key'], $aData['value'], $aData['ttl'] ),
-                                                                      'store for ' . $sLabel );
+        $this->assertSame(
+            $aResult['store'],
+            $this->_pObject->store($aData['key'], $aData['value'], $aData['ttl']),
+            'store for ' . $sLabel
+        );
 
-        $this->assertSame( $aResult['exists'], $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
+        $this->assertSame($aResult['exists'], $this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
 
         $success = 'nuke';
-        $this->assertSame( $aResult['fetch']['return'], $this->_pObject->fetch( $aData['key'], $success ),
-                                                                                'fetch for ' . $sLabel );
+        $this->assertSame(
+            $aResult['fetch']['return'],
+            $this->_pObject->fetch($aData['key'], $success),
+            'fetch for ' . $sLabel
+        );
 
-        $this->assertSame( $aResult['fetch']['success'], $success, 'success for ' . $sLabel );
+        $this->assertSame($aResult['fetch']['success'], $success, 'success for ' . $sLabel);
 
-        $this->assertSame( $aResult['delete'], $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
+        $this->assertSame($aResult['delete'], $this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
 
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'final check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'final check for ' . $sLabel);
     }
 
     /**
@@ -80,21 +87,23 @@ class CApcTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheDataTtl
      */
-    public function testDataTTL( $sLabel, array $aData, array $aResult )
+    public function testDataTTL($sLabel, array $aData, array $aResult)
     {
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'Initial check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'Initial check for ' . $sLabel);
 
-        $this->assertTrue( $this->_pObject->store( $aData['key'], $aData['value'], $aData['ttl'] ),
-                                                   'store for ' . $sLabel );
+        $this->assertTrue(
+            $this->_pObject->store($aData['key'], $aData['value'], $aData['ttl']),
+            'store for ' . $sLabel
+        );
 
-        $this->assertTrue( $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
+        $this->assertTrue($this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
 
         $success = 'nuke';
-        $this->assertSame( $aData['value'], $this->_pObject->fetch( $aData['key'], $success ), 'fetch for ' . $sLabel );
+        $this->assertSame($aData['value'], $this->_pObject->fetch($aData['key'], $success), 'fetch for ' . $sLabel);
 
-        $this->assertTrue( $success, 'success for ' . $sLabel );
+        $this->assertTrue($success, 'success for ' . $sLabel);
 
-        $this->assertTrue( $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
+        $this->assertTrue($this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
 
         // Can't test time to live
 //        sleep( $aData['ttl'] + 2 );
@@ -119,21 +128,23 @@ class CApcTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheDataTtl
      */
-    public function testDataTTLDelete( $sLabel, array $aData, array $aResult )
+    public function testDataTTLDelete($sLabel, array $aData, array $aResult)
     {
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'Initial check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'Initial check for ' . $sLabel);
 
-        $this->assertTrue( $this->_pObject->store( $aData['key'], $aData['value'], $aData['ttl'] ),
-                                                   'store for ' . $sLabel );
+        $this->assertTrue(
+            $this->_pObject->store($aData['key'], $aData['value'], $aData['ttl']),
+            'store for ' . $sLabel
+        );
 
-        $this->assertTrue( $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
+        $this->assertTrue($this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
 
         $success = 'nuke';
-        $this->assertSame( $aData['value'], $this->_pObject->fetch( $aData['key'], $success ), 'fetch for ' . $sLabel );
+        $this->assertSame($aData['value'], $this->_pObject->fetch($aData['key'], $success), 'fetch for ' . $sLabel);
 
-        $this->assertTrue( $success, 'success for ' . $sLabel );
+        $this->assertTrue($success, 'success for ' . $sLabel);
 
-        $this->assertTrue( $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
+        $this->assertTrue($this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
 
         // Can't test after time 2 live
 //        sleep( $aData['ttl'] + 2 );
@@ -158,15 +169,17 @@ class CApcTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheKeyDoesNotExist
      */
-    public function testKeyDoesNotExist( $sLabel, array $aData, array $aResult )
+    public function testKeyDoesNotExist($sLabel, array $aData, array $aResult)
     {
         $success = 'nuke';
 
-        $this->assertSame( $aResult['exists'], $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
-        $this->assertSame( $aResult['fetch']['return'], $this->_pObject->fetch( $aData['key'], $success ),
-                                                                                'fetch for ' . $sLabel );
-        $this->assertSame( $aResult['fetch']['success'], $success, 'success for ' . $sLabel );
-        $this->assertSame( $aResult['delete'], $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
+        $this->assertSame($aResult['exists'], $this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
+        $this->assertSame(
+            $aResult['fetch']['return'],
+            $this->_pObject->fetch($aData['key'], $success),
+            'fetch for ' . $sLabel
+        );
+        $this->assertSame($aResult['fetch']['success'], $success, 'success for ' . $sLabel);
+        $this->assertSame($aResult['delete'], $this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
     }
-
 }

@@ -1,26 +1,29 @@
 <?php
 namespace Foundation\Test\Gd;
-defined( 'FOUNDATION_EXCEPTION_PATH' ) || define( 'FOUNDATION_EXCEPTION_PATH',
-                                                  APPLICATION_PATH . '/src/Foundation/Exception' );
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php' ) );
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php' ) );
-class_exists( '\Foundation\Exception\RangeException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/RangeException.php' ) );
 
-defined( 'FOUNDATION_TYPE_PATH' ) || define( 'FOUNDATION_TYPE_PATH', APPLICATION_PATH . '/src/Foundation/Type' );
-interface_exists( '\Foundation\Type\TypeInterface' ) || require( realpath( FOUNDATION_TYPE_PATH . '/TypeInterface.php' ) );
-class_exists( '\Foundation\Type\CTypeAbstract' ) || require( realpath( FOUNDATION_TYPE_PATH . '/CTypeAbstract.php' ) );
-class_exists( '\Foundation\Type\Simple\CString' ) || require( realpath( FOUNDATION_TYPE_PATH . '/Simple/CString.php' ) );
-class_exists( '\Foundation\Type\Complex\CPath' ) || require( realpath( FOUNDATION_TYPE_PATH . '/Complex/CPath.php' ) );
+defined('FOUNDATION_EXCEPTION_PATH') || define(
+    'FOUNDATION_EXCEPTION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Exception'
+);
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php'));
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php'));
+class_exists('\Foundation\Exception\RangeException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/RangeException.php'));
 
-defined( 'FOUNDATION_GD_PATH' ) || define( 'FOUNDATION_GD_PATH', APPLICATION_PATH . '/src/Foundation/Gd' );
-class_exists( '\Foundation\Gd\CResource' ) || require( realpath( FOUNDATION_GD_PATH . '/CResource.php' ) );
-class_exists( '\Foundation\Gd\CDimensions' ) || require( realpath( FOUNDATION_GD_PATH . '/CDimensions.php' ) );
-class_exists( '\Foundation\Gd\CCoordinates' ) || require( realpath( FOUNDATION_GD_PATH . '/CCoordinates.php' ) );
-class_exists( '\Foundation\Gd\CColor' ) || require( realpath( FOUNDATION_GD_PATH . '/CColor.php' ) );
-class_exists( '\Foundation\Gd\CGDAbstract' ) || require( realpath( FOUNDATION_GD_PATH . '/CGDAbstract.php' ) );
-class_exists( '\Foundation\Gd\CImage' ) || require( realpath( FOUNDATION_GD_PATH . '/CImage.php' ) );
+defined('FOUNDATION_TYPE_PATH') || define('FOUNDATION_TYPE_PATH', APPLICATION_PATH . '/src/Foundation/Type');
+interface_exists('\Foundation\Type\TypeInterface') || require(realpath(FOUNDATION_TYPE_PATH . '/TypeInterface.php'));
+class_exists('\Foundation\Type\CTypeAbstract') || require(realpath(FOUNDATION_TYPE_PATH . '/CTypeAbstract.php'));
+class_exists('\Foundation\Type\Simple\CString') || require(realpath(FOUNDATION_TYPE_PATH . '/Simple/CString.php'));
+class_exists('\Foundation\Type\Complex\CPath') || require(realpath(FOUNDATION_TYPE_PATH . '/Complex/CPath.php'));
 
-class_exists( '\Foundation\Test\Framework\Provider\CDataTestProvider' ) || require( realpath( APPLICATION_PATH . '/tests/framework/provider/CDataTestProvider.php' ) );
+defined('FOUNDATION_GD_PATH') || define('FOUNDATION_GD_PATH', APPLICATION_PATH . '/src/Foundation/Gd');
+class_exists('\Foundation\Gd\CResource') || require(realpath(FOUNDATION_GD_PATH . '/CResource.php'));
+class_exists('\Foundation\Gd\CDimensions') || require(realpath(FOUNDATION_GD_PATH . '/CDimensions.php'));
+class_exists('\Foundation\Gd\CCoordinates') || require(realpath(FOUNDATION_GD_PATH . '/CCoordinates.php'));
+class_exists('\Foundation\Gd\CColor') || require(realpath(FOUNDATION_GD_PATH . '/CColor.php'));
+class_exists('\Foundation\Gd\CGDAbstract') || require(realpath(FOUNDATION_GD_PATH . '/CGDAbstract.php'));
+class_exists('\Foundation\Gd\CImage') || require(realpath(FOUNDATION_GD_PATH . '/CImage.php'));
+
+class_exists('\Foundation\Test\Framework\Provider\CDataTestProvider') || require(realpath(APPLICATION_PATH . '/tests/framework/provider/CDataTestProvider.php'));
 
 class CImageTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,15 +36,14 @@ class CImageTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $tests = \Foundation\Test\Framework\Provider\CDataTestProvider::GetInstance()->getTests(
-                \Foundation\Test\Framework\Provider\CDataTestProvider::DATA_TYPE_RESOURCE,
-                require( realpath( __DIR__ . '/provider/result/cresource.php' ) ) );
+            \Foundation\Test\Framework\Provider\CDataTestProvider::DATA_TYPE_RESOURCE,
+            require(realpath(__DIR__ . '/provider/result/cresource.php'))
+        );
 
-        foreach( $tests as $test )
-        {
+        foreach ($tests as $test) {
             $expected = &$test['expected'];
 
-            if( $expected['valid'] )
-            {
+            if ($expected['valid']) {
                 static::$_aValid[] = $test;
             }
         }
@@ -54,35 +56,30 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      * Valid data
      * @var array
      */
-    public static $_aValid = NULL;
+    public static $_aValid = null;
 
-    private function getExtension( $filename )
+    private function getExtension($filename)
     {
         // Check extension
-        $info      = new \SplFileInfo( $filename );
+        $info      = new \SplFileInfo($filename);
         $extension = '';
-        if( version_compare( phpversion(), '5.3.6', '>=' ) )
-        {
+        if (version_compare(phpversion(), '5.3.6', '>=')) {
             $extension = $info->getExtension();
-        }
-        else
-        {
-            $extension = pathinfo( $info->getFilename(), PATHINFO_EXTENSION );
+        } else {
+            $extension = pathinfo($info->getFilename(), PATHINFO_EXTENSION);
         }//if( version_compare(...
         // Check file
-        if( empty( $extension ) )
-        {
-            $aInfos = getimagesize( $info->getRealPath() );
-            if( isset( $aInfos['mime'] ) && strlen( $aInfos['mime'] ) > 3 )
-            {
-                $extension = substr( $aInfos['mime'], -3 );
+        if (empty($extension)) {
+            $aInfos = getimagesize($info->getRealPath());
+            if (isset($aInfos['mime']) && strlen($aInfos['mime']) > 3) {
+                $extension = substr($aInfos['mime'], -3);
             }//if( isset(...
         }
-        unset( $info );
-        return strtolower( $extension );
+        unset($info);
+        return strtolower($extension);
     }
 
-    private function verify( array $aInfoIn, array $aInfoOut )
+    private function verify(array $aInfoIn, array $aInfoOut)
     {
 //        $s = 'In' . print_r($aInfoIn,true);
 //        $s .= ' Out' . print_r($aInfoOut,true);
@@ -93,43 +90,36 @@ class CImageTest extends \PHPUnit_Framework_TestCase
         return $breturn;
     }
 
-    private function save( $extension, \Foundation\Gd\CImage $pImage, array $aInfoIn )
+    private function save($extension, \Foundation\Gd\CImage $pImage, array $aInfoIn)
     {
-        $bReturn   = FALSE;
+        $bReturn   = false;
         $sFileSave = APPLICATION_PATH . DIRECTORY_SEPARATOR . 'data'
                 . DIRECTORY_SEPARATOR . 'uploads'
                 . DIRECTORY_SEPARATOR . 'test-generated-ST';
-        if( strcasecmp( 'jpg', $extension ) == 0 )
-        {
+        if (strcasecmp('jpg', $extension) == 0) {
             $sFileSave .= '.jpg';
-        }
-        elseif( strcasecmp( 'png', $extension ) == 0 )
-        {
+        } elseif (strcasecmp('png', $extension) == 0) {
             $sFileSave .= '.png';
+        } else {
+            die('unknow extension: ' . print_r($extension, true) . ' (' . __LINE__ . ')');
         }
-        else
-        {
-            die( 'unknow extension: ' . print_r( $extension, true ) . ' (' . __LINE__ . ')' );
+        $pFileSave = new \Foundation\Type\Complex\CPath($sFileSave);
+        if ($pImage->save($pFileSave, 0)) {
+            $bReturn = $this->verify($aInfoIn, getimagesize($sFileSave));
+            $this->assertTRUE(unlink($sFileSave), 'unlink');
         }
-        $pFileSave = new \Foundation\Type\Complex\CPath( $sFileSave );
-        if( $pImage->save( $pFileSave, 0 ) )
-        {
-            $bReturn = $this->verify( $aInfoIn, getimagesize( $sFileSave ) );
-            $this->assertTRUE( unlink( $sFileSave ), 'unlink' );
-        }
-        unset( $pFileSave );
+        unset($pFileSave);
         return $bReturn;
     }
 
-    private function saveAs( $iType, \Foundation\Gd\CImage $pImage, array $aInfoIn )
+    private function saveAs($iType, \Foundation\Gd\CImage $pImage, array $aInfoIn)
     {
-        $bReturn    = FALSE;
+        $bReturn    = false;
         $sFileSave  = APPLICATION_PATH . DIRECTORY_SEPARATOR . 'data'
                 . DIRECTORY_SEPARATOR . 'uploads'
                 . DIRECTORY_SEPARATOR . 'test-generated';
         $aInfoIn[2] = $iType;
-        switch( $iType )
-        {
+        switch ($iType) {
             case IMAGETYPE_JPEG:
                 $sFileSave .= '.jpg';
                 break;
@@ -137,16 +127,15 @@ class CImageTest extends \PHPUnit_Framework_TestCase
                 $sFileSave .= '.png';
                 break;
             default:
-                die( 'unknow extension: ' . print_r( $iType, true ) . ' (' . __LINE__ . ')' );
+                die('unknow extension: ' . print_r($iType, true) . ' (' . __LINE__ . ')');
                 break;
         }
-        $pFileSave = new \Foundation\Type\Complex\CPath( $sFileSave );
-        if( $pImage->saveAs( $pFileSave, $iType, 0 ) )
-        {
-            $bReturn = $this->verify( $aInfoIn, getimagesize( $sFileSave ) );
-            $this->assertTRUE( unlink( $sFileSave ), 'unlink' );
+        $pFileSave = new \Foundation\Type\Complex\CPath($sFileSave);
+        if ($pImage->saveAs($pFileSave, $iType, 0)) {
+            $bReturn = $this->verify($aInfoIn, getimagesize($sFileSave));
+            $this->assertTRUE(unlink($sFileSave), 'unlink');
         }
-        unset( $pFileSave );
+        unset($pFileSave);
         return $bReturn;
     }
 
@@ -157,28 +146,29 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testSaveAndSaveAs()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -189,35 +179,36 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testResizeByAbsoluteRatio()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Resize
-            $newDimensions = new \Foundation\Gd\CDimensions( 100, 100 );
-            $pImage->resizeByAbsolute( $newDimensions, TRUE, TRUE );
-            unset( $newDimensions );
+            $newDimensions = new \Foundation\Gd\CDimensions(100, 100);
+            $pImage->resizeByAbsolute($newDimensions, true, true);
+            unset($newDimensions);
             $aImageInfo[0] = 100;
             $aImageInfo[1] = 75;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -228,35 +219,36 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testResizeByAbsoluteNoRatio()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Resize
-            $newDimensions = new \Foundation\Gd\CDimensions( 100, 100 );
-            $pImage->resizeByAbsolute( $newDimensions, FALSE, FALSE );
-            unset( $newDimensions );
+            $newDimensions = new \Foundation\Gd\CDimensions(100, 100);
+            $pImage->resizeByAbsolute($newDimensions, false, false);
+            unset($newDimensions);
             $aImageInfo[0] = 100;
             $aImageInfo[1] = 100;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -267,33 +259,34 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testResizeByPercentageDown()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Resize
-            $pImage->resizeByPercentage( 50 );
+            $pImage->resizeByPercentage(50);
             $aImageInfo[0] = 250;
             $aImageInfo[1] = 187;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -304,33 +297,34 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testResizeByPercentageUp()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Resize
-            $pImage->resizeByPercentage( 150 );
+            $pImage->resizeByPercentage(150);
             $aImageInfo[0] = 750;
             $aImageInfo[1] = 562;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -341,21 +335,20 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testReference()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $value     = $data['test']['value'];
-            $pFile     = new \Foundation\Type\Complex\CPath( $value );
-            $pResource = new \Foundation\Gd\CResource( $pFile );
+            $pFile     = new \Foundation\Type\Complex\CPath($value);
+            $pResource = new \Foundation\Gd\CResource($pFile);
 
             // Create image
-            $pImage = new \Foundation\Gd\CImage( $pResource );
+            $pImage = new \Foundation\Gd\CImage($pResource);
 
             // tostring
             $s1 = (string)$pResource;
             $s2 = (string)$pImage;
-            $this->assertTRUE( (strcasecmp( $s1, $s2 ) === 0 ), 'reference toString.' );
+            $this->assertTRUE((strcasecmp($s1, $s2) === 0 ), 'reference toString.');
 
-            unset( $pImage, $pResource, $pFile );
+            unset($pImage, $pResource, $pFile);
         }
     }
 
@@ -368,12 +361,12 @@ class CImageTest extends \PHPUnit_Framework_TestCase
     public function testResourceNotValid()
     {
         $sFilename = FOUNDATION_TEST_RESOURCE_PATH . DIRECTORY_SEPARATOR . 'image.gif';
-        $pResource = fopen( $sFilename, 'r' );
+        $pResource = fopen($sFilename, 'r');
 
-        $pImage = new \Foundation\Gd\CImage( $pResource );
-        fclose( $pResource );
-        unset( $pResource, $pImage );
-        $this->fail( 'should never happen.' );
+        $pImage = new \Foundation\Gd\CImage($pResource);
+        fclose($pResource);
+        unset($pResource, $pImage);
+        $this->fail('should never happen.');
     }
 
     /**
@@ -383,36 +376,37 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testCrop()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Crop
-            $pPosition     = new \Foundation\Gd\CCoordinates( 100, 100, 0 );
-            $newDimensions = new \Foundation\Gd\CDimensions( 300, 200 );
-            $pImage->crop( $pPosition, $newDimensions );
-            unset( $newDimensions );
+            $pPosition     = new \Foundation\Gd\CCoordinates(100, 100, 0);
+            $newDimensions = new \Foundation\Gd\CDimensions(300, 200);
+            $pImage->crop($pPosition, $newDimensions);
+            unset($newDimensions);
             $aImageInfo[0] = 300;
             $aImageInfo[1] = 200;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -423,17 +417,17 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      * @expectedException Foundation\Exception\RangeException
      * @dataProvider getProviderCropException
      */
-    public function testCropException( $label, array $value )
+    public function testCropException($label, array $value)
     {
-        $pFile  = new \Foundation\Type\Complex\CPath( FOUNDATION_TEST_RESOURCE_PATH . DIRECTORY_SEPARATOR . 'image.jpg' );
-        $pImage = new \Foundation\Gd\CImage( $pFile );
-        unset( $pFile );
+        $pFile  = new \Foundation\Type\Complex\CPath(FOUNDATION_TEST_RESOURCE_PATH . DIRECTORY_SEPARATOR . 'image.jpg');
+        $pImage = new \Foundation\Gd\CImage($pFile);
+        unset($pFile);
 
         // Crop
-        $pPosition     = new \Foundation\Gd\CCoordinates( $value['x'], $value['y'], 0 );
-        $newDimensions = new \Foundation\Gd\CDimensions( 300, 200 );
-        $pImage->crop( $pPosition, $newDimensions );
-        $this->fail( $label . ' should never happen.' );
+        $pPosition     = new \Foundation\Gd\CCoordinates($value['x'], $value['y'], 0);
+        $newDimensions = new \Foundation\Gd\CDimensions(300, 200);
+        $pImage->crop($pPosition, $newDimensions);
+        $this->fail($label . ' should never happen.');
     }
 
     /**
@@ -443,35 +437,36 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testCropFromCenter()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Crop
-            $newDimensions = new \Foundation\Gd\CDimensions( 200, 100 );
-            $pImage->cropFromCenter( $newDimensions );
-            unset( $newDimensions );
+            $newDimensions = new \Foundation\Gd\CDimensions(200, 100);
+            $pImage->cropFromCenter($newDimensions);
+            unset($newDimensions);
             $aImageInfo[0] = 200;
             $aImageInfo[1] = 100;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -482,35 +477,36 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testCropFromCenterSquare()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Crop
-            $newDimensions = new \Foundation\Gd\CDimensions( 50, 50 );
-            $pImage->cropFromCenter( $newDimensions );
-            unset( $newDimensions );
+            $newDimensions = new \Foundation\Gd\CDimensions(50, 50);
+            $pImage->cropFromCenter($newDimensions);
+            unset($newDimensions);
             $aImageInfo[0] = 50;
             $aImageInfo[1] = 50;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -521,35 +517,36 @@ class CImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdaptive()
     {
-        foreach( static::$_aValid as $data )
-        {
+        foreach (static::$_aValid as $data) {
             $label  = $data['label'];
             $value  = $data['test']['value'];
-            $pFile  = new \Foundation\Type\Complex\CPath( $value );
-            $pImage = new \Foundation\Gd\CImage( $pFile );
+            $pFile  = new \Foundation\Type\Complex\CPath($value);
+            $pImage = new \Foundation\Gd\CImage($pFile);
 
             // Get informations
-            $aImageInfo = getimagesize( $value );
+            $aImageInfo = getimagesize($value);
 
             // Resize
-            $newDimensions = new \Foundation\Gd\CDimensions( 175, 175 );
-            $pImage->resizeAdaptive( $newDimensions );
-            unset( $newDimensions );
+            $newDimensions = new \Foundation\Gd\CDimensions(175, 175);
+            $pImage->resizeAdaptive($newDimensions);
+            unset($newDimensions);
             $aImageInfo[0] = 175;
             $aImageInfo[1] = 175;
 
             // Save as same type
-            $this->assertTRUE( $this->save( $this->getExtension( $value ), $pImage, $aImageInfo ),
-                                                                 $label . ' save as same type' );
+            $this->assertTRUE(
+                $this->save($this->getExtension($value), $pImage, $aImageInfo),
+                $label . ' save as same type'
+            );
 
             // Save as JPEG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_JPEG, $pImage, $aImageInfo ), $label . ' save as JPEG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_JPEG, $pImage, $aImageInfo), $label . ' save as JPEG');
 
             // Save as PNG
-            $this->assertTRUE( $this->saveAs( IMAGETYPE_PNG, $pImage, $aImageInfo ), $label . ' save as PNG' );
+            $this->assertTRUE($this->saveAs(IMAGETYPE_PNG, $pImage, $aImageInfo), $label . ' save as PNG');
 
-            unset( $pImage, $pFile );
-            sleep( 1 );
+            unset($pImage, $pFile);
+            sleep(1);
         }
     }
 
@@ -568,5 +565,4 @@ class CImageTest extends \PHPUnit_Framework_TestCase
             [ 'label' => 'Test: 100,1000', [ 'x' => 1000, 'y' => 100 ] ],
         ];
     }
-
 }

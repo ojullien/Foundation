@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_NAME' ) )
-    die( '-1' );
+if (! defined('APPLICATION_NAME')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods for tracing.
@@ -28,14 +30,14 @@ final class CTracer
      * Singleton
      * @var \Foundation\Debug\CTracer
      */
-    private static $_pInstance = NULL;
+    private static $_pInstance = null;
 
     /**
      * Constructor.
      */
     private function __construct()
     {
-        $this->_fStart = isset( $_SERVER['REQUEST_TIME_FLOAT'] ) ? $_SERVER['REQUEST_TIME_FLOAT'] : microtime( TRUE );
+        $this->_fStart = isset($_SERVER['REQUEST_TIME_FLOAT']) ? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(true);
     }
 
     /**
@@ -43,7 +45,7 @@ final class CTracer
      */
     public function __destruct()
     {
-        unset( $this->_pFile );
+        unset($this->_pFile);
     }
 
     /**
@@ -53,7 +55,7 @@ final class CTracer
      */
     public function __clone()
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Cloning is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Cloning is not allowed.');
     }
 
     /**
@@ -63,9 +65,9 @@ final class CTracer
      * @param mixed $value
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -74,9 +76,9 @@ final class CTracer
      * @param string $name
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -86,8 +88,7 @@ final class CTracer
      */
     public static function getInstance()
     {
-        if( !isset( self::$_pInstance ) )
-        {
+        if (! isset(self::$_pInstance)) {
             self::$_pInstance = new \Foundation\Debug\CTracer();
         }
         return self::$_pInstance;
@@ -98,11 +99,10 @@ final class CTracer
      */
     public static function deleteInstance()
     {
-        if( isset( self::$_pInstance ) )
-        {
+        if (isset(self::$_pInstance)) {
             $tmp = self::$_pInstance;
-            self::$_pInstance = NULL;
-            unset( $tmp );
+            self::$_pInstance = null;
+            unset($tmp);
         }
     }
 
@@ -128,7 +128,7 @@ final class CTracer
      *
      * @var \SplFileObject
      */
-    private $_pFile = NULL;
+    private $_pFile = null;
 
     /**
      * Opens file. Throws a RuntimeException if the filename cannot be opened.
@@ -136,28 +136,25 @@ final class CTracer
      * @param string $filename The file to write.
      * @throws \RuntimeException
      */
-    public function open( $filename )
+    public function open($filename)
     {
         // Sanitize parameter
-        $filename = (is_string( $filename ) ) ? trim( $filename ) : '';
+        $filename = (is_string($filename) ) ? trim($filename) : '';
 
         // Open the file
-        if( strlen( $filename ) > 0 )
-        {
-            $this->_pFile = new \SplFileObject( $filename, 'a+b' );
+        if (strlen($filename) > 0) {
+            $this->_pFile = new \SplFileObject($filename, 'a+b');
 
-            $pDate = new \DateTime( "now", new \DateTimeZone( 'Europe/Paris' ) );
+            $pDate = new \DateTime("now", new \DateTimeZone('Europe/Paris'));
 
-            $this->_pFile->fwrite( 'START: ' . $pDate->format( 'H:i:s, u' )
-                    . PHP_EOL );
+            $this->_pFile->fwrite('START: ' . $pDate->format('H:i:s, u')
+                    . PHP_EOL);
 
-            unset( $pDate );
+            unset($pDate);
 
-            $this->_fLastCall = microtime( TRUE );
-        }
-        else
-        {
-            throw new \RuntimeException( 'the file cannot be opened.' );
+            $this->_fLastCall = microtime(true);
+        } else {
+            throw new \RuntimeException('the file cannot be opened.');
         }
     }
 
@@ -167,35 +164,35 @@ final class CTracer
      * @param string $location location
      * @param string $trace    trace to write
      */
-    public function trace( $location, $data )
+    public function trace($location, $data)
     {
         // Sanitize parameters
-        $location = ( is_string( $location ) ) ? trim( $location ) : 'NOWHERE';
-        $data     = ( is_string( $data ) ) ? trim( $data ) : 'NOTHING';
+        $location = ( is_string($location) ) ? trim($location) : 'NOWHERE';
+        $data     = ( is_string($data) ) ? trim($data) : 'NOTHING';
 
         // Write
-        if( NULL !== $this->_pFile )
-        {
-            $fCurrent = microtime( TRUE );
+        if (null !== $this->_pFile) {
+            $fCurrent = microtime(true);
 
             $this->_pFile->fwrite(
-                    '[' . round( ( $fCurrent - $this->_fStart ) * 1000, 2 ) . ' ms] '
-                    . '[' . round( ( $fCurrent - $this->_fLastCall ) * 1000, 2 ) . ' ms] '
+                '[' . round(( $fCurrent - $this->_fStart ) * 1000, 2) . ' ms] '
+                    . '[' . round(( $fCurrent - $this->_fLastCall ) * 1000, 2) . ' ms] '
                     . '[' . $location . '] '
-                    . $data . PHP_EOL );
+                . $data . PHP_EOL
+            );
 
             $this->_fLastCall = $fCurrent;
         }
     }
-
 }
 
-define( 'FOUNDATION_DEBUG_TRACE', 1 );
+define('FOUNDATION_DEBUG_TRACE', 1);
 
 // Create tracer
 \Foundation\Debug\CTracer::getInstance()->open(
-        APPLICATION_PATH
+    APPLICATION_PATH
         . DIRECTORY_SEPARATOR . 'data'
         . DIRECTORY_SEPARATOR . 'log'
         . DIRECTORY_SEPARATOR . 'trace'
-        . date( 'Ymd' ) . '.log' );
+    . date('Ymd') . '.log'
+);

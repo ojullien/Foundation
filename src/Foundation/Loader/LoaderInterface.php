@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Loader;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Loader;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface for classes that may register with the spl_autoload registry
@@ -26,7 +28,7 @@ interface LoaderInterface
      *
      * @param  null|array $options Autoloader configuration.
      */
-    public function __construct( array $options = null );
+    public function __construct(array $options = null);
 
     /**
      * Configure the autoloader.
@@ -34,7 +36,7 @@ interface LoaderInterface
      * @param array $options Autoloader configuration.
      * @return void
      */
-    public function setOptions( array $options );
+    public function setOptions(array $options);
 
     /**
      * Attempts to load the class specified.
@@ -43,7 +45,7 @@ interface LoaderInterface
      * @param   string $class
      * @return  mixed
      */
-    public function autoload( $class );
+    public function autoload($class);
 
     /**
      * Register the autoloader with spl_autoload registry.

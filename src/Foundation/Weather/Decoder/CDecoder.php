@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Weather\Decoder;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Weather\Decoder;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements a concrete decoder strategy: decodes according to a dtd.
@@ -32,9 +34,9 @@ final class CDecoder extends \Foundation\Weather\Decoder\CDecoderAbstract
      */
     public function __construct()
     {
-        $this->_sDebugID = uniqid( 'cdecoder', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, array( ) );
+        $this->_sDebugID = uniqid('cdecoder', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ ]);
     }
 
     /**
@@ -52,8 +54,8 @@ final class CDecoder extends \Foundation\Weather\Decoder\CDecoderAbstract
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /** Decoder section
@@ -71,35 +73,29 @@ final class CDecoder extends \Foundation\Weather\Decoder\CDecoderAbstract
      * @param  array $data The source.
      * @return void
      */
-    private function parse( array& $dtd, array& $data )
+    private function parse(array& $dtd, array& $data)
     {
         // For each key from the dtd
-        foreach( $dtd as $key => $void )
-        {
+        foreach ($dtd as $key => $void) {
             // DTD specific.
             // The key exists in the source but should contains the value of the key defined by $void['__MOVE'].
-            if( is_array( $void ) && isset( $void['__MOVE'] ) )
-            {
-
+            if (is_array($void) && isset($void['__MOVE'])) {
                 // The key defined by $void['__MOVE'] should exists in the source
-                if( isset( $data[$key] ) && isset( $data[$key][$void['__MOVE']] ) )
-                {
+                if (isset($data[$key]) && isset($data[$key][$void['__MOVE']])) {
                     $dtd[$key] = $data[$key][$void['__MOVE']];
                 }
                 // Case error: the expected key is missing in the source.
-                else
-                {
+                else {
                     $dtd[$key]     = $void['__DEFAULT'];
                     $this->_iError = self::FWD_KEY_MISSING;
-                    $this->_sError = sprintf( 'Key "%s/%s" is missing', $key, $void['__MOVE'] );
+                    $this->_sError = sprintf('Key "%s/%s" is missing', $key, $void['__MOVE']);
                 }
                 continue;
             }
 
             // DTD specific.
             // This key does not exist in the source but has to be created into the destination.
-            if( is_array( $void ) && isset( $void['__DEFAULT'] ) )
-            {
+            if (is_array($void) && isset($void['__DEFAULT'])) {
                 $dtd[$key] = $void['__DEFAULT'];
                 continue;
             }
@@ -107,34 +103,29 @@ final class CDecoder extends \Foundation\Weather\Decoder\CDecoderAbstract
             // Look for the same key in the source:
             // - if does not exist: keep the default value defined in the DTD.
             // - if exists: the action depends on the type.
-            if( isset( $data[$key] ) )
-            {
+            if (isset($data[$key])) {
                 // Work with pointers
                 $data_value = &$data[$key];
                 $dtd_value  = &$dtd[$key];
 
                 // Case array: parse deeper
-                if( is_array( $dtd_value ) && is_array( $data_value ) )
-                {
-                    $this->parse( $dtd_value, $data_value );
+                if (is_array($dtd_value) && is_array($data_value)) {
+                    $this->parse($dtd_value, $data_value);
                 }
                 // Case scalar: copy value
-                elseif( is_scalar( $dtd_value ) && is_scalar( $data_value ) )
-                {
+                elseif (is_scalar($dtd_value) && is_scalar($data_value)) {
                     $dtd_value = $data_value;
                 }
                 // Case error: not the same type
-                else
-                {
+                else {
                     $this->_iError = self::FWD_BAD_TYPE;
-                    $this->_sError = sprintf( 'Type mismatch for "%s"', $key );
+                    $this->_sError = sprintf('Type mismatch for "%s"', $key);
                 }
             }
             // Case error: the expected key is missing in the source.
-            else
-            {
+            else {
                 $this->_iError = self::FWD_KEY_MISSING;
-                $this->_sError = sprintf( 'Key "%s" is missing', $key );
+                $this->_sError = sprintf('Key "%s" is missing', $key);
             }//if( isset( ...
         }// foreach( ...
     }
@@ -149,25 +140,21 @@ final class CDecoder extends \Foundation\Weather\Decoder\CDecoderAbstract
      * @param  array $data The data being decoded. Should not be empty.
      * @return array Returns the decoded data on success, NULL on failure.
      */
-    public function decode( array $dtd, $data )
+    public function decode(array $dtd, $data)
     {
         // Initialize
         $this->_iError = 0;
         $this->_sError = '';
 
         // This strategy apply only on array
-        if( !empty( $dtd ) && is_array( $data ) && !empty( $data ) )
-        {
+        if (! empty($dtd) && is_array($data) && ! empty($data)) {
             // Parse the source according to the DTD
-            $this->parse( $dtd, $data );
-        }
-        else
-        {
-            $dtd           = NULL;
+            $this->parse($dtd, $data);
+        } else {
+            $dtd           = null;
             $this->_iError = self::FWD_ERROR_SYNTAX;
             $this->_sError = 'Invalid or malformed data';
         }
         return $dtd;
     }
-
 }

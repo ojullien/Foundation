@@ -9,10 +9,10 @@ final class CValidateVar extends \Foundation\Form\CValidatorAbstract
     /**
      * Constructor.
      */
-    public function __construct( array $aDefinition )
+    public function __construct(array $aDefinition)
     {
-        parent::__construct( $aDefinition );
-        $this->_aKeyDefinition = array_keys( $aDefinition );
+        parent::__construct($aDefinition);
+        $this->_aKeyDefinition = array_keys($aDefinition);
     }
 
     /**
@@ -31,10 +31,9 @@ final class CValidateVar extends \Foundation\Form\CValidatorAbstract
      */
     public function isValid()
     {
-        $bReturn = TRUE;
-        foreach( $this->_aKeyDefinition as $sKey )
-        {
-            $bReturn = $bReturn && $this->validateVar( $sKey, $sKey );
+        $bReturn = true;
+        foreach ($this->_aKeyDefinition as $sKey) {
+            $bReturn = $bReturn && $this->validateVar($sKey, $sKey);
         }
         return $bReturn;
     }
@@ -48,5 +47,4 @@ final class CValidateVar extends \Foundation\Form\CValidatorAbstract
      * @var array
      */
     private $_aKeyDefinition = [ ];
-
 }

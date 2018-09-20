@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\File;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\File;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class offers a high-level object oriented interface to information and manipulation for an individual directory.
@@ -37,21 +39,21 @@ final class CDirectory extends \SplFileInfo
      * @throws \Foundation\Exception\InvalidArgumentException If the path is not valid.
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( \Foundation\Type\Complex\CPath $dirname )
+    public function __construct(\Foundation\Type\Complex\CPath $dirname)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cdirectory', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $dirname ] );
+        $this->_sDebugID = uniqid('cdirectory', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $dirname ]
+                );
         //@codeCoverageIgnoreEnd
-        if( $dirname->isValid() )
-        {
-            parent::__construct( $dirname->getValue() );
-        }
-        else
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'The path is not valid.' );
+        if ($dirname->isValid()) {
+            parent::__construct($dirname->getValue());
+        } else {
+            throw new \Foundation\Exception\InvalidArgumentException('The path is not valid.');
         }
     }
 
@@ -63,8 +65,8 @@ final class CDirectory extends \SplFileInfo
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -74,9 +76,9 @@ final class CDirectory extends \SplFileInfo
      * @param mixed $value
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -86,9 +88,9 @@ final class CDirectory extends \SplFileInfo
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -101,8 +103,7 @@ final class CDirectory extends \SplFileInfo
     public function __toString()
     {
         $sReturn = $this->getRealPath();
-        if( FALSE === $sReturn )
-        {
+        if (false === $sReturn) {
             $sReturn = (string)$this->getPathname();
         }
         return $sReturn;
@@ -119,19 +120,14 @@ final class CDirectory extends \SplFileInfo
      */
     public function createDirectory()
     {
-        $bReturn = FALSE;
-        if( $this->isDir() )
-        {
+        $bReturn = false;
+        if ($this->isDir()) {
             $bReturn = $this->isWritable();
-        }
-        else
-        {
-            if( !$this->isFile() && !$this->isLink() )
-            {
-                $bReturn = mkdir( (string)$this, 0770, TRUE );
+        } else {
+            if (! $this->isFile() && ! $this->isLink()) {
+                $bReturn = mkdir((string)$this, 0770, true);
             }
         }
         return $bReturn;
     }
-
 }

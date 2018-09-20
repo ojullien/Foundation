@@ -21,6 +21,6 @@ return [
     [ 'label' => 'TEST: 1', 'test'  => '1' ],
     [ 'label' => 'TEST: 0.009765625g', 'test'  => '0.009765625g' ],
     [ 'label' => 'TEST: 0.009765625G', 'test'  => '0.009765625G' ],
-    [ 'label' => 'TEST: CByte', 'test'  => new \Foundation\Type\Complex\CByte( '10M' ) ],
-    [ 'label' => 'TEST: CInt', 'test'  => new \Foundation\Type\Simple\CInt( 10485760 ) ],
+    [ 'label' => 'TEST: CByte', 'test'  => new \Foundation\Type\Complex\CByte('10M') ],
+    [ 'label' => 'TEST: CInt', 'test'  => new \Foundation\Type\Simple\CInt(10485760) ],
 ];

@@ -1,10 +1,11 @@
 <?php
 namespace Test\Foundation\Cache\Storage;
-trait_exists( '\Test\Foundation\Cache\Storage\Provider\TCacheDataProvider' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Cache/Storage/Provider/TCacheDataProvider.php' ) );
 
-interface_exists( '\Foundation\Cache\Storage\StorageInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/StorageInterface.php' ) );
-class_exists( '\Foundation\Cache\Storage\CStorageAbstract' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CStorageAbstract.php' ) );
-class_exists( '\Foundation\Cache\Storage\CArray' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CArray.php' ) );
+trait_exists('\Test\Foundation\Cache\Storage\Provider\TCacheDataProvider') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Cache/Storage/Provider/TCacheDataProvider.php'));
+
+interface_exists('\Foundation\Cache\Storage\StorageInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/StorageInterface.php'));
+class_exists('\Foundation\Cache\Storage\CStorageAbstract') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CStorageAbstract.php'));
+class_exists('\Foundation\Cache\Storage\CArray') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CArray.php'));
 
 class CArrayTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,14 +20,14 @@ class CArrayTest extends \PHPUnit_Framework_TestCase
      *
      * @var \Foundation\Cache\Storage\StorageInterface
      */
-    private $_pObject = NULL;
+    private $_pObject = null;
 
     /**
      * Instances.
      */
     public function setUp()
     {
-        $this->_pObject = new \Foundation\Cache\Storage\CArray( 'FOUNDATION_TEST' );
+        $this->_pObject = new \Foundation\Cache\Storage\CArray('FOUNDATION_TEST');
     }
 
     /**
@@ -34,7 +35,7 @@ class CArrayTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        unset( $this->_pObject );
+        unset($this->_pObject);
     }
 
     /** Tests section
@@ -50,24 +51,30 @@ class CArrayTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheData
      */
-    public function testData( $sLabel, array $aData, array $aResult )
+    public function testData($sLabel, array $aData, array $aResult)
     {
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'Initial check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'Initial check for ' . $sLabel);
 
-        $this->assertSame( $aResult['store'], $this->_pObject->store( $aData['key'], $aData['value'], $aData['ttl'] ),
-                                                                      'store for ' . $sLabel );
+        $this->assertSame(
+            $aResult['store'],
+            $this->_pObject->store($aData['key'], $aData['value'], $aData['ttl']),
+            'store for ' . $sLabel
+        );
 
-        $this->assertSame( $aResult['exists'], $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
+        $this->assertSame($aResult['exists'], $this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
 
         $success = 'nuke';
-        $this->assertSame( $aResult['fetch']['return'], $this->_pObject->fetch( $aData['key'], $success ),
-                                                                                'fetch for ' . $sLabel );
+        $this->assertSame(
+            $aResult['fetch']['return'],
+            $this->_pObject->fetch($aData['key'], $success),
+            'fetch for ' . $sLabel
+        );
 
-        $this->assertSame( $aResult['fetch']['success'], $success, 'success for ' . $sLabel );
+        $this->assertSame($aResult['fetch']['success'], $success, 'success for ' . $sLabel);
 
-        $this->assertSame( $aResult['delete'], $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
+        $this->assertSame($aResult['delete'], $this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
 
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'final check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'final check for ' . $sLabel);
     }
 
     /**
@@ -80,30 +87,32 @@ class CArrayTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheDataTtl
      */
-    public function testDataTTL( $sLabel, array $aData, array $aResult )
+    public function testDataTTL($sLabel, array $aData, array $aResult)
     {
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'Initial check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'Initial check for ' . $sLabel);
 
-        $this->assertTrue( $this->_pObject->store( $aData['key'], $aData['value'], $aData['ttl'] ),
-                                                   'store for ' . $sLabel );
+        $this->assertTrue(
+            $this->_pObject->store($aData['key'], $aData['value'], $aData['ttl']),
+            'store for ' . $sLabel
+        );
 
-        $this->assertTrue( $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
-
-        $success = 'nuke';
-        $this->assertSame( $aData['value'], $this->_pObject->fetch( $aData['key'], $success ), 'fetch for ' . $sLabel );
-
-        $this->assertTrue( $success, 'success for ' . $sLabel );
-
-        sleep( $aData['ttl'] + 2 );
-
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'exists after ttl for ' . $sLabel );
+        $this->assertTrue($this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
 
         $success = 'nuke';
-        $this->assertFalse( $this->_pObject->fetch( $aData['key'], $success ), 'fetch after ttl for ' . $sLabel );
+        $this->assertSame($aData['value'], $this->_pObject->fetch($aData['key'], $success), 'fetch for ' . $sLabel);
 
-        $this->assertFalse( $success, 'success after ttl for ' . $sLabel );
+        $this->assertTrue($success, 'success for ' . $sLabel);
 
-        $this->assertFalse( $this->_pObject->delete( $aData['key'] ), 'delete after ttl for ' . $sLabel );
+        sleep($aData['ttl'] + 2);
+
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'exists after ttl for ' . $sLabel);
+
+        $success = 'nuke';
+        $this->assertFalse($this->_pObject->fetch($aData['key'], $success), 'fetch after ttl for ' . $sLabel);
+
+        $this->assertFalse($success, 'success after ttl for ' . $sLabel);
+
+        $this->assertFalse($this->_pObject->delete($aData['key']), 'delete after ttl for ' . $sLabel);
     }
 
     /**
@@ -116,32 +125,34 @@ class CArrayTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheDataTtl
      */
-    public function testDataTTLDelete( $sLabel, array $aData, array $aResult )
+    public function testDataTTLDelete($sLabel, array $aData, array $aResult)
     {
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'Initial check for ' . $sLabel );
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'Initial check for ' . $sLabel);
 
-        $this->assertTrue( $this->_pObject->store( $aData['key'], $aData['value'], $aData['ttl'] ),
-                                                   'store for ' . $sLabel );
+        $this->assertTrue(
+            $this->_pObject->store($aData['key'], $aData['value'], $aData['ttl']),
+            'store for ' . $sLabel
+        );
 
-        $this->assertTrue( $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
-
-        $success = 'nuke';
-        $this->assertSame( $aData['value'], $this->_pObject->fetch( $aData['key'], $success ), 'fetch for ' . $sLabel );
-
-        $this->assertTrue( $success, 'success for ' . $sLabel );
-
-        $this->assertTrue( $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
-
-        sleep( $aData['ttl'] + 2 );
-
-        $this->assertFalse( $this->_pObject->exists( $aData['key'] ), 'exists after ttl for ' . $sLabel );
+        $this->assertTrue($this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
 
         $success = 'nuke';
-        $this->assertFalse( $this->_pObject->fetch( $aData['key'], $success ), 'fetch after ttl for ' . $sLabel );
+        $this->assertSame($aData['value'], $this->_pObject->fetch($aData['key'], $success), 'fetch for ' . $sLabel);
 
-        $this->assertFalse( $success, 'success after ttl for ' . $sLabel );
+        $this->assertTrue($success, 'success for ' . $sLabel);
 
-        $this->assertFalse( $this->_pObject->delete( $aData['key'] ), 'delete after ttl for ' . $sLabel );
+        $this->assertTrue($this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
+
+        sleep($aData['ttl'] + 2);
+
+        $this->assertFalse($this->_pObject->exists($aData['key']), 'exists after ttl for ' . $sLabel);
+
+        $success = 'nuke';
+        $this->assertFalse($this->_pObject->fetch($aData['key'], $success), 'fetch after ttl for ' . $sLabel);
+
+        $this->assertFalse($success, 'success after ttl for ' . $sLabel);
+
+        $this->assertFalse($this->_pObject->delete($aData['key']), 'delete after ttl for ' . $sLabel);
     }
 
     /**
@@ -154,15 +165,17 @@ class CArrayTest extends \PHPUnit_Framework_TestCase
      * @group specification
      * @dataProvider getCacheKeyDoesNotExist
      */
-    public function testKeyDoesNotExist( $sLabel, array $aData, array $aResult )
+    public function testKeyDoesNotExist($sLabel, array $aData, array $aResult)
     {
         $success = 'nuke';
 
-        $this->assertSame( $aResult['exists'], $this->_pObject->exists( $aData['key'] ), 'exists for ' . $sLabel );
-        $this->assertSame( $aResult['fetch']['return'], $this->_pObject->fetch( $aData['key'], $success ),
-                                                                                'fetch for ' . $sLabel );
-        $this->assertSame( $aResult['fetch']['success'], $success, 'success for ' . $sLabel );
-        $this->assertSame( $aResult['delete'], $this->_pObject->delete( $aData['key'] ), 'delete for ' . $sLabel );
+        $this->assertSame($aResult['exists'], $this->_pObject->exists($aData['key']), 'exists for ' . $sLabel);
+        $this->assertSame(
+            $aResult['fetch']['return'],
+            $this->_pObject->fetch($aData['key'], $success),
+            'fetch for ' . $sLabel
+        );
+        $this->assertSame($aResult['fetch']['success'], $success, 'success for ' . $sLabel);
+        $this->assertSame($aResult['delete'], $this->_pObject->delete($aData['key']), 'delete for ' . $sLabel);
     }
-
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Benchmark;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Benchmark;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_NAME' ) )
-    die( '-1' );
+if (! defined('APPLICATION_NAME')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods for benchmarking.
@@ -37,51 +39,36 @@ final class CBenchmark
      *                        should match.
      * @throws \Foundation\Exception\InvalidArgumentException
      */
-    public function __construct( $name, array $options = NULL )
+    public function __construct($name, array $options = null)
     {
         // Name
-        if( !is_scalar( $name ) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Bad name.' );
+        if (! is_scalar($name)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Bad name.');
         }//if( !is_scalar...
-        if( is_null( $name ) )
-        {
+        if (is_null($name)) {
             $name = 'NULL';
-        }
-        elseif( strlen( $name ) == 0 )
-        {
+        } elseif (strlen($name) == 0) {
             $name = 'EMPTY';
-        }
-        else
-        {
-            $this->_sName = trim( $name );
+        } else {
+            $this->_sName = trim($name);
         }
 
         // Options
-        if( is_array( $options ) )
-        {
+        if (is_array($options)) {
             // Display round ajust
-            if( isset( $options[0] ) )
-            {
-                if( is_int( $options[0] ) && ($options[0] > 0) )
-                {
+            if (isset($options[0])) {
+                if (is_int($options[0]) && ($options[0] > 0)) {
                     $this->_aOptions[0] = $options[0];
-                }
-                else
-                {
-                    throw new \Foundation\Exception\InvalidArgumentException( 'Bad option.' );
+                } else {
+                    throw new \Foundation\Exception\InvalidArgumentException('Bad option.');
                 }//if( is_int(...
             }//if( isset(...
             // Display round precision
-            if( isset( $options[1] ) )
-            {
-                if( is_int( $options[1] ) )
-                {
+            if (isset($options[1])) {
+                if (is_int($options[1])) {
                     $this->_aOptions[1] = $options[1];
-                }
-                else
-                {
-                    throw new \Foundation\Exception\InvalidArgumentException( 'Bad option.' );
+                } else {
+                    throw new \Foundation\Exception\InvalidArgumentException('Bad option.');
                 }//if( is_int(...
             }//if( isset(...
         }//if( is_array(...
@@ -92,7 +79,7 @@ final class CBenchmark
      */
     public function __destruct()
     {
-        unset( $this->_aTests );
+        unset($this->_aTests);
     }
 
     /**
@@ -102,9 +89,9 @@ final class CBenchmark
      * @param mixed $value
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -113,9 +100,9 @@ final class CBenchmark
      * @param string $name
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Bench section
@@ -125,7 +112,7 @@ final class CBenchmark
      * Options.
      * @var array
      */
-    private $_aOptions = array( 1000, 8 );
+    private $_aOptions = [ 1000, 8 ];
 
     /**
      * Name of the bench.
@@ -137,38 +124,37 @@ final class CBenchmark
      * Measures.
      * @var array Of \Foundation\Debug\Benchmark\CMeasure
      */
-    private $_aMeasures = array( );
+    private $_aMeasures = [ ];
 
     /**
      * Minimum average.
      * @var float
      */
-    private $_fMin = NULL;
+    private $_fMin = null;
 
     /**
      * Maximum average.
      * @var float
      */
-    private $_fMax = NULL;
+    private $_fMax = null;
 
     /**
      * Add a measure.
      *
      * @param \Foundation\Debug\Benchmark\CMeasure $pMeasure Measure to bench.
      */
-    public function addMeasure( \Foundation\Debug\Benchmark\CMeasure $pMeasure )
+    public function addMeasure(\Foundation\Debug\Benchmark\CMeasure $pMeasure)
     {
         $fAverage = $pMeasure->getAverage();
-        if( NULL === $this->_fMax )
-        {
+        if (null === $this->_fMax) {
             $this->_fMax = $this->_fMin = $fAverage;
-        }
-        else
-        {
-            if( $fAverage > $this->_fMax )
+        } else {
+            if ($fAverage > $this->_fMax) {
                 $this->_fMax        = $fAverage;
-            if( $fAverage < $this->_fMin )
+            }
+            if ($fAverage < $this->_fMin) {
                 $this->_fMin        = $fAverage;
+            }
         }
         $this->_aMeasures[] = $pMeasure;
     }
@@ -181,11 +167,11 @@ final class CBenchmark
     public function render()
     {
         // Initialize
-        $fRoundedMin = round( $this->_fMin * $this->_aOptions[0], $this->_aOptions[1] );
+        $fRoundedMin = round($this->_fMin * $this->_aOptions[0], $this->_aOptions[1]);
 
         // Header
         $sHeader = '<table class="table table-bordered">'
-                . '<caption>"' . htmlentities( $this->_sName, ENT_QUOTES, 'UTF-8' ) . '"</caption>'
+                . '<caption>"' . htmlentities($this->_sName, ENT_QUOTES, 'UTF-8') . '"</caption>'
                 . '<thead class="label label-inverse"><tr><th></th>';
 
         // Body
@@ -193,8 +179,7 @@ final class CBenchmark
         $sMin     = '</tr><tr><td>MIN</td>';
         $sMax     = '</tr><tr><td>MAX</td>';
 
-        foreach( $this->_aMeasures as $pMeasure )
-        {
+        foreach ($this->_aMeasures as $pMeasure) {
             // Initialize
             $fAverage = $pMeasure->getAverage();
 
@@ -202,31 +187,25 @@ final class CBenchmark
             $sHeader .= '<th>' . $pMeasure->getName() . '</th>';
 
             // Average
-            if( $fAverage == $this->_fMin )
-            {
+            if ($fAverage == $this->_fMin) {
                 $sClass = ' class="label label-success"';
-            }
-            elseif( $fAverage == $this->_fMax )
-            {
+            } elseif ($fAverage == $this->_fMax) {
                 $sClass = ' class="label label-important"';
-            }
-            else
-            {
+            } else {
                 $sClass = '';
             }
 
-            $fRoundedAverage = round( $fAverage * $this->_aOptions[0], $this->_aOptions[1] );
+            $fRoundedAverage = round($fAverage * $this->_aOptions[0], $this->_aOptions[1]);
             $fGap            = $fRoundedAverage - $fRoundedMin;
             $sAverage .= '<td' . $sClass . '>' . $fRoundedAverage . ' (+' . $fGap . ')</td>';
 
             // Min
-            $sMin .= '<td>' . round( $pMeasure->getMin() * $this->_aOptions[0], $this->_aOptions[1] ) . '</td>';
+            $sMin .= '<td>' . round($pMeasure->getMin() * $this->_aOptions[0], $this->_aOptions[1]) . '</td>';
 
             // Max
-            $sMax .= '<td>' . round( $pMeasure->getMax() * $this->_aOptions[0], $this->_aOptions[1] ) . '</td>';
+            $sMax .= '<td>' . round($pMeasure->getMax() * $this->_aOptions[0], $this->_aOptions[1]) . '</td>';
         }//foreach(...
 
         return $sHeader . '</tr></thead><tbody>' . $sAverage . $sMin . $sMax . '</tr></tbody></table>';
     }
-
 }

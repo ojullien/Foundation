@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Gd;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Gd;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class enforces strong typing of the image resource type.
@@ -40,14 +42,17 @@ final class CResource
      * @throws \Foundation\Exception\InvalidArgumentException if the resource is not valid.
      * @codeCoverageIgnore
      */
-    public function __construct( $resource )
+    public function __construct($resource)
     {
-        $this->_sDebugID = uniqid( 'cresource', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $resource ] );
+        $this->_sDebugID = uniqid('cresource', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $resource ]
+                );
 
-        $this->setResource( $resource );
+        $this->setResource($resource);
     }
 
     /**
@@ -56,13 +61,14 @@ final class CResource
      */
     public function __destruct()
     {
-        if( is_resource( $this->_rResource ) )
-            imagedestroy( $this->_rResource );
+        if (is_resource($this->_rResource)) {
+            imagedestroy($this->_rResource);
+        }
 
-        $this->_rResource = NULL;
+        $this->_rResource = null;
 
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -72,14 +78,14 @@ final class CResource
      */
     public function __toString()
     {
-        return serialize( array(
-            'width'    => imagesx( $this->_rResource ),
-            'height'   => imagesy( $this->_rResource ),
+        return serialize([
+            'width'    => imagesx($this->_rResource),
+            'height'   => imagesy($this->_rResource),
             'type'     => $this->_iType,
-            'tag'      => 'width="' . imagesx( $this->_rResource ) . '" height="' . imagesy( $this->_rResource ) . '"',
+            'tag'      => 'width="' . imagesx($this->_rResource) . '" height="' . imagesy($this->_rResource) . '"',
             'mime'     => $this->_sMime,
             'channels' => $this->_iChannels,
-            'bits'     => $this->_iBits ) );
+            'bits'     => $this->_iBits ]);
     }
 
     /**
@@ -90,9 +96,9 @@ final class CResource
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -102,9 +108,9 @@ final class CResource
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** open resource section
@@ -116,30 +122,27 @@ final class CResource
      * @param \Foundation\Type\Complex\CPath $filename
      * @return void
      */
-    private function open( \Foundation\Type\Complex\CPath $filename )
+    private function open(\Foundation\Type\Complex\CPath $filename)
     {
         $sFile = $filename->getRealPath();
-        if( $sFile && is_file( $sFile ) )
-        {
-            $aImageInfo = getimagesize( $sFile );
-            if( is_array( $aImageInfo ) )
-            {
-                switch( $aImageInfo[2] )
-                {
+        if ($sFile && is_file($sFile)) {
+            $aImageInfo = getimagesize($sFile);
+            if (is_array($aImageInfo)) {
+                switch ($aImageInfo[2]) {
                     case IMAGETYPE_JPEG:
-                        $this->_rResource = imagecreatefromjpeg( $filename->getValue() );
+                        $this->_rResource = imagecreatefromjpeg($filename->getValue());
                         break;
                     case IMAGETYPE_PNG:
-                        $this->_rResource = imagecreatefrompng( $filename->getValue() );
+                        $this->_rResource = imagecreatefrompng($filename->getValue());
                         break;
                     default:
-                        $this->_rResource = NULL;
+                        $this->_rResource = null;
                         break;
                 }
-                $this->_iType     = (isset( $aImageInfo[2] )) ? $aImageInfo[2] : FALSE;
-                $this->_sMime     = (isset( $aImageInfo['mime'] )) ? $aImageInfo['mime'] : FALSE;
-                $this->_iChannels = (isset( $aImageInfo['channels'] )) ? $aImageInfo['channels'] : FALSE;
-                $this->_iBits     = (isset( $aImageInfo['bits'] )) ? $aImageInfo['bits'] : FALSE;
+                $this->_iType     = (isset($aImageInfo[2])) ? $aImageInfo[2] : false;
+                $this->_sMime     = (isset($aImageInfo['mime'])) ? $aImageInfo['mime'] : false;
+                $this->_iChannels = (isset($aImageInfo['channels'])) ? $aImageInfo['channels'] : false;
+                $this->_iBits     = (isset($aImageInfo['bits'])) ? $aImageInfo['bits'] : false;
             }
         }
     }
@@ -150,7 +153,7 @@ final class CResource
      * @param \Foundation\Gd\CResource $resource
      * @return void
      */
-    private function reference( \Foundation\Gd\CResource $resource )
+    private function reference(\Foundation\Gd\CResource $resource)
     {
         $this->_rResource = $resource->getResource();
         $this->_iType     = $resource->getType();
@@ -166,13 +169,12 @@ final class CResource
      * @param resource $resource
      * @return void
      */
-    private function replace( $resource )
+    private function replace($resource)
     {
-        if( is_resource( $resource ) && ( strcasecmp( get_resource_type( $resource ), 'gd' ) == 0 ) )
-        {
+        if (is_resource($resource) && ( strcasecmp(get_resource_type($resource), 'gd') == 0 )) {
             $this->_rResource = $resource;
-            $this->_iChannels = FALSE;
-            $this->_iBits     = FALSE;
+            $this->_iChannels = false;
+            $this->_iBits     = false;
         }
     }
 
@@ -183,32 +185,32 @@ final class CResource
      * Resource identifier
      * @var resource
      */
-    private $_rResource = NULL;
+    private $_rResource = null;
 
     /**
      * IMAGETYPE_XXX constants indicating the type of the image
      * @var integer
      */
-    private $_iType = FALSE;
+    private $_iType = false;
 
     /**
      * MIME type of the image. This information can be used to deliver
      * images with the correct HTTP Content-type header.
      * @var string
      */
-    private $_sMime = FALSE;
+    private $_sMime = false;
 
     /**
      * Alpha channel: will be 3 for RGB pictures and 4 for CMYK pictures.
      * @var integer
      */
-    private $_iChannels = FALSE;
+    private $_iChannels = false;
 
     /**
      * Number of bits for each color
      * @var integer
      */
-    private $_iBits = FALSE;
+    private $_iBits = false;
 
     /**
      * Set the resource.
@@ -217,40 +219,35 @@ final class CResource
      * @return void
      * @throws \Foundation\Exception\InvalidArgumentException if the resource is not valid.
      */
-    public function setResource( $resource )
+    public function setResource($resource)
     {
         // Destroy old resource
-        if( is_resource( $this->_rResource ) )
-            imagedestroy( $this->_rResource );
+        if (is_resource($this->_rResource)) {
+            imagedestroy($this->_rResource);
+        }
 
-        $this->_rResource = NULL;
+        $this->_rResource = null;
 
         // Check parameter
-        try
-        {
-            if( $resource instanceof \Foundation\Type\Complex\CPath && $resource->isValid() )
-            {
-                $this->open( $resource );
+        try {
+            if ($resource instanceof \Foundation\Type\Complex\CPath && $resource->isValid()) {
+                $this->open($resource);
+            } elseif ($resource instanceof \Foundation\Gd\CResource) {
+                $this->reference($resource);
+            } else {
+                $this->replace($resource);
             }
-            elseif( $resource instanceof \Foundation\Gd\CResource )
-            {
-                $this->reference( $resource );
+        } catch (\Exception $exc) {
+            if (is_resource($this->_rResource)) {
+                imagedestroy($this->_rResource);
             }
-            else
-            {
-                $this->replace( $resource );
-            }
-        }
-        catch( \Exception $exc )
-        {
-            if( is_resource( $this->_rResource ) )
-                imagedestroy( $this->_rResource );
-            $this->_rResource = NULL;
+            $this->_rResource = null;
         }
 
         // Check error
-        if( !is_resource( $this->_rResource ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'Invalid resource.' );
+        if (! is_resource($this->_rResource)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Invalid resource.');
+        }
     }
 
     /**
@@ -268,7 +265,7 @@ final class CResource
      */
     public function getWidth()
     {
-        return imagesx( $this->_rResource );
+        return imagesx($this->_rResource);
     }
 
     /**
@@ -277,7 +274,7 @@ final class CResource
      */
     public function getHeight()
     {
-        return imagesy( $this->_rResource );
+        return imagesy($this->_rResource);
     }
 
     /**
@@ -296,8 +293,8 @@ final class CResource
      */
     public function getTag()
     {
-        return 'width="' . imagesx( $this->_rResource )
-                . '" height="' . imagesy( $this->_rResource ) . '"';
+        return 'width="' . imagesx($this->_rResource)
+                . '" height="' . imagesy($this->_rResource) . '"';
     }
 
     /**
@@ -339,17 +336,17 @@ final class CResource
      *                                              100 (best quality, biggest file).
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    private function saveJPEG( \Foundation\Type\Complex\CPath $sFilename, $iQuality = 75 )
+    private function saveJPEG(\Foundation\Type\Complex\CPath $sFilename, $iQuality = 75)
     {
         $bReturn = $sFilename->isValid();
-        if( $bReturn )
-        {
+        if ($bReturn) {
             // Quality
-            if( !is_integer( $iQuality ) || ($iQuality < 0) || ($iQuality > 100) )
+            if (! is_integer($iQuality) || ($iQuality < 0) || ($iQuality > 100)) {
                 $iQuality = 75;
+            }
 
             // Create the file
-            $bReturn = imagejpeg( $this->_rResource, $sFilename->getValue(), $iQuality );
+            $bReturn = imagejpeg($this->_rResource, $sFilename->getValue(), $iQuality);
         }
         return $bReturn;
     }
@@ -361,17 +358,17 @@ final class CResource
      * @param integer                    $iQuality  Compression level, optional .From 0 (no compression) to 9.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    private function savePNG( \Foundation\Type\Complex\CPath $sFilename, $iQuality = 9 )
+    private function savePNG(\Foundation\Type\Complex\CPath $sFilename, $iQuality = 9)
     {
         $bReturn = $sFilename->isValid();
-        if( $bReturn )
-        {
+        if ($bReturn) {
             // Quality
-            if( !is_integer( $iQuality ) || ($iQuality < 0) || ($iQuality > 9) )
+            if (! is_integer($iQuality) || ($iQuality < 0) || ($iQuality > 9)) {
                 $iQuality = 9;
+            }
 
             // Create the file
-            $bReturn = imagepng( $this->_rResource, $sFilename->getValue(), $iQuality );
+            $bReturn = imagepng($this->_rResource, $sFilename->getValue(), $iQuality);
         }
         return $bReturn;
     }
@@ -385,23 +382,17 @@ final class CResource
      *                                              PNG: compression level, from 0 (no compression) to 9.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function save( \Foundation\Type\Complex\CPath $sFilename, $iQuality = NULL )
+    public function save(\Foundation\Type\Complex\CPath $sFilename, $iQuality = null)
     {
-        try
-        {
-            if( $this->_iType === IMAGETYPE_JPEG )
-            {
-                $bReturn = $this->saveJPEG( $sFilename, $iQuality );
-            }
-            else
-            {
+        try {
+            if ($this->_iType === IMAGETYPE_JPEG) {
+                $bReturn = $this->saveJPEG($sFilename, $iQuality);
+            } else {
                 //case IMAGETYPE_PNG:
-                $bReturn = $this->savePNG( $sFilename, $iQuality );
+                $bReturn = $this->savePNG($sFilename, $iQuality);
             }
-        }
-        catch( \Exception $exc )
-        {
-            $bReturn = FALSE;
+        } catch (\Exception $exc) {
+            $bReturn = false;
         }
 
         return $bReturn;
@@ -417,21 +408,19 @@ final class CResource
      *                                               PNG: compression level, from 0 (no compression) to 9.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function saveAs( \Foundation\Type\Complex\CPath $sFilename, $iImageType, $iQuality = NULL )
+    public function saveAs(\Foundation\Type\Complex\CPath $sFilename, $iImageType, $iQuality = null)
     {
-        switch( $iImageType )
-        {
+        switch ($iImageType) {
             case IMAGETYPE_JPEG:
-                $bReturn = $this->saveJPEG( $sFilename, $iQuality );
+                $bReturn = $this->saveJPEG($sFilename, $iQuality);
                 break;
             case IMAGETYPE_PNG:
-                $bReturn = $this->savePNG( $sFilename, $iQuality );
+                $bReturn = $this->savePNG($sFilename, $iQuality);
                 break;
             default:
-                $bReturn = FALSE;
+                $bReturn = false;
                 break;
         }
         return $bReturn;
     }
-
 }

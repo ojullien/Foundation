@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Download\Attachment;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Download\Attachment;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * class for audio download.
@@ -36,14 +38,19 @@ final class CAudio extends \Foundation\Protocol\Download\Attachment\CAttachmentA
      * @throws \Foundation\Exception\InvalidArgumentException
      * @codeCoverageIgnore
      */
-    public function __construct( \Foundation\Protocol\Download\ManagerInterface $pDownloadmanager, $sFilename,
-                                 $bGetMimeFromExtension = TRUE )
-    {
-        $this->_sDebugID = uniqid( 'caudio', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $pDownloadmanager, $sFilename, $bGetMimeFromExtension ] );
-        parent::__construct( $pDownloadmanager, $sFilename, $bGetMimeFromExtension );
+    public function __construct(
+        \Foundation\Protocol\Download\ManagerInterface $pDownloadmanager,
+        $sFilename,
+        $bGetMimeFromExtension = true
+    ) {
+        $this->_sDebugID = uniqid('caudio', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $pDownloadmanager, $sFilename, $bGetMimeFromExtension ]
+                );
+        parent::__construct($pDownloadmanager, $sFilename, $bGetMimeFromExtension);
     }
 
     /** File section
@@ -55,14 +62,13 @@ final class CAudio extends \Foundation\Protocol\Download\Attachment\CAttachmentA
      * @param \SplFileInfo $pFile File from extract mime type.
      * @return string
      */
-    protected function getAttachmentMimeTypeFromExtension( \SplFileInfo $pFile )
+    protected function getAttachmentMimeTypeFromExtension(\SplFileInfo $pFile)
     {
-        switch( strtolower( $pFile->getExtension() ) )
-        {
-            case 'mp3' :
+        switch (strtolower($pFile->getExtension())) {
+            case 'mp3':
                 $sReturn = 'audio/mpeg';
                 break;
-            default :
+            default:
                 $sReturn = '';
                 break;
         }
@@ -76,21 +82,17 @@ final class CAudio extends \Foundation\Protocol\Download\Attachment\CAttachmentA
      * @param \SplFileInfo $pFile File from extract mime type.
      * @return string
      */
-    protected function getAttachmentMimeTypeFromFile( \SplFileInfo $pFile )
+    protected function getAttachmentMimeTypeFromFile(\SplFileInfo $pFile)
     {
-        if( $pFile->isFile() && $pFile->isReadable() )
-        {
-            $pFinfo  = new \finfo( FILEINFO_MIME_TYPE );
-            $sMime   = $pFinfo->file( $pFile->getRealPath() );
-            unset( $pFinfo );
-            $sReturn = (!empty( $sMime ) && ( strncasecmp( $sMime, 'audio/', 6 ) === 0 ) ) ? $sMime : '';
-        }
-        else
-        {
+        if ($pFile->isFile() && $pFile->isReadable()) {
+            $pFinfo  = new \finfo(FILEINFO_MIME_TYPE);
+            $sMime   = $pFinfo->file($pFile->getRealPath());
+            unset($pFinfo);
+            $sReturn = (! empty($sMime) && ( strncasecmp($sMime, 'audio/', 6) === 0 ) ) ? $sMime : '';
+        } else {
             $sReturn = '';
         }
 
         return $sReturn;
     }
-
 }

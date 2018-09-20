@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type\Simple;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type\Simple;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class provides a string filter.
@@ -33,16 +35,19 @@ class CString extends \Foundation\Type\CTypeAbstract
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $value, array $options = [ ] )
+    public function __construct($value, array $options = [ ])
     {
-        $this->_sDebugID = uniqid( 'cstring', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $value, $options ] );
+        $this->_sDebugID = uniqid('cstring', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $value, $options ]
+                );
         // Options
         $this->_aOptions = $options;
         // Value
-        $this->setValue( $value );
+        $this->setValue($value);
     }
 
     /** String section
@@ -52,7 +57,7 @@ class CString extends \Foundation\Type\CTypeAbstract
      * Options
      * @var array
      */
-    private $_aOptions = NULL;
+    private $_aOptions = null;
 
     /**
      * Searches variable for a match to the regular expression given in pattern.
@@ -66,20 +71,18 @@ class CString extends \Foundation\Type\CTypeAbstract
      * @param array  $aMatches [OPTIONAL] Results of the search.
      * @return boolean
      */
-    final public function matches( $pattern, &$aMatches = NULL )
+    final public function matches($pattern, &$aMatches = null)
     {
         // Initialize
-        $bReturn = FALSE;
+        $bReturn = false;
 
         // Check pattern type
-        $pattern = ( is_string( $pattern ) ) ? trim( $pattern ) : $pattern = '';
+        $pattern = ( is_string($pattern) ) ? trim($pattern) : $pattern = '';
 
         // Search
-        if( isset( $this->_Value ) && ( strlen( $pattern ) > 0 ) && ( is_null( $aMatches ) || is_array( $aMatches ) ) )
-        {
-            if( preg_match( $pattern, $this->_Value, $aMatches ) > 0 )
-            {
-                $bReturn = TRUE;
+        if (isset($this->_Value) && ( strlen($pattern) > 0 ) && ( is_null($aMatches) || is_array($aMatches) )) {
+            if (preg_match($pattern, $this->_Value, $aMatches) > 0) {
+                $bReturn = true;
             }//if( preg_match(...
         }//if( isset(...
 
@@ -91,11 +94,10 @@ class CString extends \Foundation\Type\CTypeAbstract
      *
      * @param string $sCharlist Characters to remove
      */
-    final public function trimFromEnd( $sCharlist )
+    final public function trimFromEnd($sCharlist)
     {
-        if( (strlen( $this->_Value ) > 0) && is_string( $sCharlist ) )
-        {
-            $this->_Value = rtrim( $this->_Value, $sCharlist );
+        if ((strlen($this->_Value) > 0) && is_string($sCharlist)) {
+            $this->_Value = rtrim($this->_Value, $sCharlist);
         }//if( (strlen(...
     }
 
@@ -106,36 +108,31 @@ class CString extends \Foundation\Type\CTypeAbstract
      * @param boolean $bCaseInsensitive [OPTIONAL] If TRUE, $needle is case insensitive.
      * @return boolean
      */
-    final public function contains( $needle, $bCaseInsensitive = FALSE )
+    final public function contains($needle, $bCaseInsensitive = false)
     {
-        $bReturn = FALSE;
-        if( strlen( $this->_Value ) > 0 )
-        {
+        $bReturn = false;
+        if (strlen($this->_Value) > 0) {
             // Check $bCaseInsensitive type
-            $bCaseInsensitive = ( is_bool( $bCaseInsensitive ) ) ? $bCaseInsensitive : FALSE;
+            $bCaseInsensitive = ( is_bool($bCaseInsensitive) ) ? $bCaseInsensitive : false;
 
             // TypeInterface case
-            if( $needle instanceof \Foundation\Type\TypeInterface )
+            if ($needle instanceof \Foundation\Type\TypeInterface) {
                 $needle = $needle->getValue();
+            }
 
-            if( is_scalar( $needle ) )
-            {
+            if (is_scalar($needle)) {
                 // Cast to string
-                $needle = trim( $needle );
+                $needle = trim($needle);
 
                 // Find the substring
-                if( strlen( $needle ) > 0 )
-                {
-                    if( $bCaseInsensitive )
-                    {
-                        $bReturn = stripos( $this->_Value, $needle );
-                    }
-                    else
-                    {
-                        $bReturn = strpos( $this->_Value, $needle );
+                if (strlen($needle) > 0) {
+                    if ($bCaseInsensitive) {
+                        $bReturn = stripos($this->_Value, $needle);
+                    } else {
+                        $bReturn = strpos($this->_Value, $needle);
                     }//if(...
 
-                    $bReturn = ( $bReturn === FALSE ) ? FALSE : TRUE;
+                    $bReturn = ( $bReturn === false ) ? false : true;
                 }//if( is_string( ...
             }//if( is_scalar( ...
         }//if( strlen(...
@@ -151,28 +148,26 @@ class CString extends \Foundation\Type\CTypeAbstract
      * @param string $value   The value to write.
      * @return \Foundation\Type\Simple\CString
      */
-    public function setValue( $value )
+    public function setValue($value)
     {
         // Initialize
-        $this->_Value = NULL;
+        $this->_Value = null;
 
         // Check value
-        if( $value instanceof \Foundation\Type\TypeInterface )
+        if ($value instanceof \Foundation\Type\TypeInterface) {
             $value = $value->getValue();
+        }
 
-        if( is_scalar( $value ) )
-        {
+        if (is_scalar($value)) {
             // Cast to string
-            $this->_Value = trim( $value );
+            $this->_Value = trim($value);
 
             // Check filter
-            if( isset( $this->_aOptions[0] ) && !$this->matches( $this->_aOptions[0] ) )
-            {
-                $this->_Value = NULL;
+            if (isset($this->_aOptions[0]) && ! $this->matches($this->_aOptions[0])) {
+                $this->_Value = null;
             }
         }
 
         return $this;
     }
-
 }

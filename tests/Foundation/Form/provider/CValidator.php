@@ -9,9 +9,9 @@ final class CValidator extends \Foundation\Form\CValidatorAbstract
     /**
      * Constructor.
      */
-    public function __construct( array $aDefinition )
+    public function __construct(array $aDefinition)
     {
-        parent::__construct( $aDefinition );
+        parent::__construct($aDefinition);
     }
 
     /**
@@ -29,10 +29,9 @@ final class CValidator extends \Foundation\Form\CValidatorAbstract
      */
     public function isValid()
     {
-        $this->_bHasValidated = TRUE;
-        $this->setMessage( 'ELEMENT_1', 'The description for element 1' );
-        $this->setMessage( 'ELEMENT_2', 'The description for element 2' );
-        return TRUE;
+        $this->_bHasValidated = true;
+        $this->setMessage('ELEMENT_1', 'The description for element 1');
+        $this->setMessage('ELEMENT_2', 'The description for element 2');
+        return true;
     }
-
 }

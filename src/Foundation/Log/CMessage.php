@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Log;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Log;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Representation of an error message.
@@ -40,21 +42,24 @@ final class CMessage
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( \Foundation\Type\Enum\CSeverity $severity, array $aServer = [ ], array $aSession = [ ] )
+    public function __construct(\Foundation\Type\Enum\CSeverity $severity, array $aServer = [ ], array $aSession = [ ])
     {
-        $this->_sDebugID = uniqid( 'cmessage', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $severity, $aServer, $aSession ] );
+        $this->_sDebugID = uniqid('cmessage', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $severity, $aServer, $aSession ]
+                );
 
         // Creates default.
         $this->_aServer        = $aServer;
         $this->_aSession       = $aSession;
-        $this->_dateTime       = new \DateTime( 'now' );
+        $this->_dateTime       = new \DateTime('now');
         $this->_sModule        = APPLICATION_NAME . '-' . APPLICATION_VERSION;
         $this->_eSeverity      = $severity;
         $this->_sUser          = 'visitor';
-        $this->_pRemoteAddress = new \Foundation\Protocol\CRemoteAddress( $aServer );
+        $this->_pRemoteAddress = new \Foundation\Protocol\CRemoteAddress($aServer);
         $this->_sTitle         = 'Error';
         $this->_sMessage       = 'Unexpected error.';
     }
@@ -67,9 +72,9 @@ final class CMessage
      */
     public function __destruct()
     {
-        unset( $this->_dateTime, $this->_eSeverity, $this->_pRemoteAddress );
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        unset($this->_dateTime, $this->_eSeverity, $this->_pRemoteAddress);
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -80,9 +85,9 @@ final class CMessage
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -92,9 +97,9 @@ final class CMessage
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -104,36 +109,31 @@ final class CMessage
      */
     public function __toString()
     {
-        $sReturn = 'Server time: ' . $this->_dateTime->format( 'D M d G:i:s Y' )
+        $sReturn = 'Server time: ' . $this->_dateTime->format('D M d G:i:s Y')
                 . ', Module: ' . $this->_sModule
                 . ', Severity: ' . (string)$this->_eSeverity
                 . ', User: ' . $this->_sUser
                 . ', Remote address: ' . (string)$this->_pRemoteAddress
                 . ', Message: ' . $this->_sMessage
                 . ', Request URI: ';
-        if( isset( $this->_aServer['REQUEST_URI'] ) || array_key_exists( 'REQUEST_URI', $this->_aServer ) )
-        {
+        if (isset($this->_aServer['REQUEST_URI']) || array_key_exists('REQUEST_URI', $this->_aServer)) {
             $sReturn .= $this->_aServer['REQUEST_URI'];
         }
         $sReturn .= ', Requested with: ';
-        if( isset( $this->_aServer['HTTP_X_REQUESTED_WITH'] ) || array_key_exists( 'HTTP_X_REQUESTED_WITH', $this->_aServer ) )
-        {
+        if (isset($this->_aServer['HTTP_X_REQUESTED_WITH']) || array_key_exists('HTTP_X_REQUESTED_WITH', $this->_aServer)) {
             $sReturn .= $this->_aServer['HTTP_X_REQUESTED_WITH'];
         }
         $sReturn .= ', User agent: ';
-        if( isset( $this->_aServer['HTTP_USER_AGENT'] ) || array_key_exists( 'HTTP_USER_AGENT', $this->_aServer ) )
-        {
+        if (isset($this->_aServer['HTTP_USER_AGENT']) || array_key_exists('HTTP_USER_AGENT', $this->_aServer)) {
             $sReturn .= $this->_aServer['HTTP_USER_AGENT'];
         }
         $sReturn .= ', Referer: ';
-        if( isset( $this->_aServer['HTTP_REFERER'] ) || array_key_exists( 'HTTP_REFERER', $this->_aServer ) )
-        {
+        if (isset($this->_aServer['HTTP_REFERER']) || array_key_exists('HTTP_REFERER', $this->_aServer)) {
             $sReturn .= $this->_aServer['HTTP_REFERER'];
         }
         $sReturn .= ', Session data: ';
-        if( count( $this->_aSession ) > 0 )
-        {
-            $sReturn .= print_r( $this->_aSession, TRUE );
+        if (count($this->_aSession) > 0) {
+            $sReturn .= print_r($this->_aSession, true);
         }
         return $sReturn;
     }
@@ -145,19 +145,19 @@ final class CMessage
      * Server
      * @var array
      */
-    private $_aServer = NULL;
+    private $_aServer = null;
 
     /**
      * Session
      * @var array
      */
-    private $_aSession = NULL;
+    private $_aSession = null;
 
     /**
      * Date and time of the message.
      * @var \DateTime
      */
-    private $_dateTime = NULL;
+    private $_dateTime = null;
 
     /**
      * Module producing the message.
@@ -169,7 +169,7 @@ final class CMessage
      * Severity level of the message.
      * @var \Foundation\Type\Enum\CSeverity
      */
-    private $_eSeverity = NULL;
+    private $_eSeverity = null;
 
     /**
      * Name of the logged user that experienced the condition.
@@ -181,7 +181,7 @@ final class CMessage
      * Client address that made the request.
      * @var \Foundation\Protocol\CRemoteAddress
      */
-    private $_pRemoteAddress = NULL;
+    private $_pRemoteAddress = null;
 
     /**
      * Short message.
@@ -231,7 +231,7 @@ final class CMessage
      * @param \DateTime $dateTime
      * @return \Foundation\Log\CMessage
      */
-    public function setDateTime( \DateTime $dateTime )
+    public function setDateTime(\DateTime $dateTime)
     {
         $this->_dateTime = $dateTime;
         return $this;
@@ -253,9 +253,9 @@ final class CMessage
      * @param string $sModule
      * @return \Foundation\Log\CMessage
      */
-    public function setModule( $sModule )
+    public function setModule($sModule)
     {
-        $this->_sModule = ( is_string( $sModule ) ) ? trim( $sModule ) : '';
+        $this->_sModule = ( is_string($sModule) ) ? trim($sModule) : '';
         return $this;
     }
 
@@ -275,7 +275,7 @@ final class CMessage
      * @param \Foundation\Type\Enum\CSeverity $enumSeverity
      * @return \Foundation\Log\CMessage
      */
-    public function setSeverity( \Foundation\Type\Enum\CSeverity $enumSeverity )
+    public function setSeverity(\Foundation\Type\Enum\CSeverity $enumSeverity)
     {
         $this->_eSeverity = $enumSeverity;
         return $this;
@@ -297,9 +297,9 @@ final class CMessage
      * @param string $sUser
      * @return \Foundation\Log\CMessage
      */
-    public function setUser( $sUser )
+    public function setUser($sUser)
     {
-        $this->_sUser = ( is_string( $sUser ) ) ? trim( $sUser ) : '';
+        $this->_sUser = ( is_string($sUser) ) ? trim($sUser) : '';
         return $this;
     }
 
@@ -319,10 +319,11 @@ final class CMessage
      * @param \Foundation\Protocol\CRemoteAddress $pRemoteAddress
      * @return \Foundation\Log\CMessage
      */
-    public function setRemoteAddress( \Foundation\Protocol\CRemoteAddress $pRemoteAddress )
+    public function setRemoteAddress(\Foundation\Protocol\CRemoteAddress $pRemoteAddress)
     {
-        if( $pRemoteAddress->isValid() )
+        if ($pRemoteAddress->isValid()) {
             $this->_pRemoteAddress = $pRemoteAddress;
+        }
 
         return $this;
     }
@@ -343,9 +344,9 @@ final class CMessage
      * @param string $sTitle
      * @return \Foundation\Log\CMessage
      */
-    public function setTitle( $sTitle )
+    public function setTitle($sTitle)
     {
-        $this->_sTitle = ( is_string( $sTitle ) ) ? trim( $sTitle ) : '';
+        $this->_sTitle = ( is_string($sTitle) ) ? trim($sTitle) : '';
         return $this;
     }
 
@@ -365,10 +366,9 @@ final class CMessage
      * @param string $sMessage
      * @return \Foundation\Log\CMessage
      */
-    public function setMessage( $sMessage )
+    public function setMessage($sMessage)
     {
-        $this->_sMessage = ( is_string( $sMessage ) ) ? trim( $sMessage ) : '';
+        $this->_sMessage = ( is_string($sMessage) ) ? trim($sMessage) : '';
         return $this;
     }
-
 }

@@ -1,18 +1,19 @@
 <?php
 namespace Test\Foundation\Cache;
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Exception/ExceptionInterface.php' ) );
 
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Exception/InvalidArgumentException.php' ) );
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Exception/ExceptionInterface.php'));
 
-interface_exists( '\Foundation\Cache\Storage\StorageInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/StorageInterface.php' ) );
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(APPLICATION_PATH . '/src/Foundation/Exception/InvalidArgumentException.php'));
 
-class_exists( '\Foundation\Cache\Storage\CStorageAbstract' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CStorageAbstract.php' ) );
+interface_exists('\Foundation\Cache\Storage\StorageInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/StorageInterface.php'));
 
-class_exists( '\Foundation\Cache\Storage\CApc' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CApc.php' ) );
+class_exists('\Foundation\Cache\Storage\CStorageAbstract') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CStorageAbstract.php'));
 
-class_exists( '\Foundation\Cache\Storage\CArray' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/Storage/CArray.php' ) );
+class_exists('\Foundation\Cache\Storage\CApc') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CApc.php'));
 
-class_exists( '\Foundation\Cache\CAntiFlood' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Cache/CAntiFlood.php' ) );
+class_exists('\Foundation\Cache\Storage\CArray') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/Storage/CArray.php'));
+
+class_exists('\Foundation\Cache\CAntiFlood') || require(realpath(APPLICATION_PATH . '/src/Foundation/Cache/CAntiFlood.php'));
 
 class CAntiFloodTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,23 +25,23 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      *
      * @var \Foundation\Cache\Storage\StorageInterface
      */
-    private $_pCache = NULL;
+    private $_pCache = null;
 
     /**
      * Anti Flood
      *
      * @var \Foundation\Cache\CAntiFlood
      */
-    private $_pObject = NULL;
+    private $_pObject = null;
 
     /**
      * Instances.
      */
     public function setUp()
     {
-        $this->_pCache  = new \Foundation\Cache\Storage\CArray( APPLICATION_NAME . '_REG' );
+        $this->_pCache  = new \Foundation\Cache\Storage\CArray(APPLICATION_NAME . '_REG');
         //$this->_pCache  = new \Foundation\Cache\Storage\CApc( APPLICATION_NAME . '_REG' );
-        $this->_pObject = new \Foundation\Cache\CAntiFlood( $this->_pCache );
+        $this->_pObject = new \Foundation\Cache\CAntiFlood($this->_pCache);
     }
 
     /**
@@ -48,9 +49,9 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        $this->_pCache->delete( $this->_pObject->getLockEntryLabel() );
-        $this->_pCache->delete( $this->_pObject->getEventEntryLabel() );
-        unset( $this->_pObject, $this->_pCache );
+        $this->_pCache->delete($this->_pObject->getLockEntryLabel());
+        $this->_pCache->delete($this->_pObject->getEventEntryLabel());
+        unset($this->_pObject, $this->_pCache);
     }
 
     /** Test section
@@ -62,8 +63,8 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testLocked()
     {
-        $this->assertTrue( $this->_pCache->store( $this->_pObject->getLockEntryLabel(), 'on' ), 'store' );
-        $this->assertTrue( $this->_pObject->prevent( $this->_pCache ), 'prevent' );
+        $this->assertTrue($this->_pCache->store($this->_pObject->getLockEntryLabel(), 'on'), 'store');
+        $this->assertTrue($this->_pObject->prevent($this->_pCache), 'prevent');
     }
 
     /**
@@ -72,7 +73,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoData()
     {
-        $this->assertFalse( $this->_pObject->prevent( $this->_pCache ) );
+        $this->assertFalse($this->_pObject->prevent($this->_pCache));
     }
 
     /**
@@ -81,11 +82,14 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testOldData()
     {
-        $this->assertTrue( $this->_pCache->store( $this->_pObject->getEventEntryLabel(),
-                                                  [
+        $this->assertTrue($this->_pCache->store(
+            $this->_pObject->getEventEntryLabel(),
+            [
                     'time'  => time() - 3600,
-                    'count' => 1 ], 'store' ) );
-        $this->assertFalse( $this->_pObject->prevent( $this->_pCache ) );
+            'count' => 1 ],
+            'store'
+        ));
+        $this->assertFalse($this->_pObject->prevent($this->_pCache));
     }
 
     /**
@@ -95,12 +99,11 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
     public function testThreshold()
     {
         $iThreshold = $this->_pObject->getEventThreshold();
-        for( $iIndex = 0; $iIndex < $iThreshold; $iIndex++ )
-        {
-            $this->assertFalse( $this->_pObject->prevent( $this->_pCache ) );
-            sleep( 1 );
+        for ($iIndex = 0; $iIndex < $iThreshold; $iIndex++) {
+            $this->assertFalse($this->_pObject->prevent($this->_pCache));
+            sleep(1);
         }
-        $this->assertTrue( $this->_pObject->prevent( $this->_pCache ) );
+        $this->assertTrue($this->_pObject->prevent($this->_pCache));
     }
 
     /**
@@ -111,7 +114,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
     public function testGetLockEntryLabel()
     {
         static $sValue = 'newvalue';
-        $this->assertSame( $sValue, $this->_pObject->setLockEntryLabel( $sValue )->getLockEntryLabel() );
+        $this->assertSame($sValue, $this->_pObject->setLockEntryLabel($sValue)->getLockEntryLabel());
     }
 
     /**
@@ -121,7 +124,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetLockEntryLabelException()
     {
-        $this->_pObject->setLockEntryLabel( '  ' );
+        $this->_pObject->setLockEntryLabel('  ');
     }
 
     /**
@@ -132,7 +135,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
     public function testGetEventEntryLabel()
     {
         static $sValue = 'newvalue';
-        $this->assertSame( $sValue, $this->_pObject->setEventEntryLabel( $sValue )->getEventEntryLabel() );
+        $this->assertSame($sValue, $this->_pObject->setEventEntryLabel($sValue)->getEventEntryLabel());
     }
 
     /**
@@ -142,7 +145,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetEventEntryLabelException()
     {
-        $this->_pObject->setEventEntryLabel( '  ' );
+        $this->_pObject->setEventEntryLabel('  ');
     }
 
     /**
@@ -152,7 +155,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetLockSleepException()
     {
-        $this->_pObject->setLockSleep( -1 );
+        $this->_pObject->setLockSleep(-1);
     }
 
     /**
@@ -162,7 +165,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetLockRetryException()
     {
-        $this->_pObject->setLockRetry( -1 );
+        $this->_pObject->setLockRetry(-1);
     }
 
     /**
@@ -172,7 +175,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetEventLifeTimeException()
     {
-        $this->_pObject->setEventLifeTime( -1 );
+        $this->_pObject->setEventLifeTime(-1);
     }
 
     /**
@@ -182,7 +185,7 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetEventThresholdException()
     {
-        $this->_pObject->setEventThreshold( -1 );
+        $this->_pObject->setEventThreshold(-1);
     }
 
     /**
@@ -193,8 +196,8 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetters()
     {
-        $this->_pObject->setLockSleep( 10 )->setLockRetry( 20 )->setEventLifeTime( 30 );
-        $this->assertTrue( TRUE );
+        $this->_pObject->setLockSleep(10)->setLockRetry(20)->setEventLifeTime(30);
+        $this->assertTrue(true);
     }
 
     /**
@@ -205,7 +208,6 @@ class CAntiFloodTest extends \PHPUnit_Framework_TestCase
     public function testGetEventThreshold()
     {
         static $iValue = 666;
-        $this->assertSame( $iValue, $this->_pObject->setEventThreshold( $iValue )->getEventThreshold() );
+        $this->assertSame($iValue, $this->_pObject->setEventThreshold($iValue)->getEventThreshold());
     }
-
 }

@@ -1,14 +1,15 @@
 <?php
 namespace Test\Foundation\Crypt\Provider;
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Exception/ExceptionInterface.php' ) );
 
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Exception/InvalidArgumentException.php' ) );
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Exception/ExceptionInterface.php'));
 
-class_exists( '\Foundation\Exception\RuntimeException' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Exception/RuntimeException.php' ) );
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(APPLICATION_PATH . '/src/Foundation/Exception/InvalidArgumentException.php'));
 
-interface_exists( '\Foundation\Crypt\CypherInterface' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Crypt/CypherInterface.php' ) );
+class_exists('\Foundation\Exception\RuntimeException') || require(realpath(APPLICATION_PATH . '/src/Foundation/Exception/RuntimeException.php'));
 
-class_exists( '\Foundation\Crypt\CMcryptAbstract' ) || require( realpath( APPLICATION_PATH . '/src/Foundation/Crypt/CMcryptAbstract.php' ) );
+interface_exists('\Foundation\Crypt\CypherInterface') || require(realpath(APPLICATION_PATH . '/src/Foundation/Crypt/CypherInterface.php'));
+
+class_exists('\Foundation\Crypt\CMcryptAbstract') || require(realpath(APPLICATION_PATH . '/src/Foundation/Crypt/CMcryptAbstract.php'));
 
 /**
  * Foundation Framework
@@ -17,8 +18,9 @@ class_exists( '\Foundation\Crypt\CMcryptAbstract' ) || require( realpath( APPLIC
  * @copyright (©) 2010-2013, Olivier Jullien <olivier.jullien@outlook.com>
  * @license   Private
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 final class CMcryptAlgoEmpty extends \Foundation\Crypt\CMcryptAbstract
 {
@@ -32,7 +34,7 @@ final class CMcryptAlgoEmpty extends \Foundation\Crypt\CMcryptAbstract
      */
     public function __construct()
     {
-        parent::__construct( '', MCRYPT_MODE_OFB );
+        parent::__construct('', MCRYPT_MODE_OFB);
     }
 
     /** Cypher section
@@ -41,7 +43,7 @@ final class CMcryptAlgoEmpty extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Encrypt. Do nothing.
      */
-    public function encrypt( $sData )
+    public function encrypt($sData)
     {
         return $sData;
     }
@@ -49,11 +51,10 @@ final class CMcryptAlgoEmpty extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Decrypt. Do nothing.
      */
-    public function decrypt( $sData )
+    public function decrypt($sData)
     {
         return $sData;
     }
-
 }
 
 final class CMcryptAlgoNotValid extends \Foundation\Crypt\CMcryptAbstract
@@ -68,7 +69,7 @@ final class CMcryptAlgoNotValid extends \Foundation\Crypt\CMcryptAbstract
      */
     public function __construct()
     {
-        parent::__construct( 'doesnotexists', MCRYPT_MODE_OFB );
+        parent::__construct('doesnotexists', MCRYPT_MODE_OFB);
     }
 
     /** Cypher section
@@ -77,7 +78,7 @@ final class CMcryptAlgoNotValid extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Encrypt. Do nothing.
      */
-    public function encrypt( $sData )
+    public function encrypt($sData)
     {
         return $sData;
     }
@@ -85,11 +86,10 @@ final class CMcryptAlgoNotValid extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Decrypt. Do nothing.
      */
-    public function decrypt( $sData )
+    public function decrypt($sData)
     {
         return $sData;
     }
-
 }
 
 final class CMcryptModeEmpty extends \Foundation\Crypt\CMcryptAbstract
@@ -104,7 +104,7 @@ final class CMcryptModeEmpty extends \Foundation\Crypt\CMcryptAbstract
      */
     public function __construct()
     {
-        parent::__construct( MCRYPT_RIJNDAEL_256, '' );
+        parent::__construct(MCRYPT_RIJNDAEL_256, '');
     }
 
     /** Cypher section
@@ -113,7 +113,7 @@ final class CMcryptModeEmpty extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Encrypt. Do nothing.
      */
-    public function encrypt( $sData )
+    public function encrypt($sData)
     {
         return $sData;
     }
@@ -121,11 +121,10 @@ final class CMcryptModeEmpty extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Decrypt. Do nothing.
      */
-    public function decrypt( $sData )
+    public function decrypt($sData)
     {
         return $sData;
     }
-
 }
 
 final class CMcryptModeNotValid extends \Foundation\Crypt\CMcryptAbstract
@@ -140,7 +139,7 @@ final class CMcryptModeNotValid extends \Foundation\Crypt\CMcryptAbstract
      */
     public function __construct()
     {
-        parent::__construct( MCRYPT_RIJNDAEL_256, 'doesnotexist' );
+        parent::__construct(MCRYPT_RIJNDAEL_256, 'doesnotexist');
     }
 
     /** Cypher section
@@ -149,7 +148,7 @@ final class CMcryptModeNotValid extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Encrypt. Do nothing.
      */
-    public function encrypt( $sData )
+    public function encrypt($sData)
     {
         return $sData;
     }
@@ -157,11 +156,10 @@ final class CMcryptModeNotValid extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Decrypt. Do nothing.
      */
-    public function decrypt( $sData )
+    public function decrypt($sData)
     {
         return $sData;
     }
-
 }
 
 final class CMcrypt extends \Foundation\Crypt\CMcryptAbstract
@@ -176,7 +174,7 @@ final class CMcrypt extends \Foundation\Crypt\CMcryptAbstract
      */
     public function __construct()
     {
-        parent::__construct( MCRYPT_3DES, MCRYPT_MODE_ECB );
+        parent::__construct(MCRYPT_3DES, MCRYPT_MODE_ECB);
     }
 
     /** Cypher section
@@ -185,7 +183,7 @@ final class CMcrypt extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Encrypt. Do nothing.
      */
-    public function encrypt( $sData )
+    public function encrypt($sData)
     {
         return $sData;
     }
@@ -193,7 +191,7 @@ final class CMcrypt extends \Foundation\Crypt\CMcryptAbstract
     /**
      * Decrypt. Do nothing.
      */
-    public function decrypt( $sData )
+    public function decrypt($sData)
     {
         return $sData;
     }
@@ -207,5 +205,4 @@ final class CMcrypt extends \Foundation\Crypt\CMcryptAbstract
     {
         return $this->_sKey;
     }
-
 }

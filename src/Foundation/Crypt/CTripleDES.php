@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Crypt;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Crypt;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Simple 3DES encryption cypher without initializer vector.
@@ -31,7 +33,7 @@ final class CTripleDES extends \Foundation\Crypt\CMcryptAbstract
      */
     public function __construct()
     {
-        parent::__construct( MCRYPT_3DES, MCRYPT_MODE_ECB );
+        parent::__construct(MCRYPT_3DES, MCRYPT_MODE_ECB);
     }
 
     /** Cypher section
@@ -46,30 +48,33 @@ final class CTripleDES extends \Foundation\Crypt\CMcryptAbstract
      *                                                        not valid or if the encryption key was not specified.
      * @throws \Foundation\Exception\RuntimeException Raises a Runtime Exception if the cypher cannot be initialized.
      */
-    public function encrypt( $sData )
+    public function encrypt($sData)
     {
         // Check parameter
-        $sData = ( is_string( $sData ) ) ? trim( $sData ) : '';
-        if( '' == $sData )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The data to encrypt cannot be empty.' );
+        $sData = ( is_string($sData) ) ? trim($sData) : '';
+        if ('' == $sData) {
+            throw new \Foundation\Exception\InvalidArgumentException('The data to encrypt cannot be empty.');
+        }
 
         // The key should be provided
-        if( '' == $this->_sKey )
-            throw new \Foundation\Exception\InvalidArgumentException( 'No valid encryption key specified.' );
+        if ('' == $this->_sKey) {
+            throw new \Foundation\Exception\InvalidArgumentException('No valid encryption key specified.');
+        }
 
         // Creates the initialization vector (IV) from a random source, even if it is ignored in ECB.
-        $sInitializationVector = mcrypt_create_iv( $this->_iIVSize, MCRYPT_DEV_RANDOM );
+        $sInitializationVector = mcrypt_create_iv($this->_iIVSize, MCRYPT_DEV_RANDOM);
 
         // Initializes all buffers needed for encryption
-        $iReturn = mcrypt_generic_init( $this->_pResource, $this->_sKey, $sInitializationVector );
-        if( $iReturn === FALSE || $iReturn < 0 )
-            throw new \Foundation\Exception\RuntimeException( 'Initializing all buffers needed for encryption failed with error code: ' . $iReturn );
+        $iReturn = mcrypt_generic_init($this->_pResource, $this->_sKey, $sInitializationVector);
+        if ($iReturn === false || $iReturn < 0) {
+            throw new \Foundation\Exception\RuntimeException('Initializing all buffers needed for encryption failed with error code: ' . $iReturn);
+        }
 
         // Encrypts data
-        $sReturn = mcrypt_generic( $this->_pResource, $sData );
+        $sReturn = mcrypt_generic($this->_pResource, $sData);
 
         // Deinitializes the encryption module
-        mcrypt_generic_deinit( $this->_pResource );
+        mcrypt_generic_deinit($this->_pResource);
 
         return $sReturn;
     }
@@ -83,31 +88,33 @@ final class CTripleDES extends \Foundation\Crypt\CMcryptAbstract
      *                                                        not valid or if the encryption key was not specified.
      * @throws \Foundation\Exception\RuntimeException Raises a Runtime Exception if the cypher cannot be initialized.
      */
-    public function decrypt( $sData )
+    public function decrypt($sData)
     {
         // Check parameter
-        if( !is_string( $sData ) || ('' == $sData) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The data to encrypt cannot be empty.' );
+        if (! is_string($sData) || ('' == $sData)) {
+            throw new \Foundation\Exception\InvalidArgumentException('The data to encrypt cannot be empty.');
+        }
 
         // The key should be provided
-        if( '' == $this->_sKey )
-            throw new \Foundation\Exception\InvalidArgumentException( 'No valid encryption key specified.' );
+        if ('' == $this->_sKey) {
+            throw new \Foundation\Exception\InvalidArgumentException('No valid encryption key specified.');
+        }
 
         // Creates the initialization vector (IV) from a random source, even if it is ignored in ECB
-        $sInitializationVector = mcrypt_create_iv( $this->_iIVSize, MCRYPT_DEV_RANDOM );
+        $sInitializationVector = mcrypt_create_iv($this->_iIVSize, MCRYPT_DEV_RANDOM);
 
         // Initializes all buffers needed for encryption
-        $iReturn = mcrypt_generic_init( $this->_pResource, $this->_sKey, $sInitializationVector );
-        if( $iReturn === FALSE || $iReturn < 0 )
-            throw new \Foundation\Exception\RuntimeException( 'Initializing all buffers needed for encryption failed with error code: ' . $iReturn );
+        $iReturn = mcrypt_generic_init($this->_pResource, $this->_sKey, $sInitializationVector);
+        if ($iReturn === false || $iReturn < 0) {
+            throw new \Foundation\Exception\RuntimeException('Initializing all buffers needed for encryption failed with error code: ' . $iReturn);
+        }
 
         // Encrypts data
-        $sReturn = rtrim( mdecrypt_generic( $this->_pResource, $sData ), "\0" );
+        $sReturn = rtrim(mdecrypt_generic($this->_pResource, $sData), "\0");
 
         // Deinitializes the encryption module
-        mcrypt_generic_deinit( $this->_pResource );
+        mcrypt_generic_deinit($this->_pResource);
 
         return $sReturn;
     }
-
 }

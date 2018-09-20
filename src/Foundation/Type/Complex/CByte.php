@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type\Complex;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type\Complex;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This complex class implements byte type and usefull conversion methods for bytes.
@@ -31,15 +33,15 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $value )
+    public function __construct($value)
     {
-        $this->_sDebugID = uniqid( 'cbyte', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__, [ $value ] );
+        $this->_sDebugID = uniqid('cbyte', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add($this->_sDebugID, __CLASS__, [ $value ]);
 
         // Only values >=0 are allowed
         $this->_aOptions = [ '>=' => 0 ];
-        $this->setValue( $value );
+        $this->setValue($value);
     }
 
     /** Type section
@@ -51,22 +53,16 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @param \Foundation\Type\TypeInterface $pType
      * @return boolean
      */
-    final public function isEqual( \Foundation\Type\TypeInterface $pType )
+    final public function isEqual(\Foundation\Type\TypeInterface $pType)
     {
-        if( isset( $this->_Value ) )
-        {
-            if( $pType instanceof \Foundation\Type\Complex\CByte )
-            {
-                $bReturn = ( $this->convertToByte() == $pType->convertToByte() ) ? TRUE : FALSE;
+        if (isset($this->_Value)) {
+            if ($pType instanceof \Foundation\Type\Complex\CByte) {
+                $bReturn = ( $this->convertToByte() == $pType->convertToByte() ) ? true : false;
+            } else {
+                $bReturn = ( $this->getValue() == $pType->getValue() ) ? true : false;
             }
-            else
-            {
-                $bReturn = ( $this->getValue() == $pType->getValue() ) ? TRUE : FALSE;
-            }
-        }
-        else
-        {
-            $bReturn = FALSE;
+        } else {
+            $bReturn = false;
         }
 
         return $bReturn;
@@ -83,24 +79,20 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @param array  $aMatches [OPTIONAL] If $aMatches is provided then it is filled with the results of the search.
      * @return boolean
      */
-    private function isShorthanded( $sValue, array& $aMatches = NULL )
+    private function isShorthanded($sValue, array& $aMatches = null)
     {
         // Check parameter
-        $sValue = ( is_string( $sValue ) ) ? trim( $sValue ) : 0;
+        $sValue = ( is_string($sValue) ) ? trim($sValue) : 0;
 
-        if( is_numeric( $sValue ) )
-        {
-            $bReturn = FALSE;
-        }
-        else
-        {
+        if (is_numeric($sValue)) {
+            $bReturn = false;
+        } else {
             static $sPattern = '/^[[:digit:].]+[kmg]$/i';
-            $bReturn  = (@preg_match( $sPattern, $sValue )) ? TRUE : FALSE;
+            $bReturn  = (@preg_match($sPattern, $sValue)) ? true : false;
 
             // Explode result
-            if( isset( $aMatches ) && $bReturn )
-            {
-                $aMatches = str_split( $sValue, strlen( $sValue ) - 1 );
+            if (isset($aMatches) && $bReturn) {
+                $aMatches = str_split($sValue, strlen($sValue) - 1);
             }
         }
 
@@ -113,21 +105,18 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @param  boolean $bShorthanded [OPTIONAL] Shorthand notation
      * @return string
      */
-    public function convertToGByte( $bShorthanded = FALSE )
+    public function convertToGByte($bShorthanded = false)
     {
         // Initialize
-        $bShorthanded = ( is_bool( $bShorthanded ) ) ? $bShorthanded : FALSE;
+        $bShorthanded = ( is_bool($bShorthanded) ) ? $bShorthanded : false;
         $return       = $this->_Value;
         $aMatches     = [ ];
 
         // Convert
-        if( isset( $return ) )
-        {
-            if( $this->isShorthanded( $return, $aMatches ) )
-            {
+        if (isset($return)) {
+            if ($this->isShorthanded($return, $aMatches)) {
                 // Shorthanded notation case
-                switch( strtolower( $aMatches[1] ) )
-                {
+                switch (strtolower($aMatches[1])) {
                     case 'k':
                         // KByte to GByte.
                         $return = $aMatches[0] / 1024 / 1024;
@@ -141,17 +130,14 @@ final class CByte extends \Foundation\Type\Simple\CFloat
                         $return = $aMatches[0] + 0;
                         break;
                 }//switch ( strtolower(...
-            }
-            else
-            {
+            } else {
                 // Convert from Byte to GByte
                 $return = $return / 1024 / 1024 / 1024;
             }
 
             // Shorthand notation
-            if( $bShorthanded )
-            {
-                $return = round( $return, 0 ) . 'G';
+            if ($bShorthanded) {
+                $return = round($return, 0) . 'G';
             }
         }
 
@@ -164,21 +150,18 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @param  boolean $bShorthanded [OPTIONAL] Shorthand notation
      * @return string
      */
-    public function convertToMByte( $bShorthanded = FALSE )
+    public function convertToMByte($bShorthanded = false)
     {
         // Initialize
-        $bShorthanded = ( is_bool( $bShorthanded ) ) ? $bShorthanded : FALSE;
+        $bShorthanded = ( is_bool($bShorthanded) ) ? $bShorthanded : false;
         $return       = $this->_Value;
         $aMatches     = [ ];
 
         // Convert
-        if( isset( $return ) )
-        {
-            if( $this->isShorthanded( $return, $aMatches ) )
-            {
+        if (isset($return)) {
+            if ($this->isShorthanded($return, $aMatches)) {
                 // Shorthanded notation case
-                switch( strtolower( $aMatches[1] ) )
-                {
+                switch (strtolower($aMatches[1])) {
                     case 'k':
                         // KByte to MByte.
                         $return = $aMatches[0] / 1024;
@@ -192,17 +175,14 @@ final class CByte extends \Foundation\Type\Simple\CFloat
                         $return = $aMatches[0] + 0;
                         break;
                 }
-            }
-            else
-            {
+            } else {
                 // Convert from Byte to MByte
                 $return = $return / 1024 / 1024;
             }
 
             // Shorthand notation
-            if( $bShorthanded )
-            {
-                $return = round( $return, 0 ) . 'M';
+            if ($bShorthanded) {
+                $return = round($return, 0) . 'M';
             }
         }
 
@@ -215,21 +195,18 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @param  boolean $bShorthanded [OPTIONAL] Shorthand notation
      * @return string
      */
-    public function convertToKByte( $bShorthanded = FALSE )
+    public function convertToKByte($bShorthanded = false)
     {
         // Initialize
-        $bShorthanded = ( is_bool( $bShorthanded ) ) ? $bShorthanded : FALSE;
+        $bShorthanded = ( is_bool($bShorthanded) ) ? $bShorthanded : false;
         $return       = $this->_Value;
         $aMatches     = [ ];
 
         // Convert
-        if( isset( $return ) )
-        {
-            if( $this->isShorthanded( $return, $aMatches ) )
-            {
+        if (isset($return)) {
+            if ($this->isShorthanded($return, $aMatches)) {
                 // Shorthanded notation case
-                switch( strtolower( $aMatches[1] ) )
-                {
+                switch (strtolower($aMatches[1])) {
                     case 'm':
                         // MByte to KByte.
                         $return = $aMatches[0] * 1024;
@@ -243,17 +220,14 @@ final class CByte extends \Foundation\Type\Simple\CFloat
                         $return = $aMatches[0] + 0;
                         break;
                 }//switch ( strtolower(...
-            }
-            else
-            {
+            } else {
                 // Convert from Byte to KByte
                 $return = $return / 1024;
             }
 
             // Shorthand notation
-            if( $bShorthanded )
-            {
-                $return = round( $return, 0 ) . 'K';
+            if ($bShorthanded) {
+                $return = round($return, 0) . 'K';
             }
         }
 
@@ -272,13 +246,10 @@ final class CByte extends \Foundation\Type\Simple\CFloat
         $aMatches = [ ];
 
         // Convert
-        if( isset( $return ) )
-        {
-            if( $this->isShorthanded( $return, $aMatches ) )
-            {
+        if (isset($return)) {
+            if ($this->isShorthanded($return, $aMatches)) {
                 // Shorthanded notation case
-                switch( strtolower( $aMatches[1] ) )
-                {
+                switch (strtolower($aMatches[1])) {
                     case 'k':
                         // KByte to Byte.
                         $return = $aMatches[0] * 1024;
@@ -308,29 +279,25 @@ final class CByte extends \Foundation\Type\Simple\CFloat
      * @param mixed $value The value to write. Accept integer value and shorthand notation.
      * @return \Foundation\Type\Complex\CByte
      */
-    public function setValue( $value )
+    public function setValue($value)
     {
         // Already a byte: nothing to do
-        if( $value instanceof \Foundation\Type\Complex\CByte )
-        {
+        if ($value instanceof \Foundation\Type\Complex\CByte) {
             $this->_Value = $value->getValue();
             return $this;
         }
         // Other types
-        elseif( $value instanceof \Foundation\Type\TypeInterface )
-        {
+        elseif ($value instanceof \Foundation\Type\TypeInterface) {
             $value = $value->getValue();
-        }
-        elseif( is_string( $value ) )
-        {
-            $value = trim( $value );
+        } elseif (is_string($value)) {
+            $value = trim($value);
         }
 
         // Write the value
-        if( !$this->setNumeric( $value ) && $this->isShorthanded( $value ) )
+        if (! $this->setNumeric($value) && $this->isShorthanded($value)) {
             $this->_Value = $value;
+        }
 
         return $this;
     }
-
 }

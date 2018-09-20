@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Cache\Storage;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Cache\Storage;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for cache storage implementation.
@@ -36,7 +38,7 @@ interface StorageInterface
      *                       manually, or otherwise fails to exist in the cache (clear, restart, etc.).
      * @return bool Returns TRUE on success or FALSE on failure.
      */
-    public function store( $key, $value, $ttl = 0 );
+    public function store($key, $value, $ttl = 0);
 
     /** Reading section
      * **************** */
@@ -47,7 +49,7 @@ interface StorageInterface
      * @param string $key The key.
      * @return bool Returns TRUE if the key exists, otherwise FALSE.
      */
-    public function exists( $key );
+    public function exists($key);
 
     /**
      * Fetchs a stored variable from the cache.
@@ -56,7 +58,7 @@ interface StorageInterface
      * @param bool   $success [OUT]. Set to TRUE in success and FALSE in failure.
      * @return mixed The stored variable on success; FALSE on failure.
      */
-    public function fetch( $key, &$success );
+    public function fetch($key, &$success);
 
     /** Deleting section
      * ***************** */
@@ -67,5 +69,5 @@ interface StorageInterface
      * @param string $key The key used to store the value ( with store() ).
      * @return bool Returns TRUE on success or FALSE on failure.
      */
-    public function delete( $key );
+    public function delete($key);
 }

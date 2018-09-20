@@ -1,3 +1,2 @@
 <?php
-echo 'source file'
-?>
+echo 'source file';

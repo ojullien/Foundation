@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Session;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Session;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_NAME' ) )
-    die( '-1' );
+if (! defined('APPLICATION_NAME')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods to determine if the current environment matches that which was expected.
@@ -43,32 +45,38 @@ final class CSecureSession
      * @throws \Foundation\Exception\InvalidArgumentException If the remote address $remoteAddress is not valid.
      *
      */
-    public function __construct( \Foundation\Session\Storage\StorageInterface $storage,
-                                 \Foundation\Protocol\CRemoteAddress $remoteAddress, $userAgent )
-    {
+    public function __construct(
+        \Foundation\Session\Storage\StorageInterface $storage,
+        \Foundation\Protocol\CRemoteAddress $remoteAddress,
+        $userAgent
+    ) {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'csecuresession', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 array( $storage, $remoteAddress, $userAgent ) );
+        $this->_sDebugID = uniqid('csecuresession', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $storage, $remoteAddress, $userAgent ]
+                );
         //@codeCoverageIgnoreEnd
         // Check remote IP address
-        if( !$remoteAddress->isValid() )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The remote address is not valid.' );
+        if (! $remoteAddress->isValid()) {
+            throw new \Foundation\Exception\InvalidArgumentException('The remote address is not valid.');
+        }
 
         $remoteAddress = (string)$remoteAddress;
 
         // Check user agent
-        if( is_string( $userAgent ) )
-            $userAgent = trim( $userAgent );
-        if( !is_string( $userAgent ) || (0 == strlen( $userAgent )) )
-        {
+        if (is_string($userAgent)) {
+            $userAgent = trim($userAgent);
+        }
+        if (! is_string($userAgent) || (0 == strlen($userAgent))) {
             $userAgent = 'UNKNOWN';
         }
 
         // Calculates a client hash based on few server and execution environment informations.
         // We use the hash for easy and fast comparaison.
-        $this->_iCRC = crc32( $remoteAddress . $userAgent );
+        $this->_iCRC = crc32($remoteAddress . $userAgent);
 
         // Save parameters
         $this->_pStorage = $storage;
@@ -81,9 +89,9 @@ final class CSecureSession
      */
     public function __destruct()
     {
-        $this->_pStorage = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_pStorage = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -94,9 +102,9 @@ final class CSecureSession
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -106,9 +114,9 @@ final class CSecureSession
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Storage methods
@@ -118,7 +126,7 @@ final class CSecureSession
      * Instance of Storage object.
      * @var \Foundation\Session\Storage\StorageInterface
      */
-    private $_pStorage = NULL;
+    private $_pStorage = null;
 
     /** CRC methods
      * ************ */
@@ -127,7 +135,7 @@ final class CSecureSession
      * CRC calculated from the current PHP environment.
      * @var array
      */
-    private $_iCRC = NULL;
+    private $_iCRC = null;
 
     /** container section
      * ****************** */
@@ -141,14 +149,11 @@ final class CSecureSession
     public function save()
     {
         // Session should be started
-        if( $this->_pStorage->status() === PHP_SESSION_ACTIVE )
-        {
+        if ($this->_pStorage->status() === PHP_SESSION_ACTIVE) {
             //  Get and save current UID
-            $this->_pStorage->setOffset( self::UID, $this->_iCRC, APPLICATION_NAME );
-        }
-        else
-        {
-            throw new \Foundation\Exception\BadMethodCallException( 'The session was not successfully started.' );
+            $this->_pStorage->setOffset(self::UID, $this->_iCRC, APPLICATION_NAME);
+        } else {
+            throw new \Foundation\Exception\BadMethodCallException('The session was not successfully started.');
         }
     }
 
@@ -161,20 +166,17 @@ final class CSecureSession
     public function isValid()
     {
         // Initialize
-        $bReturn = FALSE;
+        $bReturn = false;
 
         // Session should be started
-        if( ($this->_pStorage->status() == PHP_SESSION_ACTIVE ) )
-        {
+        if (($this->_pStorage->status() == PHP_SESSION_ACTIVE )) {
             // Get stored UID
-            $uidSaved = $this->_pStorage->getOffset( self::UID, APPLICATION_NAME );
+            $uidSaved = $this->_pStorage->getOffset(self::UID, APPLICATION_NAME);
 
             // Compare with the client uid
             $bReturn = ( $this->_iCRC == $uidSaved );
-        }
-        else
-        {
-            throw new \Foundation\Exception\BadMethodCallException( 'The session was not successfully started.' );
+        } else {
+            throw new \Foundation\Exception\BadMethodCallException('The session was not successfully started.');
         }//if(...
 
         return $bReturn;
@@ -189,20 +191,16 @@ final class CSecureSession
     public function exists()
     {
         // Initialize
-        $bReturn = FALSE;
+        $bReturn = false;
 
         // Session should be started
-        if( ($this->_pStorage->status() == PHP_SESSION_ACTIVE ) )
-        {
+        if (($this->_pStorage->status() == PHP_SESSION_ACTIVE )) {
             // Get stored UID
-            $bReturn = $this->_pStorage->existsOffset( self::UID, APPLICATION_NAME );
-        }
-        else
-        {
-            throw new \Foundation\Exception\BadMethodCallException( 'The session was not successfully started.' );
+            $bReturn = $this->_pStorage->existsOffset(self::UID, APPLICATION_NAME);
+        } else {
+            throw new \Foundation\Exception\BadMethodCallException('The session was not successfully started.');
         }//if(...
 
         return $bReturn;
     }
-
 }

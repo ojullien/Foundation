@@ -3,14 +3,14 @@ return [
     // Other: Format
     [ 'label' => 'TEST 001: "­"', 'test'  => '­' ],
     // Other: Control
-    [ 'label' => 'TEST 101: chr(0x09)', 'test'  => chr( 0x09 ) ],
-    [ 'label' => 'TEST 102: chr(0x0B)', 'test'  => chr( 0x0B ) ],
-    [ 'label' => 'TEST 103: chr(0x0A)', 'test'  => chr( 0x0A ) ],
-    [ 'label' => 'TEST 104: chr(0x0D)', 'test'  => chr( 0x0D ) ],
-    [ 'label' => 'TEST 105: chr(0x08)', 'test'  => chr( 0x08 ) ],
-    [ 'label' => 'TEST 106: chr(0x0C)', 'test'  => chr( 0x0C ) ],
-    [ 'label' => 'TEST 107: chr(0x07)', 'test'  => chr( 0x07 ) ],
-    [ 'label' => 'TEST 108: chr(0x1B)', 'test'  => chr( 0x1B ) ],
+    [ 'label' => 'TEST 101: chr(0x09)', 'test'  => chr(0x09) ],
+    [ 'label' => 'TEST 102: chr(0x0B)', 'test'  => chr(0x0B) ],
+    [ 'label' => 'TEST 103: chr(0x0A)', 'test'  => chr(0x0A) ],
+    [ 'label' => 'TEST 104: chr(0x0D)', 'test'  => chr(0x0D) ],
+    [ 'label' => 'TEST 105: chr(0x08)', 'test'  => chr(0x08) ],
+    [ 'label' => 'TEST 106: chr(0x0C)', 'test'  => chr(0x0C) ],
+    [ 'label' => 'TEST 107: chr(0x07)', 'test'  => chr(0x07) ],
+    [ 'label' => 'TEST 108: chr(0x1B)', 'test'  => chr(0x1B) ],
     // Ponctuation: Other
     [ 'label' => 'TEST 201: "!"', 'test'  => '!' ],
     [ 'label' => 'TEST 202: """', 'test'  => '"' ],

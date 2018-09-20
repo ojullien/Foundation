@@ -11,17 +11,13 @@ trait TOnlineTestProvider
      */
     public function isOnline()
     {
-        $fp = @fsockopen( "www.google.com", 80, $iErrno, $sErrstr, 5 );
-        if( !$fp )
-        {
-            $bReturn = FALSE;
-        }
-        else
-        {
-            @fclose( $fp );
-            $bReturn = TRUE;
+        $fp = @fsockopen("www.google.com", 80, $iErrno, $sErrstr, 5);
+        if (! $fp) {
+            $bReturn = false;
+        } else {
+            @fclose($fp);
+            $bReturn = true;
         }
         return $bReturn;
     }
-
 }

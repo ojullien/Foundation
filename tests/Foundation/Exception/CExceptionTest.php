@@ -1,20 +1,23 @@
 <?php
 namespace Foundation\Test\Log\Writer;
-defined( 'FOUNDATION_EXCEPTION_PATH' ) || define( 'FOUNDATION_EXCEPTION_PATH',
-                                                  APPLICATION_PATH . '/src/Foundation/Exception' );
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php' ) );
-class_exists( '\Foundation\Exception\BadFunctionCallException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/BadFunctionCallException.php' ) );
-class_exists( '\Foundation\Exception\BadMethodCallException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php' ) );
-class_exists( '\Foundation\Exception\DomainException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/DomainException.php' ) );
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php' ) );
-class_exists( '\Foundation\Exception\LengthException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/LengthException.php' ) );
-class_exists( '\Foundation\Exception\OutOfBoundsException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/OutOfBoundsException.php' ) );
-class_exists( '\Foundation\Exception\OutOfRangeException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/OutOfRangeException.php' ) );
-class_exists( '\Foundation\Exception\OverflowException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/OverflowException.php' ) );
-class_exists( '\Foundation\Exception\RangeException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/RangeException.php' ) );
-class_exists( '\Foundation\Exception\RuntimeException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/RuntimeException.php' ) );
-class_exists( '\Foundation\Exception\UnderflowException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/UnderflowException.php' ) );
-class_exists( '\Foundation\Exception\UnexpectedValueException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/UnexpectedValueException.php' ) );
+
+defined('FOUNDATION_EXCEPTION_PATH') || define(
+    'FOUNDATION_EXCEPTION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Exception'
+);
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php'));
+class_exists('\Foundation\Exception\BadFunctionCallException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/BadFunctionCallException.php'));
+class_exists('\Foundation\Exception\BadMethodCallException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php'));
+class_exists('\Foundation\Exception\DomainException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/DomainException.php'));
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php'));
+class_exists('\Foundation\Exception\LengthException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/LengthException.php'));
+class_exists('\Foundation\Exception\OutOfBoundsException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/OutOfBoundsException.php'));
+class_exists('\Foundation\Exception\OutOfRangeException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/OutOfRangeException.php'));
+class_exists('\Foundation\Exception\OverflowException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/OverflowException.php'));
+class_exists('\Foundation\Exception\RangeException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/RangeException.php'));
+class_exists('\Foundation\Exception\RuntimeException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/RuntimeException.php'));
+class_exists('\Foundation\Exception\UnderflowException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/UnderflowException.php'));
+class_exists('\Foundation\Exception\UnexpectedValueException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/UnexpectedValueException.php'));
 
 class CExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +29,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadFunctionCallException()
     {
-        throw new \Foundation\Exception\BadFunctionCallException( __METHOD__ );
+        throw new \Foundation\Exception\BadFunctionCallException(__METHOD__);
     }
 
     /**
@@ -36,7 +39,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMethodCallException()
     {
-        throw new \Foundation\Exception\BadMethodCallException( __METHOD__ );
+        throw new \Foundation\Exception\BadMethodCallException(__METHOD__);
     }
 
     /**
@@ -46,7 +49,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testDomainException()
     {
-        throw new \Foundation\Exception\DomainException( __METHOD__ );
+        throw new \Foundation\Exception\DomainException(__METHOD__);
     }
 
     /**
@@ -56,7 +59,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidArgumentException()
     {
-        throw new \Foundation\Exception\InvalidArgumentException( __METHOD__ );
+        throw new \Foundation\Exception\InvalidArgumentException(__METHOD__);
     }
 
     /**
@@ -66,7 +69,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testLengthException()
     {
-        throw new \Foundation\Exception\LengthException( __METHOD__ );
+        throw new \Foundation\Exception\LengthException(__METHOD__);
     }
 
     /**
@@ -76,7 +79,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testOutOfBoundsException()
     {
-        throw new \Foundation\Exception\OutOfBoundsException( __METHOD__ );
+        throw new \Foundation\Exception\OutOfBoundsException(__METHOD__);
     }
 
     /**
@@ -86,7 +89,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testOutOfRangeException()
     {
-        throw new \Foundation\Exception\OutOfRangeException( __METHOD__ );
+        throw new \Foundation\Exception\OutOfRangeException(__METHOD__);
     }
 
     /**
@@ -96,7 +99,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testOverflowException()
     {
-        throw new \Foundation\Exception\OverflowException( __METHOD__ );
+        throw new \Foundation\Exception\OverflowException(__METHOD__);
     }
 
     /**
@@ -106,7 +109,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testRuntimeException()
     {
-        throw new \Foundation\Exception\RuntimeException( __METHOD__ );
+        throw new \Foundation\Exception\RuntimeException(__METHOD__);
     }
 
     /**
@@ -116,7 +119,7 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnderflowException()
     {
-        throw new \Foundation\Exception\UnderflowException( __METHOD__ );
+        throw new \Foundation\Exception\UnderflowException(__METHOD__);
     }
 
     /**
@@ -126,7 +129,6 @@ class CExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnexpectedValueException()
     {
-        throw new \Foundation\Exception\UnexpectedValueException( __METHOD__ );
+        throw new \Foundation\Exception\UnexpectedValueException(__METHOD__);
     }
-
 }

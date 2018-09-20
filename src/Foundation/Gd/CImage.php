@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Gd;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Gd;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * class for image processing.
@@ -29,7 +31,7 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      */
     public function __destruct()
     {
-        unset( $this->_pResource );
+        unset($this->_pResource);
         parent::__destruct();
     }
 
@@ -40,26 +42,24 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      *                        \Foundation\Type\Complex\CPath   File to open
      * @throws \Foundation\Exception\InvalidArgumentException if the resource is not valid.
      */
-    public function __construct( $resource )
+    public function __construct($resource)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cimage', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $resource ] );
+        $this->_sDebugID = uniqid('cimage', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $resource ]
+                );
 
         //@codeCoverageIgnoreEnd
-        if( $resource instanceof \Foundation\Gd\CResource )
-        {
+        if ($resource instanceof \Foundation\Gd\CResource) {
             $this->_pResource = $resource;
-        }
-        elseif( $resource instanceof \Foundation\Type\Complex\CPath && $resource->isValid() )
-        {
-            $this->_pResource = new \Foundation\Gd\CResource( $resource );
-        }
-        else
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Invalid resource.' );
+        } elseif ($resource instanceof \Foundation\Type\Complex\CPath && $resource->isValid()) {
+            $this->_pResource = new \Foundation\Gd\CResource($resource);
+        } else {
+            throw new \Foundation\Exception\InvalidArgumentException('Invalid resource.');
         }
     }
 
@@ -80,7 +80,7 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * Image resource
      * @var \Foundation\Gd\CResource
      */
-    private $_pResource = NULL;
+    private $_pResource = null;
 
     /**
      * Creates a image file from the given image.
@@ -91,9 +91,9 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      *                                                  PNG: compression level, from 0 (no compression) to 9.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function save( \Foundation\Type\Complex\CPath $sFilename, $iQuality = NULL )
+    public function save(\Foundation\Type\Complex\CPath $sFilename, $iQuality = null)
     {
-        return $this->_pResource->save( $sFilename, $iQuality );
+        return $this->_pResource->save($sFilename, $iQuality);
     }
 
     /**
@@ -106,9 +106,9 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      *                                                   PNG: compression level, from 0 (no compression) to 9.
      * @return boolean Returns TRUE on success or FALSE on failure.
      */
-    public function saveAs( \Foundation\Type\Complex\CPath $sFilename, $iImageType, $iQuality = NULL )
+    public function saveAs(\Foundation\Type\Complex\CPath $sFilename, $iImageType, $iQuality = null)
     {
-        return $this->_pResource->saveAs( $sFilename, $iImageType, $iQuality );
+        return $this->_pResource->saveAs($sFilename, $iImageType, $iQuality);
     }
 
     /** Resize section
@@ -128,38 +128,43 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * @return void
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    private function resample( \Foundation\Gd\CDimensions $destinationDimensions
-    , \Foundation\Gd\CCoordinates $destinationPosition
-    , \Foundation\Gd\CDimensions $sourceDimensions
-    , \Foundation\Gd\CCoordinates $sourcePosition
-    , $bKeepTransparency = TRUE )
+    private function resample(\Foundation\Gd\CDimensions $destinationDimensions, \Foundation\Gd\CCoordinates $destinationPosition, \Foundation\Gd\CDimensions $sourceDimensions, \Foundation\Gd\CCoordinates $sourcePosition, $bKeepTransparency = true)
     {
         // Check parameters
-        $bKeepTransparency = ($bKeepTransparency === FALSE) ? FALSE : TRUE;
+        $bKeepTransparency = ($bKeepTransparency === false) ? false : true;
 
         // Create a new true color image
-        $rNewResource = imagecreatetruecolor( $destinationDimensions->getWidth(), $destinationDimensions->getHeight() );
-        if( !is_resource( $rNewResource ) )
-            throw new \Foundation\Exception\RuntimeException( 'Resource is not allocated.' );
+        $rNewResource = imagecreatetruecolor($destinationDimensions->getWidth(), $destinationDimensions->getHeight());
+        if (! is_resource($rNewResource)) {
+            throw new \Foundation\Exception\RuntimeException('Resource is not allocated.');
+        }
 
         // Preserve transparency
-        if( $bKeepTransparency && ($this->_pResource->getType() == IMAGETYPE_PNG) )
-        {
-            $pStartPoint = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-            $pMask       = new \Foundation\Gd\CColor( 255, 255, 255, 0 );
-            $this->addAlphaBlending( $rNewResource, $pMask, $pStartPoint );
-            unset( $pMask, $pStartPoint );
+        if ($bKeepTransparency && ($this->_pResource->getType() == IMAGETYPE_PNG)) {
+            $pStartPoint = new \Foundation\Gd\CCoordinates(0, 0, 0);
+            $pMask       = new \Foundation\Gd\CColor(255, 255, 255, 0);
+            $this->addAlphaBlending($rNewResource, $pMask, $pStartPoint);
+            unset($pMask, $pStartPoint);
         }
 
         // Resize
-        if( !imagecopyresampled( $rNewResource, $this->_pResource->getResource(), $destinationPosition->getX(),
-                                 $destinationPosition->getY(), $sourcePosition->getX(), $sourcePosition->getY(),
-                                 $destinationDimensions->getWidth(), $destinationDimensions->getHeight(),
-                                 $sourceDimensions->getWidth(), $sourceDimensions->getHeight() ) )
-            throw new \Foundation\Exception\RuntimeException( 'Resize failure.' );
+        if (! imagecopyresampled(
+            $rNewResource,
+            $this->_pResource->getResource(),
+            $destinationPosition->getX(),
+            $destinationPosition->getY(),
+            $sourcePosition->getX(),
+            $sourcePosition->getY(),
+            $destinationDimensions->getWidth(),
+            $destinationDimensions->getHeight(),
+            $sourceDimensions->getWidth(),
+            $sourceDimensions->getHeight()
+        ) ) {
+            throw new \Foundation\Exception\RuntimeException('Resize failure.');
+        }
 
         // On success, replace the original resource
-        $this->_pResource->setResource( $rNewResource );
+        $this->_pResource->setResource($rNewResource);
     }
 
     /**
@@ -176,35 +181,42 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * @return void
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function resizeByAbsolute( \Foundation\Gd\CDimensions $newDimensions, $bMaintainAspectRatio = TRUE,
-                                      $bKeepTransparency = TRUE )
-    {
+    public function resizeByAbsolute(
+        \Foundation\Gd\CDimensions $newDimensions,
+        $bMaintainAspectRatio = true,
+        $bKeepTransparency = true
+    ) {
         // Check parameters
-        $bMaintainAspectRatio = ($bMaintainAspectRatio === FALSE) ? FALSE : TRUE;
+        $bMaintainAspectRatio = ($bMaintainAspectRatio === false) ? false : true;
 
         // Compute new dimensions
-        if( $bMaintainAspectRatio )
-        {
-            $pCurrentDimensions = new \Foundation\Gd\CDimensions( $this->_pResource->getWidth(),
-                                                                  $this->_pResource->getHeight() );
-            $pDimensions        = $pCurrentDimensions->resizeByAbsolute( $newDimensions );
-            unset( $pCurrentDimensions );
-        }
-        else
-        {
+        if ($bMaintainAspectRatio) {
+            $pCurrentDimensions = new \Foundation\Gd\CDimensions(
+                $this->_pResource->getWidth(),
+                $this->_pResource->getHeight()
+            );
+            $pDimensions        = $pCurrentDimensions->resizeByAbsolute($newDimensions);
+            unset($pCurrentDimensions);
+        } else {
             $pDimensions = $newDimensions;
         }
 
         // Resize
-        if( $this->_pResource->getWidth() != $pDimensions->getWidth() || $this->_pResource->getHeight() != $pDimensions->getHeight() )
-        {
-            $pDestinationPosition = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-            $pSourcePosition      = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-            $pSourceDimensions    = new \Foundation\Gd\CDimensions( $this->_pResource->getWidth(),
-                                                                    $this->_pResource->getHeight() );
-            $this->resample( $pDimensions, $pDestinationPosition, $pSourceDimensions, $pSourcePosition,
-                             $bKeepTransparency );
-            unset( $pSourceDimensions, $pSourcePosition, $pDestinationPosition );
+        if ($this->_pResource->getWidth() != $pDimensions->getWidth() || $this->_pResource->getHeight() != $pDimensions->getHeight()) {
+            $pDestinationPosition = new \Foundation\Gd\CCoordinates(0, 0, 0);
+            $pSourcePosition      = new \Foundation\Gd\CCoordinates(0, 0, 0);
+            $pSourceDimensions    = new \Foundation\Gd\CDimensions(
+                $this->_pResource->getWidth(),
+                $this->_pResource->getHeight()
+            );
+            $this->resample(
+                $pDimensions,
+                $pDestinationPosition,
+                $pSourceDimensions,
+                $pSourcePosition,
+                $bKeepTransparency
+            );
+            unset($pSourceDimensions, $pSourcePosition, $pDestinationPosition);
         }
     }
 
@@ -217,21 +229,25 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * @return void
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function resizeByPercentage( $value, $bKeepTransparency = TRUE )
+    public function resizeByPercentage($value, $bKeepTransparency = true)
     {
         // Compute new dimensions
-        $pCurrentDimensions = new \Foundation\Gd\CDimensions( $this->_pResource->getWidth(),
-                                                              $this->_pResource->getHeight() );
-        $newDimensions      = $pCurrentDimensions->resizeByPercentage( $value );
-        unset( $pCurrentDimensions );
+        $pCurrentDimensions = new \Foundation\Gd\CDimensions(
+            $this->_pResource->getWidth(),
+            $this->_pResource->getHeight()
+        );
+        $newDimensions      = $pCurrentDimensions->resizeByPercentage($value);
+        unset($pCurrentDimensions);
 
         // Resize
-        $pDestinationPosition = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-        $pSourcePosition      = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-        $pSourceDimensions    = new \Foundation\Gd\CDimensions( $this->_pResource->getWidth(),
-                                                                $this->_pResource->getHeight() );
-        $this->resample( $newDimensions, $pDestinationPosition, $pSourceDimensions, $pSourcePosition, $bKeepTransparency );
-        unset( $pSourceDimensions, $pSourcePosition, $pDestinationPosition, $newDimensions );
+        $pDestinationPosition = new \Foundation\Gd\CCoordinates(0, 0, 0);
+        $pSourcePosition      = new \Foundation\Gd\CCoordinates(0, 0, 0);
+        $pSourceDimensions    = new \Foundation\Gd\CDimensions(
+            $this->_pResource->getWidth(),
+            $this->_pResource->getHeight()
+        );
+        $this->resample($newDimensions, $pDestinationPosition, $pSourceDimensions, $pSourcePosition, $bKeepTransparency);
+        unset($pSourceDimensions, $pSourcePosition, $pDestinationPosition, $newDimensions);
     }
 
     /**
@@ -244,23 +260,31 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * @throws \Foundation\Exception\RangeException If the region does not belong to the image.
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function crop( \Foundation\Gd\CCoordinates $position, \Foundation\Gd\CDimensions $dimensions,
-                          $bKeepTransparency = TRUE )
-    {
+    public function crop(
+        \Foundation\Gd\CCoordinates $position,
+        \Foundation\Gd\CDimensions $dimensions,
+        $bKeepTransparency = true
+    ) {
         // Position shall be int the image
-        if( ($position->getX() > $this->_pResource->getWidth()) || ($position->getY() > $this->_pResource->getHeight()) )
-            throw new \Foundation\Exception\RangeException( 'Invalid region.' );
+        if (($position->getX() > $this->_pResource->getWidth()) || ($position->getY() > $this->_pResource->getHeight())) {
+            throw new \Foundation\Exception\RangeException('Invalid region.');
+        }
 
         // Cannot crop outside the image
         $width                  = ( ($dimensions->getWidth() + $position->getX()) > $this->_pResource->getWidth() ) ? $this->_pResource->getWidth() : $dimensions->getWidth();
         $height                 = ( ($dimensions->getHeight() + $position->getY()) > $this->_pResource->getHeight() ) ? $this->_pResource->getHeight() : $dimensions->getHeight();
-        $pDestinationDimensions = new \Foundation\Gd\CDimensions( $width, $height );
-        $pDestinationPosition   = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
+        $pDestinationDimensions = new \Foundation\Gd\CDimensions($width, $height);
+        $pDestinationPosition   = new \Foundation\Gd\CCoordinates(0, 0, 0);
 
         // Resample
-        $this->resample( $pDestinationDimensions, $pDestinationPosition, $pDestinationDimensions, $position,
-                         $bKeepTransparency );
-        unset( $pDestinationPosition, $pDestinationDimensions );
+        $this->resample(
+            $pDestinationDimensions,
+            $pDestinationPosition,
+            $pDestinationDimensions,
+            $position,
+            $bKeepTransparency
+        );
+        unset($pDestinationPosition, $pDestinationDimensions);
     }
 
     /**
@@ -273,18 +297,21 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * @throws \Foundation\Exception\RangeException If the region does not belong to the image.
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function cropFromCenter( \Foundation\Gd\CDimensions $dimensions, $bKeepTransparency = TRUE )
+    public function cropFromCenter(\Foundation\Gd\CDimensions $dimensions, $bKeepTransparency = true)
     {
         // Cannot crop outside the image
         $width       = ( $dimensions->getWidth() > $this->_pResource->getWidth() ) ? $this->_pResource->getWidth() : $dimensions->getWidth();
         $height      = ( $dimensions->getHeight() > $this->_pResource->getHeight() ) ? $this->_pResource->getHeight() : $dimensions->getHeight();
-        $pDimensions = new \Foundation\Gd\CDimensions( $width, $height );
-        $pPosition   = new \Foundation\Gd\CCoordinates( ($this->_pResource->getWidth() - $width) / 2,
-                                                        ($this->_pResource->getHeight() - $height) / 2, 0 );
+        $pDimensions = new \Foundation\Gd\CDimensions($width, $height);
+        $pPosition   = new \Foundation\Gd\CCoordinates(
+            ($this->_pResource->getWidth() - $width) / 2,
+            ($this->_pResource->getHeight() - $height) / 2,
+            0
+        );
 
         // Resample
-        $this->crop( $pPosition, $pDimensions, $bKeepTransparency );
-        unset( $pPosition, $pDimensions );
+        $this->crop($pPosition, $pDimensions, $bKeepTransparency);
+        unset($pPosition, $pDimensions);
     }
 
     /**
@@ -297,33 +324,38 @@ final class CImage extends \Foundation\Gd\CGDAbstract
      * @throws \Foundation\Exception\RangeException If the region does not belong to the image.
      * @throws \Foundation\Exception\RuntimeException if something bad occured
      */
-    public function resizeAdaptive( \Foundation\Gd\CDimensions $pFrame
-    , $bKeepTransparency = TRUE )
+    public function resizeAdaptive(\Foundation\Gd\CDimensions $pFrame, $bKeepTransparency = true)
     {
         // Compute new dimensions
-        $pCurrentDimensions = new \Foundation\Gd\CDimensions( $this->_pResource->getWidth(),
-                                                              $this->_pResource->getHeight() );
-        $pNewDimensions     = $pCurrentDimensions->resizeClose( $pFrame );
-        unset( $pCurrentDimensions );
+        $pCurrentDimensions = new \Foundation\Gd\CDimensions(
+            $this->_pResource->getWidth(),
+            $this->_pResource->getHeight()
+        );
+        $pNewDimensions     = $pCurrentDimensions->resizeClose($pFrame);
+        unset($pCurrentDimensions);
 
         // Resize
-        if( $this->_pResource->getWidth() != $pNewDimensions->getWidth() || $this->_pResource->getHeight() != $pNewDimensions->getHeight() )
-        {
-            $pDestinationPosition = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-            $pSourcePosition      = new \Foundation\Gd\CCoordinates( 0, 0, 0 );
-            $pSourceDimensions    = new \Foundation\Gd\CDimensions( $this->_pResource->getWidth(),
-                                                                    $this->_pResource->getHeight() );
-            $this->resample( $pNewDimensions, $pDestinationPosition, $pSourceDimensions, $pSourcePosition,
-                             $bKeepTransparency );
-            unset( $pSourceDimensions, $pSourcePosition, $pDestinationPosition );
+        if ($this->_pResource->getWidth() != $pNewDimensions->getWidth() || $this->_pResource->getHeight() != $pNewDimensions->getHeight()) {
+            $pDestinationPosition = new \Foundation\Gd\CCoordinates(0, 0, 0);
+            $pSourcePosition      = new \Foundation\Gd\CCoordinates(0, 0, 0);
+            $pSourceDimensions    = new \Foundation\Gd\CDimensions(
+                $this->_pResource->getWidth(),
+                $this->_pResource->getHeight()
+            );
+            $this->resample(
+                $pNewDimensions,
+                $pDestinationPosition,
+                $pSourceDimensions,
+                $pSourcePosition,
+                $bKeepTransparency
+            );
+            unset($pSourceDimensions, $pSourcePosition, $pDestinationPosition);
         }
-        unset( $pNewDimensions );
+        unset($pNewDimensions);
 
         // Crop from center
-        if( $this->_pResource->getWidth() != $pFrame->getWidth() || $this->_pResource->getHeight() != $pFrame->getHeight() )
-        {
-            $this->cropFromCenter( $pFrame, $bKeepTransparency );
+        if ($this->_pResource->getWidth() != $pFrame->getWidth() || $this->_pResource->getHeight() != $pFrame->getHeight()) {
+            $this->cropFromCenter($pFrame, $bKeepTransparency);
         }
     }
-
 }

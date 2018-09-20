@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Loader;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Loader;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements a class map autoloading strategy.
@@ -35,10 +37,11 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( array $options = NULL )
+    public function __construct(array $options = null)
     {
-        if( null !== $options )
-            $this->setOptions( $options );
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
     }
 
     /**
@@ -61,9 +64,9 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -73,9 +76,9 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Loarder section
@@ -104,42 +107,44 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
      * @throws \Foundation\Exception\InvalidArgumentException If the file does not exist.
      * @return void
      */
-    public function setOptions( array $options )
+    public function setOptions(array $options)
     {
 
-        foreach( $options as $option )
-        {
+        foreach ($options as $option) {
             // Initialize
-            $sLocation = FALSE;
+            $sLocation = false;
 
             // Load the map from a file
-            if( is_string( $option ) )
-            {
+            if (is_string($option)) {
                 // Check if the file exists and gets the absolute class name.
-                $sLocation = realpath( $option );
+                $sLocation = realpath($option);
 
                 // The file does not exist
-                if( FALSE === $sLocation )
-                    throw new \Foundation\Exception\InvalidArgumentException( sprintf( 'Map file provided does not exist: %s', $sLocation ) );
+                if (false === $sLocation) {
+                    throw new \Foundation\Exception\InvalidArgumentException(sprintf('Map file provided does not exist: %s', $sLocation));
+                }
 
                 // Already loaded this map
-                if( in_array( $sLocation, $this->_aMapsLoaded ) )
+                if (in_array($sLocation, $this->_aMapsLoaded)) {
                     continue;
+                }
 
                 // Load the map
-                $option = include( $sLocation );
+                $option = include($sLocation);
             }
 
             // Option should be an array
-            if( !is_array( $option ) )
-                throw new \Foundation\Exception\InvalidArgumentException( sprintf( 'The option provided is not a map: %s', gettype( $option ) ) );
+            if (! is_array($option)) {
+                throw new \Foundation\Exception\InvalidArgumentException(sprintf('The option provided is not a map: %s', gettype($option)));
+            }
 
             // Merge the map
-            $this->_aMap = array_merge( $this->_aMap, $option );
+            $this->_aMap = array_merge($this->_aMap, $option);
 
             // Save the loaded file name
-            if( FALSE !== $sLocation )
+            if (false !== $sLocation) {
                 $this->_aMapsLoaded[] = $sLocation;
+            }
         }
     }
 
@@ -150,16 +155,14 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
      * @param   string $class
      * @return  mixed
      */
-    public function autoload( $class )
+    public function autoload($class)
     {
         // Initialize
-        $sReturn = FALSE;
-        $class   = ( is_string( $class ) ) ? trim( $class ) : '';
+        $sReturn = false;
+        $class   = ( is_string($class) ) ? trim($class) : '';
 
-        if( strlen( $class ) > 0 )
-        {
-            if( isset( $this->_aMap[$class] ) )
-            {
+        if (strlen($class) > 0) {
+            if (isset($this->_aMap[$class])) {
                 require_once $this->_aMap[$class];
                 $sReturn = $class;
             }
@@ -175,7 +178,7 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
      */
     public function register()
     {
-        spl_autoload_register( array( $this, 'autoload' ), TRUE, TRUE );
+        spl_autoload_register([ $this, 'autoload' ], true, true);
     }
 
     /**
@@ -187,5 +190,4 @@ final class CClassMapLoader implements \Foundation\Loader\LoaderInterface
     {
         return $this->_aMap;
     }
-
 }

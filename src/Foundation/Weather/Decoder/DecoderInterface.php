@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Weather\Decoder;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Weather\Decoder;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for weather decoder objects that implement a concrete decoder strategy.
@@ -51,5 +53,5 @@ interface DecoderInterface
      * @param  array $data The data being decoded. Should not be empty.
      * @return array Returns the decoded data on success, NULL on failure.
      */
-    public function decode( array $dtd, $data );
+    public function decode(array $dtd, $data);
 }

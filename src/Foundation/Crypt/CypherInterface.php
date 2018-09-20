@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Crypt;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Crypt;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for cypher implementation.
@@ -30,7 +32,7 @@ interface CypherInterface
      * @throws \Foundation\Exception\InvalidArgumentException Raises an InvalidArgumentException exception if the
      *                                                        argument is not valid.
      */
-    public function setKey( $sKey );
+    public function setKey($sKey);
 
     /**
      * Encrypt.
@@ -41,7 +43,7 @@ interface CypherInterface
      *                                                        not valid.
      * @throws \Foundation\Exception\RuntimeException Raises a Runtime Exception if the cypher cannot be initialized.
      */
-    public function encrypt( $sData );
+    public function encrypt($sData);
 
     /**
      * Decrypt.
@@ -52,5 +54,5 @@ interface CypherInterface
      *                                                        not valid.
      * @throws \Foundation\Exception\RuntimeException Raises a Runtime Exception if the cypher cannot be initialized.
      */
-    public function decrypt( $sData );
+    public function decrypt($sData);
 }

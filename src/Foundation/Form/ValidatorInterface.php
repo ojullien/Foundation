@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Form;
+
 /**
  * Foundation Framework
  *
@@ -7,7 +8,7 @@ namespace Foundation\Form;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-defined( 'APPLICATION_VERSION' ) || die( '-1' );
+defined('APPLICATION_VERSION') || die('-1');
 
 /**
  * Interface for form validator implementations.
@@ -41,7 +42,7 @@ interface ValidatorInterface
      * @param array $data the data being validated
      * @return \Foundation\Form\ValidatorInterface
      */
-    public function setData( array $data = [ ] );
+    public function setData(array $data = [ ]);
 
     /**
      * Return validated data. A valid key is a string containing a variable name and a valid value is either a value or

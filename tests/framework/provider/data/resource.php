@@ -1,11 +1,13 @@
 <?php
-defined( 'FOUNDATION_TEST_RESOURCE_PATH' ) || define( 'FOUNDATION_TEST_RESOURCE_PATH',
-                                                      realpath( __DIR__ . '/../resource' ) );
+defined('FOUNDATION_TEST_RESOURCE_PATH') || define(
+    'FOUNDATION_TEST_RESOURCE_PATH',
+    realpath(__DIR__ . '/../resource')
+);
 return [
     [ 'label' => 'TEST: NULL', 'test'  => [
-            'value' => NULL, 'mime'  => NULL ] ],
+            'value' => null, 'mime'  => null ] ],
     [ 'label' => 'TEST: EMPTY', 'test'  => [
-            'value' => '', 'mime'  => NULL ] ],
+            'value' => '', 'mime'  => null ] ],
     [ 'label' => 'TEST: DIRECTORY', 'test'  => [
             'value' => FOUNDATION_TEST_RESOURCE_PATH . DIRECTORY_SEPARATOR, 'mime'  => 'directory' ] ],
     [ 'label' => 'TEST: notadir', 'test'  => [

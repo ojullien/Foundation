@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Render;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Render;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for debug render implementation.
@@ -30,7 +32,7 @@ interface RenderInterface
      * @param integer $iMemoryPeakUsage Peak memory usage
      * @param integer $iMemoryUsage     Current memory usage
      */
-    public function renderUsage( $fScriptDuration, $iMemoryPeakUsage, $iMemoryUsage );
+    public function renderUsage($fScriptDuration, $iMemoryPeakUsage, $iMemoryUsage);
 
     /**
      * Rendering superglobal variable data.
@@ -43,7 +45,7 @@ interface RenderInterface
      *                                                         'end' => ... ) );
      * @return mixed
      */
-    public function renderVariable( $name, array $data );
+    public function renderVariable($name, array $data);
 
     /**
      * Rendering memory data.
@@ -56,7 +58,7 @@ interface RenderInterface
      *                                                               'memory' => array( 'start' => ..., 'end' => ...) );
      * @return mixed
      */
-    public function renderMemory( $fScriptDuration, array $data );
+    public function renderMemory($fScriptDuration, array $data);
 
     /**
      * Rendering preconditions.
@@ -64,7 +66,7 @@ interface RenderInterface
      * @param  array $options [OPTIONAL] List of options.
      * @return mixed
      */
-    public function renderPrecondition( array $options = array( ) );
+    public function renderPrecondition(array $options = [ ]);
 
     /**
      * Rendering postcondition.
@@ -78,7 +80,7 @@ interface RenderInterface
      * @param array $aHeaders Sent headers
      * @return string
      */
-    public function renderHeader( array $aHeaders );
+    public function renderHeader(array $aHeaders);
 
     /**
      * Rendering session configuration.

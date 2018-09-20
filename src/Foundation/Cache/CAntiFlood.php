@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Cache;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Cache;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * The class implements a strategy to prevent flooding using a cache.
@@ -37,12 +39,15 @@ final class CAntiFlood
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( \Foundation\Cache\Storage\StorageInterface $pCache )
+    public function __construct(\Foundation\Cache\Storage\StorageInterface $pCache)
     {
-        $this->_sDebugID = uniqid( 'cantiflood', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $pCache ] );
+        $this->_sDebugID = uniqid('cantiflood', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $pCache ]
+                );
 
         $this->_pCache = $pCache;
     }
@@ -55,9 +60,9 @@ final class CAntiFlood
      */
     public function __destruct()
     {
-        $this->_pCache = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_pCache = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -68,9 +73,9 @@ final class CAntiFlood
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -80,9 +85,9 @@ final class CAntiFlood
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Cache section
@@ -93,7 +98,7 @@ final class CAntiFlood
      *
      * @var \Foundation\Cache\Storage\StorageInterface
      */
-    private $_pCache = NULL;
+    private $_pCache = null;
 
     /** Lock section
      * ************* */
@@ -137,12 +142,13 @@ final class CAntiFlood
      * @throws \Foundation\Exception\InvalidArgumentException Returns an Invalid Argument Exception if the argument is
      *                                                        not valid.
      */
-    public function setLockEntryLabel( $sValue )
+    public function setLockEntryLabel($sValue)
     {
-        $sValue = ( is_string( $sValue ) ) ? trim( $sValue ) : '';
+        $sValue = ( is_string($sValue) ) ? trim($sValue) : '';
 
-        if( '' == $sValue )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument is not valid.' );
+        if ('' == $sValue) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument is not valid.');
+        }
 
         $this->_sLockEntryLabel = $sValue;
 
@@ -157,10 +163,11 @@ final class CAntiFlood
      * @throws \Foundation\Exception\InvalidArgumentException Returns an Invalid Argument Exception if the argument is
      *                                                        not valid.
      */
-    public function setLockSleep( $iValue )
+    public function setLockSleep($iValue)
     {
-        if( !is_integer( $iValue ) || ( $iValue < 0 ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument is not valid.' );
+        if (! is_integer($iValue) || ( $iValue < 0 )) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument is not valid.');
+        }
         $this->_iLockSleep = $iValue;
         return $this;
     }
@@ -173,10 +180,11 @@ final class CAntiFlood
      * @throws \Foundation\Exception\InvalidArgumentException Returns an Invalid Argument Exception if the argument is
      *                                                        not valid.
      */
-    public function setLockRetry( $iValue )
+    public function setLockRetry($iValue)
     {
-        if( !is_integer( $iValue ) || ( $iValue < 0 ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument is not valid.' );
+        if (! is_integer($iValue) || ( $iValue < 0 )) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument is not valid.');
+        }
         $this->_iLockRetry = $iValue;
         return $this;
     }
@@ -223,12 +231,13 @@ final class CAntiFlood
      * @throws \Foundation\Exception\InvalidArgumentException Returns an Invalid Argument Exception if the argument is
      *                                                        not valid.
      */
-    public function setEventEntryLabel( $sValue )
+    public function setEventEntryLabel($sValue)
     {
-        $sValue = ( is_string( $sValue ) ) ? trim( $sValue ) : '';
+        $sValue = ( is_string($sValue) ) ? trim($sValue) : '';
 
-        if( '' == $sValue )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument is not valid.' );
+        if ('' == $sValue) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument is not valid.');
+        }
 
         $this->_sEventEntryLabel = $sValue;
 
@@ -243,10 +252,11 @@ final class CAntiFlood
      * @throws \Foundation\Exception\InvalidArgumentException Returns an Invalid Argument Exception if the argument is
      *                                                        not valid.
      */
-    public function setEventLifeTime( $iValue )
+    public function setEventLifeTime($iValue)
     {
-        if( !is_integer( $iValue ) || ( $iValue < 1 ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument is not valid.' );
+        if (! is_integer($iValue) || ( $iValue < 1 )) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument is not valid.');
+        }
         $this->_iEventLifeTime = $iValue;
         return $this;
     }
@@ -259,10 +269,11 @@ final class CAntiFlood
      * @throws \Foundation\Exception\InvalidArgumentException Returns an Invalid Argument Exception if the argument is
      *                                                        not valid.
      */
-    public function setEventThreshold( $iValue )
+    public function setEventThreshold($iValue)
     {
-        if( !is_integer( $iValue ) || ( $iValue < 1 ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument is not valid.' );
+        if (! is_integer($iValue) || ( $iValue < 1 )) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument is not valid.');
+        }
         $this->_iEventThreshold = $iValue;
         return $this;
     }
@@ -287,15 +298,15 @@ final class CAntiFlood
         // If the data are already locked, wait for the release.
         // Return TRUE if the data are never been released.
         $iBuffer = 0;
-        while( $this->_pCache->exists( $this->_sLockEntryLabel ) )
-        {
-            if( ++$iBuffer > $this->_iLockRetry )
-                return TRUE;
-            sleep( $this->_iLockSleep );
+        while ($this->_pCache->exists($this->_sLockEntryLabel)) {
+            if (++$iBuffer > $this->_iLockRetry) {
+                return true;
+            }
+            sleep($this->_iLockSleep);
         }
 
         // Lock the data.
-        $this->_pCache->store( $this->_sLockEntryLabel, 'on' );
+        $this->_pCache->store($this->_sLockEntryLabel, 'on');
 
         // Gets the data and analyses it to prevent flooding.
         // If no data are in the cache then stores new data and returns FALSE.
@@ -304,34 +315,32 @@ final class CAntiFlood
         //    If last update is recent ( < "EventLifeTime" seconds ) then analyses the threshold .
         //       If the count is not greater than "EventThreshold" then updates the data and returns FALSE.
         //       If the count is greater than "EventThreshold" then returns TRUE.
-        $bSuccess = FALSE;
-        $bReturn  = FALSE;
+        $bSuccess = false;
+        $bReturn  = false;
 
-        $aData = $this->_pCache->fetch( $this->_sEventEntryLabel, $bSuccess );
+        $aData = $this->_pCache->fetch($this->_sEventEntryLabel, $bSuccess);
 
-        if( !$bSuccess || ( ( time() - $aData['time'] ) > $this->_iEventLifeTime ) )
-        {
-            $this->_pCache->store( $this->_sEventEntryLabel,
-                                   [
+        if (! $bSuccess || ( ( time() - $aData['time'] ) > $this->_iEventLifeTime )) {
+            $this->_pCache->store(
+                $this->_sEventEntryLabel,
+                [
                 'time'  => time(),
-                'count' => 1 ] );
-        }
-        elseif( $aData['count'] < $this->_iEventThreshold )
-        {
-            $this->_pCache->store( $this->_sEventEntryLabel,
-                                   [
+                'count' => 1 ]
+            );
+        } elseif ($aData['count'] < $this->_iEventThreshold) {
+            $this->_pCache->store(
+                $this->_sEventEntryLabel,
+                [
                 'time'  => $aData['time'],
-                'count' => $aData['count'] + 1 ] );
-        }
-        else
-        {
-            $bReturn = TRUE;
+                'count' => $aData['count'] + 1 ]
+            );
+        } else {
+            $bReturn = true;
         }
 
         // Release the data
-        $this->_pCache->delete( $this->_sLockEntryLabel );
+        $this->_pCache->delete($this->_sLockEntryLabel);
 
         return $bReturn;
     }
-
 }

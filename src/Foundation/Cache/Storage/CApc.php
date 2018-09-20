@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Cache\Storage;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Cache\Storage;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Cache storage using APC or APUc.
@@ -31,17 +33,19 @@ final class CApc extends \Foundation\Cache\Storage\CStorageAbstract
      * @throws \Exception If apc is not loaded
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $sNamespace = '' )
+    public function __construct($sNamespace = '')
     {
-        parent::__construct( $sNamespace );
+        parent::__construct($sNamespace);
 
-        $bEnabled = ini_get( 'apc.enabled' );
+        $bEnabled = ini_get('apc.enabled');
 
-        if( PHP_SAPI == 'cli' )
-            $bEnabled = $bEnabled && (bool)ini_get( 'apc.enable_cli' );
+        if (PHP_SAPI == 'cli') {
+            $bEnabled = $bEnabled && (bool)ini_get('apc.enable_cli');
+        }
 
-        if( !$bEnabled )
-            throw new \Exception( "ext/apc is disabled - see 'apc.enabled' and 'apc.enable_cli'" );
+        if (! $bEnabled) {
+            throw new \Exception("ext/apc is disabled - see 'apc.enabled' and 'apc.enable_cli'");
+        }
     }
 
     /** Writing section
@@ -59,19 +63,18 @@ final class CApc extends \Foundation\Cache\Storage\CStorageAbstract
      *                       manually, or otherwise fails to exist in the cache (clear, restart, etc.).
      * @return bool Returns TRUE on success or FALSE on failure.
      */
-    public function store( $key, $value, $ttl = 0 )
+    public function store($key, $value, $ttl = 0)
     {
         // Initialize
-        $bReturn = FALSE;
-        $key     = ( is_string( $key ) ) ? trim( $key ) : '';
-        $ttl     = ( is_int( $ttl ) ) ? $ttl + 0 : 0;
+        $bReturn = false;
+        $key     = ( is_string($key) ) ? trim($key) : '';
+        $ttl     = ( is_int($ttl) ) ? $ttl + 0 : 0;
 
         // Normalize the key and store the value into the cache.
-        if( '' != $key )
-        {
+        if ('' != $key) {
             $key = $this->_sNamespace . static::NAMESPACE_SEPARATOR . $key;
 
-            $bReturn = apc_store( $key, $value, $ttl );
+            $bReturn = apc_store($key, $value, $ttl);
         }
 
         return $bReturn;
@@ -86,18 +89,17 @@ final class CApc extends \Foundation\Cache\Storage\CStorageAbstract
      * @param string $key The key.
      * @return bool Returns TRUE if the key exists, otherwise FALSE.
      */
-    public function exists( $key )
+    public function exists($key)
     {
         // Initialize
-        $bReturn = FALSE;
-        $key     = ( is_string( $key ) ) ? trim( $key ) : '';
+        $bReturn = false;
+        $key     = ( is_string($key) ) ? trim($key) : '';
 
         // Normalize the key then check if the key exists and is not expired.
-        if( '' != $key )
-        {
+        if ('' != $key) {
             $key = $this->_sNamespace . static::NAMESPACE_SEPARATOR . $key;
 
-            $bReturn = apc_exists( $key );
+            $bReturn = apc_exists($key);
         }
 
         return $bReturn;
@@ -110,19 +112,18 @@ final class CApc extends \Foundation\Cache\Storage\CStorageAbstract
      * @param bool   $success [OUT]. Set to TRUE in success and FALSE in failure.
      * @return mixed The stored variable on success; FALSE on failure.
      */
-    public function fetch( $key, &$success )
+    public function fetch($key, &$success)
     {
         // Initialize
-        $bReturn = FALSE;
-        $key     = ( is_string( $key ) ) ? trim( $key ) : '';
-        $success = FALSE;
+        $bReturn = false;
+        $key     = ( is_string($key) ) ? trim($key) : '';
+        $success = false;
 
         // Normalize the key and get the data
-        if( '' != $key )
-        {
+        if ('' != $key) {
             $key = $this->_sNamespace . static::NAMESPACE_SEPARATOR . $key;
 
-            $bReturn = apc_fetch( $key, $success );
+            $bReturn = apc_fetch($key, $success);
         }
 
         return $bReturn;
@@ -137,21 +138,19 @@ final class CApc extends \Foundation\Cache\Storage\CStorageAbstract
      * @param string $key The key used to store the value ( with store() ).
      * @return bool Returns TRUE on success or FALSE on failure.
      */
-    public function delete( $key )
+    public function delete($key)
     {
         // Initialize
-        $bReturn = FALSE;
-        $key     = ( is_string( $key ) ) ? trim( $key ) : '';
+        $bReturn = false;
+        $key     = ( is_string($key) ) ? trim($key) : '';
 
         // Normalize the key and delete the data.
-        if( '' != $key )
-        {
+        if ('' != $key) {
             $key = $this->_sNamespace . static::NAMESPACE_SEPARATOR . $key;
 
-            $bReturn = apc_delete( $key );
+            $bReturn = apc_delete($key);
         }
 
         return $bReturn;
     }
-
 }

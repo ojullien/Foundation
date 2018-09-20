@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Memory;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Memory;
  * @copyright (©) 2010-2013, Olivier Jullien <olivier.jullien@netcourrier.com>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements methods for measuring memory usage using PHP core functions.
@@ -32,9 +34,8 @@ final class CCore implements \Foundation\Debug\Memory\MemoryInterface
      */
     public function __construct()
     {
-        if( !function_exists( 'memory_get_peak_usage' ) || !function_exists( 'memory_get_usage' ) )
-        {
-            throw new \RuntimeException( 'Memory functions are not accessible.' );
+        if (! function_exists('memory_get_peak_usage') || ! function_exists('memory_get_usage')) {
+            throw new \RuntimeException('Memory functions are not accessible.');
         }
     }
 
@@ -45,7 +46,7 @@ final class CCore implements \Foundation\Debug\Memory\MemoryInterface
      */
     public function __clone()
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Cloning is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Cloning is not allowed.');
     }
 
     /**
@@ -55,9 +56,9 @@ final class CCore implements \Foundation\Debug\Memory\MemoryInterface
      * @param mixed  $value
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -66,9 +67,9 @@ final class CCore implements \Foundation\Debug\Memory\MemoryInterface
      * @param string $name
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Memory section
@@ -93,5 +94,4 @@ final class CCore implements \Foundation\Debug\Memory\MemoryInterface
     {
         return @memory_get_usage();
     }
-
 }

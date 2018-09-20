@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Benchmark;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Benchmark;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_NAME' ) )
-    die( '-1' );
+if (! defined('APPLICATION_NAME')) {
+    die('-1');
+}
 
 /**
  * This class is a measure container for benchmark.
@@ -24,7 +26,7 @@ final class CMeasure
 {
     /** Constants */
 
-    const DEFAULT_VALUE = NULL;
+    const DEFAULT_VALUE = null;
     const MAXTEST       = 1000;
 
     /** Class section
@@ -37,21 +39,19 @@ final class CMeasure
      * @param integer $size The size of the fixed array. This expects a number between 1 and PHP_INT_MAX.
      * @throws \Foundation\Exception\InvalidArgumentException
      */
-    public function __construct( $name, $size = self::MAXTEST )
+    public function __construct($name, $size = self::MAXTEST)
     {
         // Name
-        $name = trim( $name );
-        if( empty( $name ) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Bad name.' );
+        $name = trim($name);
+        if (empty($name)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Bad name.');
         }
         $this->_sName = $name;
         // Size
-        if( !is_integer( $size ) || ($size < 1) || ($size > PHP_INT_MAX) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Bad size.' );
+        if (! is_integer($size) || ($size < 1) || ($size > PHP_INT_MAX)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Bad size.');
         }
-        $this->_aTests = new \SplFixedArray( $size );
+        $this->_aTests = new \SplFixedArray($size);
     }
 
     /**
@@ -59,7 +59,7 @@ final class CMeasure
      */
     public function __destruct()
     {
-        unset( $this->_aTests );
+        unset($this->_aTests);
     }
 
     /**
@@ -69,9 +69,9 @@ final class CMeasure
      * @param mixed $value
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -80,9 +80,9 @@ final class CMeasure
      * @param string $name
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Name section
@@ -119,11 +119,10 @@ final class CMeasure
      * @param float $fStart
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function setStart( $fStart )
+    public function setStart($fStart)
     {
-        if( !is_float( $fStart ) || ($fStart <= 0) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Bad start time.' );
+        if (! is_float($fStart) || ($fStart <= 0)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Bad start time.');
         }
         $this->_fStart = $fStart;
     }
@@ -140,11 +139,10 @@ final class CMeasure
      * @param float $fStart
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function setEnd( $fEnd )
+    public function setEnd($fEnd)
     {
-        if( !is_float( $fEnd ) || ($fEnd <= 0) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Bad end time.' );
+        if (! is_float($fEnd) || ($fEnd <= 0)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Bad end time.');
         }
         $this->_fEnd = $fEnd;
     }
@@ -229,11 +227,10 @@ final class CMeasure
      * @param float $fTimeStop  Test time end
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function add( $fTimeStart, $fTimeStop )
+    public function add($fTimeStart, $fTimeStop)
     {
-        if( !is_float( $fTimeStart ) || !is_float( $fTimeStop ) || ($fTimeStart <= 0) || ($fTimeStop <= 0) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'Bad time values.' );
+        if (! is_float($fTimeStart) || ! is_float($fTimeStop) || ($fTimeStart <= 0) || ($fTimeStop <= 0)) {
+            throw new \Foundation\Exception\InvalidArgumentException('Bad time values.');
         }
 
         // Difference of $fTimeStop and $fTimeStart
@@ -245,20 +242,18 @@ final class CMeasure
         // Add
         $this->_fSum += $fDiff;
 
-        if( is_null( $this->_fMin ) )
-        {
+        if (is_null($this->_fMin)) {
             // First values
             $this->_fMin = $this->_fMax = $fDiff;
-        }
-        else
-        {
+        } else {
             // Save the maximum
-            if( $fDiff > $this->_fMax )
+            if ($fDiff > $this->_fMax) {
                 $this->_fMax = $fDiff;
+            }
             // Save the minimum
-            if( $fDiff < $this->_fMin )
+            if ($fDiff < $this->_fMin) {
                 $this->_fMin = $fDiff;
+            }
         }//if( is_float(...
     }
-
 }

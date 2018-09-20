@@ -1,5 +1,11 @@
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 desktop.ini
-composer.lock
+composer.*
+!composer.json
+/docs/
 /vendor/
 /tests/_report/

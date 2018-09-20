@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type\Enum;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type\Enum;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements enumeration type for severity.
@@ -51,22 +53,22 @@ final class CSeverity
      * @throws \Foundation\Exception\UnexpectedValueException if the parameter is not valid.
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $value = self::ERR )
+    public function __construct($value = self::ERR)
     {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cseverity', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $value ] );
+        $this->_sDebugID = uniqid('cseverity', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $value ]
+                );
         //@codeCoverageIgnoreEnd
 
-        if( is_integer( $value ) && ($value >= self::EMERG) && ($value <= self::DEBUG) )
-        {
+        if (is_integer($value) && ($value >= self::EMERG) && ($value <= self::DEBUG)) {
             $this->_Value = $value;
-        }
-        else
-        {
-            throw new \Foundation\Exception\UnexpectedValueException( 'Unexpected parameter value.' );
+        } else {
+            throw new \Foundation\Exception\UnexpectedValueException('Unexpected parameter value.');
         }
     }
 
@@ -78,9 +80,9 @@ final class CSeverity
      */
     public function __destruct()
     {
-        $this->_Value = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_Value = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -91,9 +93,9 @@ final class CSeverity
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -103,9 +105,9 @@ final class CSeverity
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Type section
@@ -134,8 +136,7 @@ final class CSeverity
      */
     public function __toString()
     {
-        switch( $this->_Value )
-        {
+        switch ($this->_Value) {
             case self::EMERG:
                 $sReturn = 'emergency';
                 break;
@@ -163,5 +164,4 @@ final class CSeverity
         }
         return $sReturn;
     }
-
 }

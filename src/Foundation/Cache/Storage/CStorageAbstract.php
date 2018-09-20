@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Cache\Storage;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Cache\Storage;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Parent class for all storage adapters.
@@ -41,14 +43,17 @@ abstract class CStorageAbstract implements \Foundation\Cache\Storage\StorageInte
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $sNamespace = '' )
+    public function __construct($sNamespace = '')
     {
-        $this->_sDebugID = uniqid( 'cstorageabstract', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $sNamespace ] );
+        $this->_sDebugID = uniqid('cstorageabstract', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $sNamespace ]
+                );
 
-        $this->_sNamespace = ( is_string( $sNamespace ) ) ? trim( $sNamespace ) : '';
+        $this->_sNamespace = ( is_string($sNamespace) ) ? trim($sNamespace) : '';
     }
 
     /**
@@ -59,8 +64,8 @@ abstract class CStorageAbstract implements \Foundation\Cache\Storage\StorageInte
      */
     public function __destruct()
     {
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -71,9 +76,9 @@ abstract class CStorageAbstract implements \Foundation\Cache\Storage\StorageInte
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -83,9 +88,9 @@ abstract class CStorageAbstract implements \Foundation\Cache\Storage\StorageInte
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Adapter section
@@ -97,5 +102,4 @@ abstract class CStorageAbstract implements \Foundation\Cache\Storage\StorageInte
      * @var string
      */
     protected $_sNamespace = '';
-
 }

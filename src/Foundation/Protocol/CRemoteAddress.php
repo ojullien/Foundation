@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods for determining client IP address.
@@ -44,60 +46,64 @@ final class CRemoteAddress
      * @param type  $trustedProxies [OPTIONAL] List of trusted proxy IP addresses.
      * @throws \Foundation\Exception\InvalidArgumentException If an argument is not valid.
      */
-    public function __construct( array $server, $useProxy = FALSE, $proxyHeader = 'HTTP_X_FORWARDED_FOR',
-                                 $trustedProxies = [ ] )
-    {
+    public function __construct(
+        array $server,
+        $useProxy = false,
+        $proxyHeader = 'HTTP_X_FORWARDED_FOR',
+        $trustedProxies = [ ]
+    ) {
         //@codeCoverageIgnoreStart
-        $this->_sDebugID = uniqid( 'cremoteaddress', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $server, $useProxy, $proxyHeader,
-                    $trustedProxies ] );
+        $this->_sDebugID = uniqid('cremoteaddress', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $server, $useProxy, $proxyHeader,
+                    $trustedProxies ]
+                );
         //@codeCoverageIgnoreEnd
         // Checks arguments
-        if( !is_bool( $useProxy ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The "use proxy" argument is not valid.' );
+        if (! is_bool($useProxy)) {
+            throw new \Foundation\Exception\InvalidArgumentException('The "use proxy" argument is not valid.');
+        }
 
-        if( !is_string( $proxyHeader ) )
-            throw new \Foundation\Exception\InvalidArgumentException( 'The "proxy header" argument is not valid.' );
+        if (! is_string($proxyHeader)) {
+            throw new \Foundation\Exception\InvalidArgumentException('The "proxy header" argument is not valid.');
+        }
 
         // Proxy IP address
-        if( !empty( $server ) )
-        {
-            $pValidator = new \Foundation\Type\Complex\CIp( NULL );
-            if( $useProxy )
-            {
+        if (! empty($server)) {
+            $pValidator = new \Foundation\Type\Complex\CIp(null);
+            if ($useProxy) {
                 // Convert proxy header
-                $proxyHeader = strtoupper( trim( $proxyHeader ) );
-                if( 0 !== strpos( $proxyHeader, 'HTTP_' ) )
-                {
+                $proxyHeader = strtoupper(trim($proxyHeader));
+                if (0 !== strpos($proxyHeader, 'HTTP_')) {
                     $proxyHeader = 'HTTP_' . $proxyHeader;
                 }
 
                 // Convert trusted proxy
-                $aTrustedProxies = array_map( 'trim', $trustedProxies );
+                $aTrustedProxies = array_map('trim', $trustedProxies);
 
                 // Get IP address
-                if( isset( $server[$proxyHeader] ) )
-                {
+                if (isset($server[$proxyHeader])) {
                     // Extract IPs and compare against trusted proxies IPs;
-                    $aIPs = array_diff( array_map( 'trim', explode( ',', $server[$proxyHeader] ) ), $aTrustedProxies );
+                    $aIPs = array_diff(array_map('trim', explode(',', $server[$proxyHeader])), $aTrustedProxies);
 
                     // Find the right-most
-                    if( !empty( $aIPs ) )
-                    {
-                        $pValidator->setValue( array_pop( $aIPs ) );
+                    if (! empty($aIPs)) {
+                        $pValidator->setValue(array_pop($aIPs));
                     }//if( !empty(...
                 }//if( isset( ...
             }
 
             // Direct IP address
-            if( !$pValidator->isValid() && isset( $server['REMOTE_ADDR'] ) )
-                $pValidator->setValue( $server['REMOTE_ADDR'] );
+            if (! $pValidator->isValid() && isset($server['REMOTE_ADDR'])) {
+                $pValidator->setValue($server['REMOTE_ADDR']);
+            }
 
             // Save the value
             $this->_Value = $pValidator->getValue();
-            unset( $pValidator );
+            unset($pValidator);
         }//if( !empty(...
     }
 
@@ -108,9 +114,9 @@ final class CRemoteAddress
      */
     public function __destruct()
     {
-        $this->_Value = NULL;
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        $this->_Value = null;
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -121,9 +127,9 @@ final class CRemoteAddress
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -133,9 +139,9 @@ final class CRemoteAddress
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -145,7 +151,7 @@ final class CRemoteAddress
      */
     public function __toString()
     {
-        return ( isset( $this->_Value ) ) ? $this->_Value : '';
+        return ( isset($this->_Value) ) ? $this->_Value : '';
     }
 
     /** Type section
@@ -155,7 +161,7 @@ final class CRemoteAddress
      * Current remote address
      * @var string
      */
-    private $_Value = NULL;
+    private $_Value = null;
 
     /**
      * Determines if the remote address is set and is not NULL.
@@ -165,7 +171,7 @@ final class CRemoteAddress
      */
     public function isValid()
     {
-        return isset( $this->_Value );
+        return isset($this->_Value);
     }
 
     /**
@@ -177,5 +183,4 @@ final class CRemoteAddress
     {
         return $this->_Value;
     }
-
 }

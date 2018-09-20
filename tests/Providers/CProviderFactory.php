@@ -53,33 +53,27 @@ final class CProviderFactory
      * @param string $class
      * @throws \InvalidArgumentException
      */
-    public function __construct( $provider, $class )
+    public function __construct($provider, $class)
     {
         // Create array
-        $this->_aTests = new \SplFixedArray( 2 );
+        $this->_aTests = new \SplFixedArray(2);
 
         // Include provider
-        $provider = ( is_string( $provider ) ) ? trim( $provider ) : '';
-        if( strlen( $provider ) > 0 )
-        {
-            include( __DIR__ . DIRECTORY_SEPARATOR . $provider . DIRECTORY_SEPARATOR . 'tests.php' );
-        }
-        else
-        {
-            throw new \InvalidArgumentException( 'Invalid provider.' );
+        $provider = ( is_string($provider) ) ? trim($provider) : '';
+        if (strlen($provider) > 0) {
+            include(__DIR__ . DIRECTORY_SEPARATOR . $provider . DIRECTORY_SEPARATOR . 'tests.php');
+        } else {
+            throw new \InvalidArgumentException('Invalid provider.');
         }
 
         // Include class
-        $class = ( is_string( $class ) ) ? trim( $class ) : '';
-        if( strlen( $class ) > 0 )
-        {
-            include( __DIR__ . DIRECTORY_SEPARATOR . $provider
+        $class = ( is_string($class) ) ? trim($class) : '';
+        if (strlen($class) > 0) {
+            include(__DIR__ . DIRECTORY_SEPARATOR . $provider
                     . DIRECTORY_SEPARATOR . 'classes'
-                    . DIRECTORY_SEPARATOR . $class . '.php' );
-        }
-        else
-        {
-            throw new \InvalidArgumentException( 'Invalid class.' );
+                    . DIRECTORY_SEPARATOR . $class . '.php');
+        } else {
+            throw new \InvalidArgumentException('Invalid class.');
         }
     }
 
@@ -88,7 +82,7 @@ final class CProviderFactory
      */
     public function __destruct()
     {
-        unset( $this->_aTests );
+        unset($this->_aTests);
     }
 
     /**
@@ -98,7 +92,7 @@ final class CProviderFactory
      */
     public function __toString()
     {
-        return print_r( $this->_aTests, TRUE );
+        return print_r($this->_aTests, true);
     }
 
     /**
@@ -109,9 +103,9 @@ final class CProviderFactory
      * @throws \BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /** Provider factory methods
@@ -121,7 +115,7 @@ final class CProviderFactory
      * Test values
      * @var \SplFixedArray
      */
-    private $_aTests = NULL;
+    private $_aTests = null;
 
     /**
      * Returns all the data needed for the $class tests
@@ -131,27 +125,25 @@ final class CProviderFactory
     public function get()
     {
         // Initialize
-        $return = array( );
+        $return = [ ];
         $iCountTest   = -1;
         $iCountResult = -1;
         // Build tests and results
-        if( isset( $this->_aTests[self::KEY_TEST] ) && isset( $this->_aTests[self::KEY_RESULT] ) )
-        {
-            $iCountTest   = count( $this->_aTests[self::KEY_TEST] );
-            $iCountResult = count( $this->_aTests[self::KEY_RESULT] );
-            for( $index = 0; $index < $iCountTest; $index++ )
-            {
-                $return[] = array_merge( $this->_aTests[self::KEY_TEST][$index]
-                        , $this->_aTests[self::KEY_RESULT][$index] );
+        if (isset($this->_aTests[self::KEY_TEST]) && isset($this->_aTests[self::KEY_RESULT])) {
+            $iCountTest   = count($this->_aTests[self::KEY_TEST]);
+            $iCountResult = count($this->_aTests[self::KEY_RESULT]);
+            for ($index = 0; $index < $iCountTest; $index++) {
+                $return[] = array_merge(
+                    $this->_aTests[self::KEY_TEST][$index],
+                    $this->_aTests[self::KEY_RESULT][$index]
+                );
             }//for(...
         }//if( isset(...
         // Check
-        if( ($iCountTest !== $iCountResult) || ($iCountTest !== count( $return ) ) )
-        {
-            throw new \RuntimeException( 'Something bad happened.' );
+        if (($iCountTest !== $iCountResult) || ($iCountTest !== count($return) )) {
+            throw new \RuntimeException('Something bad happened.');
         }//if(...
 
         return $return;
     }
-
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Type\Simple;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Type\Simple;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class provides an integer filter.
@@ -40,14 +42,17 @@ final class CInt extends \Foundation\Type\Simple\CFloat
      * @codeCoverageIgnore
      * @todo DEBUG MEMORY DUMP. SHALL BE DELETED
      */
-    public function __construct( $value, array $options = [ ] )
+    public function __construct($value, array $options = [ ])
     {
-        $this->_sDebugID = uniqid( 'cint', TRUE );
-        defined( 'FOUNDATION_DEBUG' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add( $this->_sDebugID, __CLASS__,
-                                                                                 [ $value, $options ] );
-        $this->setOptions( $options );
-        $this->setValue( $value );
+        $this->_sDebugID = uniqid('cint', true);
+        defined('FOUNDATION_DEBUG') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->add(
+                    $this->_sDebugID,
+                    __CLASS__,
+                    [ $value, $options ]
+                );
+        $this->setOptions($options);
+        $this->setValue($value);
     }
 
     /**
@@ -57,7 +62,7 @@ final class CInt extends \Foundation\Type\Simple\CFloat
      */
     public function __toString()
     {
-        return ( isset( $this->_Value ) ) ? (string)((int)$this->_Value) : '';
+        return ( isset($this->_Value) ) ? (string)((int)$this->_Value) : '';
     }
 
     /** Type section
@@ -70,7 +75,7 @@ final class CInt extends \Foundation\Type\Simple\CFloat
      */
     public function getValue()
     {
-        return ( isset( $this->_Value ) ) ? (int)$this->_Value : NULL;
+        return ( isset($this->_Value) ) ? (int)$this->_Value : null;
     }
 
     /**
@@ -80,7 +85,6 @@ final class CInt extends \Foundation\Type\Simple\CFloat
      */
     public function getLength()
     {
-        return ( isset( $this->_Value ) ) ? strlen( (string)((int)$this->_Value) ) : 0;
+        return ( isset($this->_Value) ) ? strlen((string)((int)$this->_Value)) : 0;
     }
-
 }

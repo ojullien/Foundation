@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Protocol\Connector;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Protocol\Connector;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Parent class for all connectors. Implements error functionnalities.
@@ -40,8 +42,8 @@ abstract class CConnectorAbstract implements \Foundation\Protocol\Connector\Conn
     public function __destruct()
     {
         $this->close();
-        defined( 'FOUNDATION_DEBUG' ) && !defined( 'FOUNDATION_DEBUG_OFF' ) &&
-                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete( $this->_sDebugID );
+        defined('FOUNDATION_DEBUG') && ! defined('FOUNDATION_DEBUG_OFF') &&
+                \Foundation\Debug\CDebugger::getInstance()->getMemorizer()->delete($this->_sDebugID);
     }
 
     /**
@@ -52,9 +54,9 @@ abstract class CConnectorAbstract implements \Foundation\Protocol\Connector\Conn
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __set( $name, $value )
+    final public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -64,9 +66,9 @@ abstract class CConnectorAbstract implements \Foundation\Protocol\Connector\Conn
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    final public function __get( $name )
+    final public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Connector section
@@ -79,7 +81,7 @@ abstract class CConnectorAbstract implements \Foundation\Protocol\Connector\Conn
      *
      * @var string|boolean
      */
-    protected $_sResponse = FALSE;
+    protected $_sResponse = false;
 
     /**
      * Returns the response from the remote server.
@@ -150,5 +152,4 @@ abstract class CConnectorAbstract implements \Foundation\Protocol\Connector\Conn
     {
         return $this->_sError;
     }
-
 }

@@ -1,25 +1,32 @@
 <?php
 namespace Foundation\Test\Session\Storage;
-defined( 'FOUNDATION_EXCEPTION_PATH' ) || define( 'FOUNDATION_EXCEPTION_PATH',
-                                                  APPLICATION_PATH . '/src/Foundation/Exception' );
-interface_exists( '\Foundation\Exception\ExceptionInterface' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php' ) );
-class_exists( '\Foundation\Exception\InvalidArgumentException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php' ) );
-class_exists( '\Foundation\Exception\BadMethodCallException' ) || require( realpath( FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php' ) );
 
-defined( 'FOUNDATION_TYPE_PATH' ) || define( 'FOUNDATION_TYPE_PATH', APPLICATION_PATH . '/src/Foundation/Type' );
-interface_exists( '\Foundation\Type\TypeInterface' ) || require( realpath( FOUNDATION_TYPE_PATH . '/TypeInterface.php' ) );
-class_exists( '\Foundation\Type\CTypeAbstract' ) || require( realpath( FOUNDATION_TYPE_PATH . '/CTypeAbstract.php' ) );
-class_exists( '\Foundation\Type\Complex\CIp' ) || require( realpath( FOUNDATION_TYPE_PATH . '/Complex/CIp.php' ) );
+defined('FOUNDATION_EXCEPTION_PATH') || define(
+    'FOUNDATION_EXCEPTION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Exception'
+);
+interface_exists('\Foundation\Exception\ExceptionInterface') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/ExceptionInterface.php'));
+class_exists('\Foundation\Exception\InvalidArgumentException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/InvalidArgumentException.php'));
+class_exists('\Foundation\Exception\BadMethodCallException') || require(realpath(FOUNDATION_EXCEPTION_PATH . '/BadMethodCallException.php'));
 
-defined( 'FOUNDATION_SESSION_PATH' ) || define( 'FOUNDATION_SESSION_PATH',
-                                                APPLICATION_PATH . '/src/Foundation/Session' );
-interface_exists( '\Foundation\Session\Storage\StorageInterface' ) || require( realpath( FOUNDATION_SESSION_PATH . '/Storage/StorageInterface.php' ) );
-class_exists( '\Foundation\Session\Storage\CArray' ) || require( realpath( FOUNDATION_SESSION_PATH . '/Storage/CArray.php' ) );
-class_exists( '\Foundation\Session\CSecureSession' ) || require( realpath( FOUNDATION_SESSION_PATH . '/CSecureSession.php' ) );
+defined('FOUNDATION_TYPE_PATH') || define('FOUNDATION_TYPE_PATH', APPLICATION_PATH . '/src/Foundation/Type');
+interface_exists('\Foundation\Type\TypeInterface') || require(realpath(FOUNDATION_TYPE_PATH . '/TypeInterface.php'));
+class_exists('\Foundation\Type\CTypeAbstract') || require(realpath(FOUNDATION_TYPE_PATH . '/CTypeAbstract.php'));
+class_exists('\Foundation\Type\Complex\CIp') || require(realpath(FOUNDATION_TYPE_PATH . '/Complex/CIp.php'));
 
-defined( 'FOUNDATION_PROTOCOL_PATH' ) || define( 'FOUNDATION_PROTOCOL_PATH',
-                                                 APPLICATION_PATH . '/src/Foundation/Protocol' );
-class_exists( '\Foundation\Protocol\CRemoteAddress' ) || require( realpath( FOUNDATION_PROTOCOL_PATH . '/CRemoteAddress.php' ) );
+defined('FOUNDATION_SESSION_PATH') || define(
+    'FOUNDATION_SESSION_PATH',
+    APPLICATION_PATH . '/src/Foundation/Session'
+);
+interface_exists('\Foundation\Session\Storage\StorageInterface') || require(realpath(FOUNDATION_SESSION_PATH . '/Storage/StorageInterface.php'));
+class_exists('\Foundation\Session\Storage\CArray') || require(realpath(FOUNDATION_SESSION_PATH . '/Storage/CArray.php'));
+class_exists('\Foundation\Session\CSecureSession') || require(realpath(FOUNDATION_SESSION_PATH . '/CSecureSession.php'));
+
+defined('FOUNDATION_PROTOCOL_PATH') || define(
+    'FOUNDATION_PROTOCOL_PATH',
+    APPLICATION_PATH . '/src/Foundation/Protocol'
+);
+class_exists('\Foundation\Protocol\CRemoteAddress') || require(realpath(FOUNDATION_PROTOCOL_PATH . '/CRemoteAddress.php'));
 
 class CSecureSessionTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,7 +48,7 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->storage       = new \Foundation\Session\Storage\CArray();
-        $this->remoteAddress = new \Foundation\Protocol\CRemoteAddress( [ 'REMOTE_ADDR' => '127.0.0.1' ] );
+        $this->remoteAddress = new \Foundation\Protocol\CRemoteAddress([ 'REMOTE_ADDR' => '127.0.0.1' ]);
     }
 
     /**
@@ -50,8 +57,8 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->storage       = NULL;
-        $this->remoteAddress = NULL;
+        $this->storage       = null;
+        $this->remoteAddress = null;
     }
 
     /**
@@ -61,9 +68,9 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
      */
     public function testException()
     {
-        $pRemoteAddress = new \Foundation\Protocol\CRemoteAddress( [ ] );
-        $pContainer     = new \Foundation\Session\CSecureSession( $this->storage, $pRemoteAddress, '' );
-        unset( $pContainer, $pRemoteAddress );
+        $pRemoteAddress = new \Foundation\Protocol\CRemoteAddress([ ]);
+        $pContainer     = new \Foundation\Session\CSecureSession($this->storage, $pRemoteAddress, '');
+        unset($pContainer, $pRemoteAddress);
     }
 
     /**
@@ -73,9 +80,9 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSaveException()
     {
-        $pContainer = new \Foundation\Session\CSecureSession( $this->storage, $this->remoteAddress, '' );
+        $pContainer = new \Foundation\Session\CSecureSession($this->storage, $this->remoteAddress, '');
         $pContainer->save();
-        unset( $pContainer );
+        unset($pContainer);
     }
 
     /**
@@ -85,9 +92,9 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValidException()
     {
-        $pContainer = new \Foundation\Session\CSecureSession( $this->storage, $this->remoteAddress, '' );
+        $pContainer = new \Foundation\Session\CSecureSession($this->storage, $this->remoteAddress, '');
         $pContainer->isValid();
-        unset( $pContainer );
+        unset($pContainer);
     }
 
     /**
@@ -97,9 +104,9 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
      */
     public function testExistsException()
     {
-        $pContainer = new \Foundation\Session\CSecureSession( $this->storage, $this->remoteAddress, '' );
+        $pContainer = new \Foundation\Session\CSecureSession($this->storage, $this->remoteAddress, '');
         $pContainer->exists();
-        unset( $pContainer );
+        unset($pContainer);
     }
 
     /**
@@ -108,15 +115,14 @@ class CSecureSessionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
-        $pContainer = new \Foundation\Session\CSecureSession( $this->storage, $this->remoteAddress, '' );
+        $pContainer = new \Foundation\Session\CSecureSession($this->storage, $this->remoteAddress, '');
         $this->storage->start();
-        $this->assertFalse( $pContainer->exists(), 'exists' );
+        $this->assertFalse($pContainer->exists(), 'exists');
         $pContainer->save();
-        $this->assertTrue( $pContainer->exists(), 'exists after save' );
-        $this->assertTrue( $pContainer->isValid(), 'isValid' );
-        $this->storage->setOffset( \Foundation\Session\CSecureSession::UID, 0, APPLICATION_NAME );
-        $this->assertFalse( $pContainer->isValid(), 'isValid after update' );
-        unset( $pContainer );
+        $this->assertTrue($pContainer->exists(), 'exists after save');
+        $this->assertTrue($pContainer->isValid(), 'isValid');
+        $this->storage->setOffset(\Foundation\Session\CSecureSession::UID, 0, APPLICATION_NAME);
+        $this->assertFalse($pContainer->isValid(), 'isValid after update');
+        unset($pContainer);
     }
-
 }

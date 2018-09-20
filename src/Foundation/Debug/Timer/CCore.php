@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Timer;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Timer;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements a timer using PHP core functions.
@@ -24,7 +26,7 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
 {
     /** Constants */
 
-    const DEFAULT_VALUE = NULL;
+    const DEFAULT_VALUE = null;
 
     /** Class section
      * ************** */
@@ -36,7 +38,7 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
      */
     public function __construct()
     {
-        $this->_dTimeStart = microtime( true );
+        $this->_dTimeStart = microtime(true);
     }
 
     /**
@@ -46,7 +48,7 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
      */
     public function __clone()
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Cloning is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Cloning is not allowed.');
     }
 
     /**
@@ -57,9 +59,9 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
      * @throws \Foundation\Exception\BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -68,9 +70,9 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
      * @param string $name
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Time section
@@ -95,7 +97,7 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
      */
     public function getCurrentDuration()
     {
-        return microtime( true ) - $this->_dTimeStart;
+        return microtime(true) - $this->_dTimeStart;
     }
 
     /**
@@ -106,9 +108,8 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
      */
     public function stopTime()
     {
-        if( !isset( $this->_dTimeEnd ) )
-        {
-            $this->_dTimeEnd = microtime( true ) - $this->_dTimeStart;
+        if (! isset($this->_dTimeEnd)) {
+            $this->_dTimeEnd = microtime(true) - $this->_dTimeStart;
         }
         return $this->_dTimeEnd;
     }
@@ -121,15 +122,11 @@ final class CCore implements \Foundation\Debug\Timer\TimerInterface
     public function getScriptDuration()
     {
         $fReturn = 0.0;
-        if( !isset( $this->_dTimeEnd ) )
-        {
-            $fReturn = microtime( true ) - $this->_dTimeStart;
-        }
-        else
-        {
+        if (! isset($this->_dTimeEnd)) {
+            $fReturn = microtime(true) - $this->_dTimeStart;
+        } else {
             $fReturn = $this->_dTimeEnd;
         }
         return $fReturn;
     }
-
 }

@@ -10,5 +10,4 @@ class CFloatMock extends \Foundation\Type\Simple\CFloat
     {
         return $this->_aOptions;
     }
-
 }

@@ -37,7 +37,7 @@ final class CDataTestProvider
      */
     public function __destruct()
     {
-        $this->_aData = NULL;
+        $this->_aData = null;
     }
 
     /**
@@ -48,9 +48,9 @@ final class CDataTestProvider
      * @throws \BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -60,9 +60,9 @@ final class CDataTestProvider
      * @throws \BadMethodCallException
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /**
@@ -73,7 +73,7 @@ final class CDataTestProvider
      */
     public function __clone()
     {
-        throw new \BadMethodCallException( 'Cloning is not allowed.' );
+        throw new \BadMethodCallException('Cloning is not allowed.');
     }
 
     /** Singleton section
@@ -84,7 +84,7 @@ final class CDataTestProvider
      *
      * @var \Foundation\Test\Framework\Provider\CTestData
      */
-    private static $_pInstance = NULL;
+    private static $_pInstance = null;
 
     /**
      * Returns an instance of \Foundation\Test\Framework\Provider\CDataTestProvider.
@@ -93,8 +93,9 @@ final class CDataTestProvider
      */
     public static function GetInstance()
     {
-        if( NULL === self::$_pInstance )
+        if (null === self::$_pInstance) {
             self::$_pInstance = new \Foundation\Test\Framework\Provider\CDataTestProvider();
+        }
 
         return self::$_pInstance;
     }
@@ -106,11 +107,10 @@ final class CDataTestProvider
      */
     public static function DeleteInstance()
     {
-        if( NULL !== self::$_pInstance )
-        {
+        if (null !== self::$_pInstance) {
             $tmp = self::$_pInstance;
-            self::$_pInstance = NULL;
-            unset( $tmp );
+            self::$_pInstance = null;
+            unset($tmp);
         }
     }
 
@@ -130,43 +130,47 @@ final class CDataTestProvider
      * @param array  $aResult    Expected results.
      * @return array
      */
-    public function getTests( $sNamespace, array $aResult )
+    public function getTests($sNamespace, array $aResult)
     {
         // Check results
-        $iResultCount = count( $aResult );
-        if( 0 === $iResultCount )
-            throw new \InvalidArgumentException( 'The result argument is empty.' );
+        $iResultCount = count($aResult);
+        if (0 === $iResultCount) {
+            throw new \InvalidArgumentException('The result argument is empty.');
+        }
 
         // Check and load data
-        $sNamespace = ( is_string( $sNamespace ) ) ? trim( $sNamespace ) : '';
-        if( '' == $sNamespace )
-            throw new \InvalidArgumentException( 'The data namespace argument is empty.' );
+        $sNamespace = ( is_string($sNamespace) ) ? trim($sNamespace) : '';
+        if ('' == $sNamespace) {
+            throw new \InvalidArgumentException('The data namespace argument is empty.');
+        }
 
-        if( !isset( $this->_aData[$sNamespace] ) )
-            $this->_aData[$sNamespace] = require( realpath( __DIR__ . DIRECTORY_SEPARATOR . $sNamespace . '.php' ) );
+        if (! isset($this->_aData[$sNamespace])) {
+            $this->_aData[$sNamespace] = require(realpath(__DIR__ . DIRECTORY_SEPARATOR . $sNamespace . '.php'));
+        }
 
         $aData = &$this->_aData[$sNamespace];
 
-        $iDataCount = count( $aData );
-        if( 0 === $iDataCount )
-            throw new \InvalidArgumentException( 'No data to test.' );
-
-        // Check data and result count
-        if( $iDataCount !== $iResultCount )
-            throw new \RuntimeException( 'Found ' . $iResultCount . ' results for ' . $iDataCount . ' tests.' );
-
-        // Build the tests
-        $aReturn = [ ];
-        for( $iIndex = 0; $iIndex < $iDataCount; $iIndex++ )
-        {
-            $aReturn[] = array_merge( $aData[$iIndex], $aResult[$iIndex] );
+        $iDataCount = count($aData);
+        if (0 === $iDataCount) {
+            throw new \InvalidArgumentException('No data to test.');
         }
 
         // Check data and result count
-        if( $iDataCount !== count( $aReturn ) )
-            throw new \RuntimeException( 'Something bad happened.' );
+        if ($iDataCount !== $iResultCount) {
+            throw new \RuntimeException('Found ' . $iResultCount . ' results for ' . $iDataCount . ' tests.');
+        }
+
+        // Build the tests
+        $aReturn = [ ];
+        for ($iIndex = 0; $iIndex < $iDataCount; $iIndex++) {
+            $aReturn[] = array_merge($aData[$iIndex], $aResult[$iIndex]);
+        }
+
+        // Check data and result count
+        if ($iDataCount !== count($aReturn)) {
+            throw new \RuntimeException('Something bad happened.');
+        }
 
         return $aReturn;
     }
-
 }

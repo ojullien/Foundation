@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Test\Protocol\Connector;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Test\Protocol\Connector;
  * @copyright (©) 2010-2013, Olivier Jullien <olivier.jullien@outlook.com>
  * @license   Private
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull http and ftp methods using cURL client library.
@@ -35,26 +37,25 @@ final class CConnectorAbstractMock extends \Foundation\Protocol\Connector\CConne
         // Do nothing
     }
 
-    public function connect( $host, array $options = [ ] )
+    public function connect($host, array $options = [ ])
     {
         return $this;
     }
 
-    public function write( $url, array $options = [ ] )
+    public function write($url, array $options = [ ])
     {
-        return ( ( is_bool( $this->_sResponse ) ) ? $this->_sResponse : TRUE );
+        return ( ( is_bool($this->_sResponse) ) ? $this->_sResponse : true );
     }
 
     /** Test section
      * ************* */
-    public function setResponse( $value )
+    public function setResponse($value)
     {
         $this->_sResponse = $value;
     }
 
-    public function setError( $value )
+    public function setError($value)
     {
         $this->_sError = $value;
     }
-
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Weather\Reader;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Weather\Reader;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Interface class for weather reader objects that can have responsibilities added to them dynamically.
@@ -30,5 +32,5 @@ interface ReaderInterface
      * @throws \RuntimeException If the connection does not exist.
      * @throws \Foundation\Exception\InvalidArgumentException If an option could not be successfully set.
      */
-    public function read( $url );
+    public function read($url);
 }

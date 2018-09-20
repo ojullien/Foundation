@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Debug\Variable;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Debug\Variable;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * This class implements usefull methods for superglobal variable monitoring.
@@ -30,19 +32,14 @@ final class CContainer
      *
      * @param mixed $variable An array or an instance of ArrayObject.
      */
-    public function __construct( $variable )
+    public function __construct($variable)
     {
-        if( $variable instanceof \ArrayObject )
-        {
+        if ($variable instanceof \ArrayObject) {
             $this->_aVariable = $variable->getArrayCopy();
-        }
-        elseif( is_array( $variable ) )
-        {
+        } elseif (is_array($variable)) {
             $this->_aVariable = $variable;
-        }
-        else
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument must be an array or an instance of ArrayObject.' );
+        } else {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument must be an array or an instance of ArrayObject.');
         }
     }
 
@@ -53,7 +50,7 @@ final class CContainer
      */
     public function __clone()
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Cloning is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Cloning is not allowed.');
     }
 
     /**
@@ -63,9 +60,9 @@ final class CContainer
      * @param mixed $value
      * @throws \Foundation\Exception\BadMethodCallException
      */
-    public function __set( $name, $value )
+    public function __set($name, $value)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Writing data to inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Writing data to inaccessible properties is not allowed.');
     }
 
     /**
@@ -74,9 +71,9 @@ final class CContainer
      * @param string $name
      * @codeCoverageIgnore
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        throw new \Foundation\Exception\BadMethodCallException( 'Reading data from inaccessible properties is not allowed.' );
+        throw new \Foundation\Exception\BadMethodCallException('Reading data from inaccessible properties is not allowed.');
     }
 
     /** Variable management
@@ -106,68 +103,56 @@ final class CContainer
      * @param  array $needle   An array to compare against.
      * @return array
      */
-    private function compareTwoArrays( array $haystack, array $needle )
+    private function compareTwoArrays(array $haystack, array $needle)
     {
-        $aDiff    = array( );
+        $aDiff    = [ ];
         $aDiff[0] = self::KEY_IDENTICAL;
 
         // Old one
-        foreach( $haystack as $key => $value )
-        {
+        foreach ($haystack as $key => $value) {
             // Key
             ////////////////////////////////////////////////////////////////////
-            $aDiff[$key] = array( 'status' => FALSE,
-                'values' => array( 'type'  => self::VALUE_OTHERS,
+            $aDiff[$key] = [ 'status' => false,
+                'values' => [ 'type'  => self::VALUE_OTHERS,
                     'start' => $value,
-                    'end'   => NULL ) );
+                    'end'   => null ] ];
 
             // Values
             ////////////////////////////////////////////////////////////////////
             $pDiff = &$aDiff[$key];
-            if( isset( $needle[$key] ) || array_key_exists( $key, $needle ) )
-            {
+            if (isset($needle[$key]) || array_key_exists($key, $needle)) {
                 // Key exists in both array
-                if( is_array( $value ) && is_array( $needle[$key] ) )
-                {
+                if (is_array($value) && is_array($needle[$key])) {
                     // Compare arrays
-                    $aSub                    = $this->compareTwoArrays( $value, $needle[$key] );
+                    $aSub                    = $this->compareTwoArrays($value, $needle[$key]);
                     $pDiff['status']         = $aDiff[0]                = $aSub[0];
                     $pDiff['values']['type'] = self::VALUE_ARRAYS;
                     $pDiff['values']['end']  = $aSub;
-                }
-                else
-                {
+                } else {
                     $pDiff['values']['end'] = $needle[$key];
                     // Compare values
-                    if( $value != $needle[$key] )
-                    {
+                    if ($value != $needle[$key]) {
                         // Not equals
                         $pDiff['status'] = self::KEY_UPDATED;
                         $aDiff[0]        = self::KEY_UPDATED;
-                    }
-                    else
-                    {
+                    } else {
                         // Equals
                         $pDiff['status'] = self::KEY_IDENTICAL;
                     }//if(...
                 }//if( is_array(...
-            }
-            else
-            {
+            } else {
                 // Key does not exist in the needle array
                 $pDiff['status'] = self::KEY_DELETED;
                 $aDiff[0]        = self::KEY_UPDATED;
             }//if( isset(...
         }//foreach(...
         // New key
-        foreach( $needle as $key => $value )
-        {
-            if( !isset( $haystack[$key] ) && !array_key_exists( $key, $haystack ) )
-            {
-                $aDiff[$key] = array( 'status' => self::KEY_ADDED,
-                    'values' => array( 'type'  => self::VALUE_OTHERS,
-                        'start' => NULL,
-                        'end'   => $value ) );
+        foreach ($needle as $key => $value) {
+            if (! isset($haystack[$key]) && ! array_key_exists($key, $haystack)) {
+                $aDiff[$key] = [ 'status' => self::KEY_ADDED,
+                    'values' => [ 'type'  => self::VALUE_OTHERS,
+                        'start' => null,
+                        'end'   => $value ] ];
                 $aDiff[0]    = self::KEY_UPDATED;
             }//if( !isset(...
         }//foreach(...
@@ -185,17 +170,14 @@ final class CContainer
      * @param  mixed $needle An array (or an instance of Arrayobject) to compare against.
      * @return array
      */
-    public function compare( $needle )
+    public function compare($needle)
     {
-        if( $needle instanceof \ArrayObject )
-        {
+        if ($needle instanceof \ArrayObject) {
             $needle = $needle->getArrayCopy();
         }
-        if( !is_array( $needle ) )
-        {
-            throw new \Foundation\Exception\InvalidArgumentException( 'The argument must be an array or an instance of ArrayObject.' );
+        if (! is_array($needle)) {
+            throw new \Foundation\Exception\InvalidArgumentException('The argument must be an array or an instance of ArrayObject.');
         }
-        return $this->compareTwoArrays( $this->_aVariable, $needle );
+        return $this->compareTwoArrays($this->_aVariable, $needle);
     }
-
 }

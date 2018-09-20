@@ -1,6 +1,7 @@
 <?php
 namespace Foundation\Test\Type;
-class_exists( '\Foundation\Test\Type\CTypeMock' ) || require( realpath( APPLICATION_PATH . '/tests/Foundation/Type/provider/CTypeMock.php' ) );
+
+class_exists('\Foundation\Test\Type\CTypeMock') || require(realpath(APPLICATION_PATH . '/tests/Foundation/Type/provider/CTypeMock.php'));
 
 class CTypeAbstractTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,19 +18,18 @@ class CTypeAbstractTest extends \PHPUnit_Framework_TestCase
     public function testClass()
     {
         $pEmpty = new \Foundation\Test\Type\CTypeMock();
-        $this->assertSame( '', (string)$pEmpty, 'empty __toString' );
-        $this->assertSame( NULL, $pEmpty->getValue(), 'empty getValue' );
-        $this->assertSame( FALSE, $pEmpty->isValid(), 'empty isValid' );
-        $this->assertSame( 0, $pEmpty->getLength(), 'empty getLength' );
-        unset( $pEmpty );
+        $this->assertSame('', (string)$pEmpty, 'empty __toString');
+        $this->assertSame(null, $pEmpty->getValue(), 'empty getValue');
+        $this->assertSame(false, $pEmpty->isValid(), 'empty isValid');
+        $this->assertSame(0, $pEmpty->getLength(), 'empty getLength');
+        unset($pEmpty);
 
-        $pNotEmpty = new \Foundation\Test\Type\CTypeMock( );
-        $pNotEmpty->setValue( 'test' );
-        $this->assertSame( 'test', (string)$pNotEmpty, 'not_empty __toString' );
-        $this->assertSame( 'test', $pNotEmpty->getValue(), 'not_empty getValue' );
-        $this->assertSame( TRUE, $pNotEmpty->isValid(), 'not_empty isValid' );
-        $this->assertSame( 4, $pNotEmpty->getLength(), 'not_empty getLength' );
-        unset( $pNotEmpty );
+        $pNotEmpty = new \Foundation\Test\Type\CTypeMock();
+        $pNotEmpty->setValue('test');
+        $this->assertSame('test', (string)$pNotEmpty, 'not_empty __toString');
+        $this->assertSame('test', $pNotEmpty->getValue(), 'not_empty getValue');
+        $this->assertSame(true, $pNotEmpty->isValid(), 'not_empty isValid');
+        $this->assertSame(4, $pNotEmpty->getLength(), 'not_empty getLength');
+        unset($pNotEmpty);
     }
-
 }

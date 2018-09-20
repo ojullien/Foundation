@@ -1,5 +1,6 @@
 <?php
 namespace Foundation\Stdlib;
+
 /**
  * Foundation Framework
  *
@@ -7,8 +8,9 @@ namespace Foundation\Stdlib;
  * @copyright (©) 2010-2013, Olivier Jullien <https://github.com/ojullien>
  * @license   MIT <https://github.com/ojullien/Foundation/blob/master/LICENSE>
  */
-if( !defined( 'APPLICATION_VERSION' ) )
-    die( '-1' );
+if (! defined('APPLICATION_VERSION')) {
+    die('-1');
+}
 
 /**
  * Utility class for handling $_SERVER data.
@@ -27,29 +29,29 @@ abstract class CServerUtils
      * @param string $header The string containing the "HTTP USER AGENT" header.
      * @return integer|FALSE
      */
-    public static function isMSIE( $header )
+    public static function isMSIE($header)
     {
         // Initialize
         $sTag    = 'MSIE ';
-        $bReturn = $iStart = FALSE;
+        $bReturn = $iStart = false;
 
         // Check the parameters
-        $header = ( is_string( $header ) ) ? trim( $header ) : '';
+        $header = ( is_string($header) ) ? trim($header) : '';
 
         // Find out the user agent
-        if( strlen( $header ) > 0 )
-            $iStart = stripos( $header, $sTag );
+        if (strlen($header) > 0) {
+            $iStart = stripos($header, $sTag);
+        }
 
         // Case: MSIE
-        if( $iStart !== FALSE )
-        {
-            $iStart += strlen( $sTag );
-            $iEnd = stripos( $header, '.', $iStart );
-            if( $iEnd !== FALSE )
-            {
-                $iVersion = substr( $header, $iStart, $iEnd - $iStart );
-                if( is_numeric( $iVersion ) )
+        if ($iStart !== false) {
+            $iStart += strlen($sTag);
+            $iEnd = stripos($header, '.', $iStart);
+            if ($iEnd !== false) {
+                $iVersion = substr($header, $iStart, $iEnd - $iStart);
+                if (is_numeric($iVersion)) {
                     $bReturn  = (int)$iVersion;
+                }
             }
         }
 
@@ -63,32 +65,30 @@ abstract class CServerUtils
      * @param array  $allowed [OPTIONAL] List of allowed locales. $allowed[0] is the default.
      * @return string
      */
-    public static function acceptFromHttp( $header, array $allowed = NULL )
+    public static function acceptFromHttp($header, array $allowed = null)
     {
         // Check the parameter
-        $sLocale = NULL;
-        $header  = ( is_string( $header ) ) ? trim( $header ) : '';
+        $sLocale = null;
+        $header  = ( is_string($header) ) ? trim($header) : '';
 
         // Find out the best available locale
-        if( strlen( $header ) > 0 )
-            $sLocale = locale_accept_from_http( $header );
+        if (strlen($header) > 0) {
+            $sLocale = locale_accept_from_http($header);
+        }
 
         // Check if the locale belongs to the allowed ones
-        if( is_array( $allowed ) && !empty( $allowed ) )
-        {
-            $sAllowed = NULL;
+        if (is_array($allowed) && ! empty($allowed)) {
+            $sAllowed = null;
 
             // No locale found from http: set the default
-            if( NULL === $sLocale )
+            if (null === $sLocale) {
                 $sAllowed = $allowed[0];
+            }
 
             // A locale was found from http: compare to the allowed
-            if( NULL === $sAllowed )
-            {
-                foreach( $allowed as $sValue )
-                {
-                    if( strcasecmp( $sValue, $sLocale ) === 0 )
-                    {
+            if (null === $sAllowed) {
+                foreach ($allowed as $sValue) {
+                    if (strcasecmp($sValue, $sLocale) === 0) {
                         $sAllowed = $sValue;
                         break;
                     }//if( strcasecmp(  ..;
@@ -97,13 +97,10 @@ abstract class CServerUtils
 
             // A locale was found from http but not in the allowed: try do find out the first best one based on the two
             // first carateres.
-            if( NULL === $sAllowed )
-            {
-                $sLocale = substr( $sLocale, 0, 2 );
-                foreach( $allowed as $sValue )
-                {
-                    if( stripos( $sValue, $sLocale ) === 0 )
-                    {
+            if (null === $sAllowed) {
+                $sLocale = substr($sLocale, 0, 2);
+                foreach ($allowed as $sValue) {
+                    if (stripos($sValue, $sLocale) === 0) {
                         $sAllowed = $sValue;
                         break;
                     }//if( stripos(  ..;
@@ -111,13 +108,13 @@ abstract class CServerUtils
             }
 
             // A locale was found from http but not in the allowed: set to default
-            if( NULL === $sAllowed )
+            if (null === $sAllowed) {
                 $sAllowed = $allowed[0];
+            }
 
             $sLocale = $sAllowed;
         }
 
         return $sLocale;
     }
-
 }

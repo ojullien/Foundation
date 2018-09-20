@@ -144,12 +144,12 @@ Use PHPUnit. Each module has is own config.xml file. Go to tests/scripts and lau
 
 Thanks you for taking the time to contribute. Please fork the repository and make changes as you'd like.
 
-As I use this framework for my own projects, it contains only the features I need. But If you have any ideas, just open an [issue](https://github.com/ojullien/foundation/issues/new) and tell me what you think. Pull requests are also warmly welcome.
+As I use this framework for my own projects, it contains only the features I need. But If you have any ideas, just open an [issue](https://github.com/oseille/foundation/issues/new) and tell me what you think. Pull requests are also warmly welcome.
 
-If you encounter any **bugs**, please open an [issue](https://github.com/ojullien/foundation/issues/new).
+If you encounter any **bugs**, please open an [issue](https://github.com/oseille/foundation/issues/new).
 
 Be sure to include a title and clear description,as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
 
 ## 6. License
 
-This project is open-source and is licensed under the [MIT License](https://github.com/ojullien/foundation/blob/master/LICENSE).
+This project is open-source and is licensed under the [MIT License](https://github.com/oseille/foundation/blob/master/LICENSE).
